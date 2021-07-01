@@ -1,8 +1,8 @@
-#include "Renderer.h"
 #include "ValidationLayer.h"
+
+#include "Renderer.h"
 #include "vulkan/vk_layer.h"
 
-#include <vector>
 #include <iostream>
 
 VkDebugUtilsMessengerEXT debugMessenger;

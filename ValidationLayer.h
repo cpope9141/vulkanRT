@@ -1,4 +1,6 @@
 #pragma once
+#include "vulkan/vulkan_core.h"
+
 #include <vector>
 
 const std::vector<const char*> validationLayers = { "VK_LAYER_KHRONOS_validation" };

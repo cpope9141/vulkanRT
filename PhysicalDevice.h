@@ -16,6 +16,8 @@ public:
 	PhysicalDevice();
 	~PhysicalDevice();
 
+	QueueFamilyIndices getQueueFamilyIndices();
+	VkPhysicalDevice getPhysicalDevice();
 	SwapChainSupportInfo querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
 	void selectPhysicalDevice(VkInstance instance);
 

@@ -1,10 +1,9 @@
 #include "PhysicalDevice.h"
+
 #include "Renderer.h"
-#include "vulkan/vulkan_core.h"
 #include "WindowManager.h"
 
 #include <iostream>
-#include <vector>
 
 PhysicalDevice::PhysicalDevice()
 {
@@ -12,6 +11,9 @@ PhysicalDevice::PhysicalDevice()
 }
 
 PhysicalDevice::~PhysicalDevice() {}
+
+QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() { return queueFamilyIndices; }
+VkPhysicalDevice PhysicalDevice::getPhysicalDevice() { return physicalDevice; }
 
 void PhysicalDevice::selectPhysicalDevice(VkInstance instance)
 {

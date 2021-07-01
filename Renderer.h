@@ -1,5 +1,7 @@
 #pragma once
+#include "CommandPool.h"
 #include "Instance.h"
+#include "LogicalDevice.h"
 #include "PhysicalDevice.h"
 
 #define ENABLE_VALIDATION_LAYERS true
@@ -22,6 +24,8 @@ public:
 	void destroy();
 
 private:
+	CommandPool commandPool;
 	Instance instance;
+	LogicalDevice logicalDevice;
 	PhysicalDevice physicalDevice;
 };

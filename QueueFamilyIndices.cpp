@@ -8,3 +8,4 @@ std::optional<uint32_t> QueueFamilyIndices::getPresentFamily() { return presentF
 bool QueueFamilyIndices::requiredFamiliesFound() { return graphicsFamily.has_value() && presentFamily.has_value(); }
 void QueueFamilyIndices::setGraphicsFamily(int graphicsFamily) { this->graphicsFamily = graphicsFamily; }
 void QueueFamilyIndices::setPresentFamily(int presentFamily) { this->presentFamily = presentFamily; }
+std::set<uint32_t> QueueFamilyIndices::uniqueQueueFamlies() { return { graphicsFamily.value(), presentFamily.value() }; }

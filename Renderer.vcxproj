@@ -147,7 +147,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandPool.cpp" />
     <ClCompile Include="Instance.cpp" />
+    <ClCompile Include="LogicalDevice.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PhysicalDevice.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
@@ -156,7 +158,9 @@
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandPool.h" />
     <ClInclude Include="Instance.h" />
+    <ClInclude Include="LogicalDevice.h" />
     <ClInclude Include="PhysicalDevice.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />

@@ -1,5 +1,6 @@
 #pragma once
 #include <optional>
+#include <set>
 
 class QueueFamilyIndices
 {
@@ -12,6 +13,7 @@ public:
 	bool requiredFamiliesFound();
 	void setGraphicsFamily(int graphicsFamily);
 	void setPresentFamily(int presentFamily);
+	std::set<uint32_t> uniqueQueueFamlies();
 
 private:
 	std::optional<uint32_t> graphicsFamily;

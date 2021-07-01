@@ -1,7 +1,7 @@
 #include "Instance.h"
+
 #include "Renderer.h"
 #include "ValidationLayer.h"
-#include "vulkan/vulkan.h"
 #include "WindowManager.h"
 
 #define GLFW_INCLUDE_VULKAN
@@ -50,7 +50,7 @@ void Instance::create()
         populateDebugMessengerCreateInfo(debugCreateInfo);
         instanceCreateInfo.ppEnabledLayerNames = validationLayers.data();
         instanceCreateInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
-        instanceCreateInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&debugCreateInfo;
+        instanceCreateInfo.pNext = &debugCreateInfo;
     }
 
     if (VK_SUCCESS == vkCreateInstance(&instanceCreateInfo, nullptr, &instance))
