@@ -1,8 +1,5 @@
 #include "WindowManager.h"
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-
 #include <iostream>
 
 /*
@@ -67,9 +64,11 @@ void destroyWindow()
 {
     glfwDestroyWindow(window);
     glfwTerminate();
+    glfwSetErrorCallback(nullptr);
 }
 
 VkSurfaceKHR getSurface() { return surface; }
+GLFWwindow* getWindow() { return window; }
 bool windowShouldClose() { return glfwWindowShouldClose(window); }
 
 static void errorCallback(int error, const char* msg) { std::cout << "GLFW error callback: " << msg << std::endl; }

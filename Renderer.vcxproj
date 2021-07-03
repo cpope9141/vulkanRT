@@ -147,23 +147,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandBuffer.cpp" />
     <ClCompile Include="CommandPool.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="Framebuffer.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageView.cpp" />
     <ClCompile Include="Instance.cpp" />
     <ClCompile Include="LogicalDevice.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MemoryUtilities.cpp" />
     <ClCompile Include="PhysicalDevice.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderPass.cpp" />
+    <ClCompile Include="RenderPassPresentation.cpp" />
+    <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="ValidationLayer.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandBuffer.h" />
     <ClInclude Include="CommandPool.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="Framebuffer.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageView.h" />
     <ClInclude Include="Instance.h" />
     <ClInclude Include="LogicalDevice.h" />
+    <ClInclude Include="MemoryUtilities.h" />
     <ClInclude Include="PhysicalDevice.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderPass.h" />
+    <ClInclude Include="RenderPassPresentation.h" />
+    <ClInclude Include="SwapChain.h" />
     <ClInclude Include="ValidationLayer.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>

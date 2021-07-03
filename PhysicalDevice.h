@@ -16,16 +16,22 @@ public:
 	PhysicalDevice();
 	~PhysicalDevice();
 
+	VkFormat getDepthFormat();
 	QueueFamilyIndices getQueueFamilyIndices();
 	VkPhysicalDevice getPhysicalDevice();
 	SwapChainSupportInfo querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
 	void selectPhysicalDevice(VkInstance instance);
 
 private:
+	VkFormat depthFormat;
 	VkPhysicalDevice physicalDevice;
 	QueueFamilyIndices queueFamilyIndices;
+	VkSampleCountFlagBits sampleCount;
 
 	bool checkDeviceExtensionSupport(VkPhysicalDevice physicalDevice);
+	VkFormat findSupportedFormat(std::vector<VkFormat> formatCandidates, VkImageTiling tiling, VkFormatFeatureFlagBits features);
+	VkFormat findDepthFormat();
 	QueueFamilyIndices findQueueFamilies(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
 	bool physicalDeviceMeetsRequirements(VkPhysicalDevice physicalDevice);
+	VkSampleCountFlagBits findSampleCount();
 };

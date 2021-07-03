@@ -11,6 +11,7 @@ public:
 	void create(PhysicalDevice physicalDevice);
 	void destroy();
 	VkDevice getDevice();
+	VkQueue getGraphicsQueue();
 	PhysicalDevice getPhysicalDevice();
 
 private:

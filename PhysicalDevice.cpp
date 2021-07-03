@@ -5,13 +5,17 @@
 
 #include <iostream>
 
+//public
 PhysicalDevice::PhysicalDevice()
 {
+    depthFormat = VK_FORMAT_UNDEFINED;
     physicalDevice = VK_NULL_HANDLE;
+    sampleCount = VK_SAMPLE_COUNT_1_BIT;
 }
 
 PhysicalDevice::~PhysicalDevice() {}
 
+VkFormat PhysicalDevice::getDepthFormat() { return depthFormat; }
 QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() { return queueFamilyIndices; }
 VkPhysicalDevice PhysicalDevice::getPhysicalDevice() { return physicalDevice; }
 
@@ -27,13 +31,13 @@ void PhysicalDevice::selectPhysicalDevice(VkInstance instance)
         physicalDevices.resize(deviceCount);
         vkEnumeratePhysicalDevices(instance, &deviceCount, physicalDevices.data());
 
-        for (int i = 0; i < physicalDevices.size(); i++)
+        for (VkPhysicalDevice physicalDevice : physicalDevices)
         {
-            VkPhysicalDevice physicalDevice = physicalDevices[i];
-
             if (physicalDeviceMeetsRequirements(physicalDevice))
             {
                 this->physicalDevice = physicalDevice;
+                sampleCount = findSampleCount();
+                depthFormat = findDepthFormat();
                 break;
             }
         }
@@ -101,6 +105,34 @@ bool PhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice physicalDevice
     return result;
 }
 
+VkFormat PhysicalDevice::findSupportedFormat(std::vector<VkFormat> formats, VkImageTiling tiling, VkFormatFeatureFlagBits features)
+{
+    VkFormatProperties props = {};
+
+    for (VkFormat format : formats)
+    {
+        vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
+
+        if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features)
+        {
+            return format;
+        }
+        else if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features)
+        {
+            return format;
+        }
+    }
+
+    throw std::runtime_error("Failed to find supported format");
+}
+
+VkFormat PhysicalDevice::findDepthFormat()
+{
+    return findSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT },
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+}
+
 QueueFamilyIndices PhysicalDevice::findQueueFamilies(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
 {
     QueueFamilyIndices indices;
@@ -144,6 +176,29 @@ bool PhysicalDevice::physicalDeviceMeetsRequirements(VkPhysicalDevice physicalDe
     if (result)
     {
         this->queueFamilyIndices = queueFamilyIndices;
+    }
+
+    return result;
+}
+
+VkSampleCountFlagBits PhysicalDevice::findSampleCount()
+{
+    VkPhysicalDeviceProperties physicalDeviceProperties = {};
+    vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
+    VkSampleCountFlags sampleCountFlags = physicalDeviceProperties.limits.framebufferColorSampleCounts & physicalDeviceProperties.limits.framebufferDepthSampleCounts;
+    VkSampleCountFlagBits result = VK_SAMPLE_COUNT_1_BIT;
+
+    if ((sampleCountFlags & VK_SAMPLE_COUNT_8_BIT) != 0)
+    {
+        result = VK_SAMPLE_COUNT_8_BIT;
+    }
+    else if ((sampleCountFlags & VK_SAMPLE_COUNT_4_BIT) != 0)
+    {
+        result = VK_SAMPLE_COUNT_4_BIT;
+    }
+    else if ((sampleCountFlags & VK_SAMPLE_COUNT_2_BIT) != 0)
+    {
+        result = VK_SAMPLE_COUNT_2_BIT;
     }
 
     return result;

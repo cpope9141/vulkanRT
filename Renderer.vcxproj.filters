@@ -19,6 +19,24 @@
     <Filter Include="Header Files\Renderer">
       <UniqueIdentifier>{e883c289-81b2-478f-8f83-08ca284fe395}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\PhysicalDevice">
+      <UniqueIdentifier>{d28115b4-81a4-4fe1-9667-b77673db688a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\PhysicalDevice">
+      <UniqueIdentifier>{b7d1c41b-de87-4136-9e22-082ed02bdb62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\RenderPass">
+      <UniqueIdentifier>{2440e9f6-bbc0-457e-ad62-5c50b3c652b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\RenderPass">
+      <UniqueIdentifier>{f216d10f-4aad-4e9c-aaf8-e696d2a9c7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\SwapChain">
+      <UniqueIdentifier>{5445da9a-81ea-4900-8832-73a3b350717a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\SwapChain">
+      <UniqueIdentifier>{ad46a887-0a92-49f0-a1da-97e510f613e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,17 +54,44 @@
     <ClCompile Include="ValidationLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicalDevice.cpp">
-      <Filter>Source Files\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="QueueFamilyIndices.cpp">
-      <Filter>Source Files\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="LogicalDevice.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CommandPool.cpp">
       <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Framebuffer.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicalDevice.cpp">
+      <Filter>Source Files\Renderer\PhysicalDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueFamilyIndices.cpp">
+      <Filter>Source Files\Renderer\PhysicalDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPass.cpp">
+      <Filter>Source Files\Renderer\RenderPass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPassPresentation.cpp">
+      <Filter>Source Files\Renderer\RenderPass</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandBuffer.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageView.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryUtilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>Source Files\Renderer\SwapChain</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Source Files\Renderer\SwapChain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,17 +107,44 @@
     <ClInclude Include="ValidationLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicalDevice.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="QueueFamilyIndices.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="LogicalDevice.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="CommandPool.h">
       <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framebuffer.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicalDevice.h">
+      <Filter>Header Files\Renderer\PhysicalDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueFamilyIndices.h">
+      <Filter>Header Files\Renderer\PhysicalDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPass.h">
+      <Filter>Header Files\Renderer\RenderPass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPassPresentation.h">
+      <Filter>Header Files\Renderer\RenderPass</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandBuffer.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageView.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryUtilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>Header Files\Renderer\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files\Renderer\SwapChain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
