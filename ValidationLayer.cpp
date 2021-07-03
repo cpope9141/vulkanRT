@@ -9,7 +9,8 @@ VkDebugUtilsMessengerEXT debugMessenger;
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData)
 {
-    if (VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT <= messageSeverity) {
+    if (VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT <= messageSeverity)
+    {
         std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
     }
 
@@ -19,10 +20,12 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityF
 static VkResult createDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger)
 {
     auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
-    if (func != nullptr) {
+    if (nullptr != func)
+    {
         return func(instance, pCreateInfo, pAllocator, pDebugMessenger);
     }
-    else {
+    else
+    {
         return VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 }
@@ -30,7 +33,8 @@ static VkResult createDebugUtilsMessengerEXT(VkInstance instance, const VkDebugU
 static void destroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator)
 {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
-    if (func != nullptr) {
+    if (nullptr != func)
+    {
         func(instance, debugMessenger, pAllocator);
     }
 }
@@ -45,11 +49,14 @@ bool checkValidationLayerSupport()
     availableLayers.resize(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
 
-    for (const char* layerName : validationLayers) {
+    for (const char* layerName : validationLayers)
+    {
         bool found = false;
 
-        for (const auto& layerProperties : availableLayers) {
-            if (0 == strcmp(layerName, layerProperties.layerName)) {
+        for (const auto& layerProperties : availableLayers)
+        {
+            if (0 == strcmp(layerName, layerProperties.layerName))
+            {
                 found = true;
                 break;
             }
@@ -66,7 +73,8 @@ bool checkValidationLayerSupport()
 
 void destroyDebugMessenger(VkInstance instance)
 {
-    if (enableValidationLayers) {
+    if (enableValidationLayers)
+    {
         destroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
     }
 }
