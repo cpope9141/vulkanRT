@@ -16,8 +16,33 @@ PhysicalDevice::PhysicalDevice()
 PhysicalDevice::~PhysicalDevice() {}
 
 VkFormat PhysicalDevice::getDepthFormat() { return depthFormat; }
-QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() { return queueFamilyIndices; }
 VkPhysicalDevice PhysicalDevice::getPhysicalDevice() { return physicalDevice; }
+QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() { return queueFamilyIndices; }
+
+SwapChainSupportInfo PhysicalDevice::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
+{
+    SwapChainSupportInfo supportInfo;
+    uint32_t count = 0;
+
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, &supportInfo.capabilities);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &count, nullptr);
+
+    if (0 != count)
+    {
+        supportInfo.formats.resize(count);
+        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &count, supportInfo.formats.data());
+    }
+
+    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &count, nullptr);
+
+    if (0 != count)
+    {
+        supportInfo.presentModes.resize(count);
+        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &count, supportInfo.presentModes.data());
+    }
+
+    return supportInfo;
+}
 
 void PhysicalDevice::selectPhysicalDevice(VkInstance instance)
 {
@@ -50,31 +75,6 @@ void PhysicalDevice::selectPhysicalDevice(VkInstance instance)
     }
 }
 
-SwapChainSupportInfo PhysicalDevice::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
-{
-    SwapChainSupportInfo supportInfo;
-    uint32_t count = 0;
-
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, &supportInfo.capabilities);
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &count, nullptr);
-
-    if (0 != count)
-    {
-        supportInfo.formats.resize(count);
-        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &count, supportInfo.formats.data());
-    }
-
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &count, nullptr);
-
-    if (0 != count)
-    {
-        supportInfo.presentModes.resize(count);
-        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &count, supportInfo.presentModes.data());
-    }
-
-    return supportInfo;
-}
-
 //private
 bool PhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice physicalDevice)
 {
@@ -105,34 +105,6 @@ bool PhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice physicalDevice
     return result;
 }
 
-VkFormat PhysicalDevice::findSupportedFormat(std::vector<VkFormat> formats, VkImageTiling tiling, VkFormatFeatureFlagBits features)
-{
-    VkFormatProperties props = {};
-
-    for (VkFormat format : formats)
-    {
-        vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
-
-        if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features)
-        {
-            return format;
-        }
-        else if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features)
-        {
-            return format;
-        }
-    }
-
-    throw std::runtime_error("Failed to find supported format");
-}
-
-VkFormat PhysicalDevice::findDepthFormat()
-{
-    return findSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT },
-        VK_IMAGE_TILING_OPTIMAL,
-        VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
-}
-
 QueueFamilyIndices PhysicalDevice::findQueueFamilies(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
 {
     QueueFamilyIndices indices;
@@ -156,29 +128,11 @@ QueueFamilyIndices PhysicalDevice::findQueueFamilies(VkPhysicalDevice physicalDe
     return indices;
 }
 
-bool PhysicalDevice::physicalDeviceMeetsRequirements(VkPhysicalDevice physicalDevice)
+VkFormat PhysicalDevice::findDepthFormat()
 {
-    bool result = false;
-    VkSurfaceKHR surface = getSurface();
-    QueueFamilyIndices queueFamilyIndices = findQueueFamilies(physicalDevice, surface);
-
-    if (checkDeviceExtensionSupport(physicalDevice) && queueFamilyIndices.requiredFamiliesFound())
-    {
-        VkPhysicalDeviceProperties physicalDeviceProperties = {};
-        SwapChainSupportInfo supportInfo = querySwapChainSupport(physicalDevice, surface);
-
-        vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
-
-        result = (VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU == physicalDeviceProperties.deviceType) &&
-            (!supportInfo.formats.empty() && !supportInfo.presentModes.empty());
-    }
-
-    if (result)
-    {
-        this->queueFamilyIndices = queueFamilyIndices;
-    }
-
-    return result;
+    return findSupportedFormat({ VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT },
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
 
 VkSampleCountFlagBits PhysicalDevice::findSampleCount()
@@ -199,6 +153,52 @@ VkSampleCountFlagBits PhysicalDevice::findSampleCount()
     else if ((sampleCountFlags & VK_SAMPLE_COUNT_2_BIT) != 0)
     {
         result = VK_SAMPLE_COUNT_2_BIT;
+    }
+
+    return result;
+}
+
+VkFormat PhysicalDevice::findSupportedFormat(std::vector<VkFormat> formats, VkImageTiling tiling, VkFormatFeatureFlagBits features)
+{
+    VkFormatProperties props = {};
+
+    for (VkFormat format : formats)
+    {
+        vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
+
+        if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features)
+        {
+            return format;
+        }
+        else if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features)
+        {
+            return format;
+        }
+    }
+
+    throw std::runtime_error("Failed to find supported format");
+}
+
+bool PhysicalDevice::physicalDeviceMeetsRequirements(VkPhysicalDevice physicalDevice)
+{
+    bool result = false;
+    VkSurfaceKHR surface = getSurface();
+    QueueFamilyIndices queueFamilyIndices = findQueueFamilies(physicalDevice, surface);
+
+    if (checkDeviceExtensionSupport(physicalDevice) && queueFamilyIndices.requiredFamiliesFound())
+    {
+        VkPhysicalDeviceProperties physicalDeviceProperties = {};
+        SwapChainSupportInfo supportInfo = querySwapChainSupport(physicalDevice, surface);
+
+        vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
+
+        result = (VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU == physicalDeviceProperties.deviceType) &&
+            (!supportInfo.formats.empty() && !supportInfo.presentModes.empty());
+    }
+
+    if (result)
+    {
+        this->queueFamilyIndices = queueFamilyIndices;
     }
 
     return result;

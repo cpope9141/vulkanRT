@@ -4,7 +4,8 @@
 
 #include <vector>
 
-struct SwapChainSupportInfo {
+struct SwapChainSupportInfo
+{
 	VkSurfaceCapabilitiesKHR capabilities;
 	std::vector<VkSurfaceFormatKHR> formats;
 	std::vector<VkPresentModeKHR> presentModes;
@@ -17,8 +18,8 @@ public:
 	~PhysicalDevice();
 
 	VkFormat getDepthFormat();
-	QueueFamilyIndices getQueueFamilyIndices();
 	VkPhysicalDevice getPhysicalDevice();
+	QueueFamilyIndices getQueueFamilyIndices();
 	SwapChainSupportInfo querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
 	void selectPhysicalDevice(VkInstance instance);
 
@@ -29,9 +30,9 @@ private:
 	VkSampleCountFlagBits sampleCount;
 
 	bool checkDeviceExtensionSupport(VkPhysicalDevice physicalDevice);
-	VkFormat findSupportedFormat(std::vector<VkFormat> formatCandidates, VkImageTiling tiling, VkFormatFeatureFlagBits features);
 	VkFormat findDepthFormat();
 	QueueFamilyIndices findQueueFamilies(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
-	bool physicalDeviceMeetsRequirements(VkPhysicalDevice physicalDevice);
 	VkSampleCountFlagBits findSampleCount();
+	VkFormat findSupportedFormat(std::vector<VkFormat> formatCandidates, VkImageTiling tiling, VkFormatFeatureFlagBits features);
+	bool physicalDeviceMeetsRequirements(VkPhysicalDevice physicalDevice);
 };
