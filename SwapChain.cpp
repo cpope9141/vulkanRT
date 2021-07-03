@@ -128,10 +128,8 @@ VkPresentModeKHR SwapChain::choosePresentMode(std::vector<VkPresentModeKHR> avai
 {
     VkPresentModeKHR presentMode = VK_PRESENT_MODE_IMMEDIATE_KHR;
 
-    for (int i = 0; i < availablePresentModes.capacity(); i++)
+    for (VkPresentModeKHR availableMode : availablePresentModes)
     {
-        VkPresentModeKHR availableMode = availablePresentModes[i];
-
         if (VK_PRESENT_MODE_MAILBOX_KHR == availableMode)
         {
             presentMode = availableMode;
@@ -146,11 +144,10 @@ VkSurfaceFormatKHR SwapChain::chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR
 {
     VkSurfaceFormatKHR chosenFormat = availableFormats[0];
 
-    for (int i = 0; i < availableFormats.capacity(); i++)
+    for (VkSurfaceFormatKHR availableFormat : availableFormats)
     {
-        VkSurfaceFormatKHR availableFormat = availableFormats[i];
-
-        if (availableFormat.format == VK_FORMAT_B8G8R8A8_UNORM && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
+        if (availableFormat.format == VK_FORMAT_B8G8R8A8_UNORM && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
+        {
             chosenFormat = availableFormat;
             break;
         }
@@ -199,7 +196,6 @@ void SwapChain::createImageViews(LogicalDevice logicalDevice)
 void SwapChain::createSyncObjects(LogicalDevice logicalDevice)
 {
     inFlightFrames.resize(MAX_FRAMES_IN_FLIGHT);
-    //imagesInFlight.resize(images.size());
 
     for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
     {
