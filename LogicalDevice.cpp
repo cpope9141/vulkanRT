@@ -35,6 +35,7 @@ void LogicalDevice::create(PhysicalDevice physicalDevice)
     }
 
     physicalDeviceFeatures.samplerAnisotropy = VK_TRUE;
+    physicalDeviceFeatures.sampleRateShading = VK_TRUE;
 
     deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     deviceCreateInfo.queueCreateInfoCount = static_cast<uint32_t>(deviceQueueCreateInfos.size());

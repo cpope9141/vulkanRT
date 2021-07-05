@@ -20,6 +20,7 @@ public:
 	VkFormat getDepthFormat();
 	VkPhysicalDevice getPhysicalDevice();
 	QueueFamilyIndices getQueueFamilyIndices();
+	VkSampleCountFlagBits getSampleCount();
 	SwapChainSupportInfo querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
 	void selectPhysicalDevice(VkInstance instance);
 

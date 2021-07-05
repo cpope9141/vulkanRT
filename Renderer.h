@@ -1,5 +1,6 @@
 #pragma once
 #include "CommandPool.h"
+#include "GraphicsPipelinePostProcess.h"
 #include "Instance.h"
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
@@ -23,9 +24,11 @@ public:
 
 	void create();
 	void destroy();
+	LogicalDevice getLogicalDevice();
 
 private:
 	CommandPool commandPool;
+	GraphicsPipelinePostProcess graphicsPipelinePostProcess;
 	Instance instance;
 	LogicalDevice logicalDevice;
 	PhysicalDevice physicalDevice;

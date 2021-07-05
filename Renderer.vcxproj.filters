@@ -37,6 +37,30 @@
     <Filter Include="Source Files\Renderer\SwapChain">
       <UniqueIdentifier>{ad46a887-0a92-49f0-a1da-97e510f613e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline">
+      <UniqueIdentifier>{48cace14-7025-4320-b3fd-0d2f24babead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline">
+      <UniqueIdentifier>{316b4383-e021-4e21-aad9-fdc38c585adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics">
+      <UniqueIdentifier>{59c02db9-f8d4-48ae-9867-0d5407fd4db8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics">
+      <UniqueIdentifier>{ea7beec1-ff49-4b57-8081-dd4223e19de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\VertexData">
+      <UniqueIdentifier>{da9b712f-98e4-47ce-9c6b-28a293a9fd9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\VertexData">
+      <UniqueIdentifier>{9f0b190c-694b-4cb8-a9f3-4acac46edb97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics\PostProcess">
+      <UniqueIdentifier>{0379559f-5863-4e97-adcc-8ca62b62ed39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics\PostProcess">
+      <UniqueIdentifier>{09c4435a-09ac-406b-9187-f85c822211db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -93,6 +117,30 @@
     <ClCompile Include="Frame.cpp">
       <Filter>Source Files\Renderer\SwapChain</Filter>
     </ClCompile>
+    <ClCompile Include="Pipeline.cpp">
+      <Filter>Source Files\Renderer\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStages.cpp">
+      <Filter>Source Files\Renderer\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderSPIRV.cpp">
+      <Filter>Source Files\Renderer\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipeline.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadVertexData.cpp">
+      <Filter>Source Files\Renderer\VertexData</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesGraphics.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelinePostProcess.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesPostProcess.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.h">
@@ -145,6 +193,30 @@
     </ClInclude>
     <ClInclude Include="Frame.h">
       <Filter>Header Files\Renderer\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline.h">
+      <Filter>Header Files\Renderer\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStages.h">
+      <Filter>Header Files\Renderer\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderSPIRV.h">
+      <Filter>Header Files\Renderer\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipeline.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadVertexData.h">
+      <Filter>Header Files\Renderer\VertexData</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesGraphics.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipelinePostProcess.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesPostProcess.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

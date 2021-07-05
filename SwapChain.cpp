@@ -94,6 +94,8 @@ void SwapChain::destroy(LogicalDevice logicalDevice, CommandPool commandPool)
     vkDestroySwapchainKHR(logicalDevice.getDevice(), swapChain, nullptr);
 }
 
+RenderPassPresentation SwapChain::getRenderPass() { return renderPass; }
+
 //private
 void SwapChain::allocateCommandBuffers(LogicalDevice logicalDevice, CommandPool commandPool)
 {

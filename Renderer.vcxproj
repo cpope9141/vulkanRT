@@ -114,7 +114,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.162.1\Include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -132,7 +132,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.162.1\Include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -151,6 +151,8 @@
     <ClCompile Include="CommandPool.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
+    <ClCompile Include="GraphicsPipeline.cpp" />
+    <ClCompile Include="GraphicsPipelinePostProcess.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageView.cpp" />
     <ClCompile Include="Instance.cpp" />
@@ -158,12 +160,18 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MemoryUtilities.cpp" />
     <ClCompile Include="PhysicalDevice.cpp" />
+    <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="RenderPassPresentation.cpp" />
+    <ClCompile Include="ShaderSPIRV.cpp" />
+    <ClCompile Include="ShaderStages.cpp" />
+    <ClCompile Include="ShaderStagesGraphics.cpp" />
+    <ClCompile Include="ShaderStagesPostProcess.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="ValidationLayer.cpp" />
+    <ClCompile Include="QuadVertexData.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,18 +179,26 @@
     <ClInclude Include="CommandPool.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Framebuffer.h" />
+    <ClInclude Include="GraphicsPipeline.h" />
+    <ClInclude Include="GraphicsPipelinePostProcess.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageView.h" />
     <ClInclude Include="Instance.h" />
     <ClInclude Include="LogicalDevice.h" />
     <ClInclude Include="MemoryUtilities.h" />
     <ClInclude Include="PhysicalDevice.h" />
+    <ClInclude Include="Pipeline.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="RenderPassPresentation.h" />
+    <ClInclude Include="ShaderSPIRV.h" />
+    <ClInclude Include="ShaderStages.h" />
+    <ClInclude Include="ShaderStagesGraphics.h" />
+    <ClInclude Include="ShaderStagesPostProcess.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="ValidationLayer.h" />
+    <ClInclude Include="QuadVertexData.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -20,6 +20,7 @@ public:
 
 	void create(LogicalDevice logicalDevice, CommandPool commandPool);
 	void destroy(LogicalDevice logicalDevice, CommandPool commandPool);
+	RenderPassPresentation getRenderPass();
 
 private:
 	std::vector<CommandBuffer> commandBuffers;

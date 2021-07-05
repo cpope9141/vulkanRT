@@ -18,6 +18,7 @@ PhysicalDevice::~PhysicalDevice() {}
 VkFormat PhysicalDevice::getDepthFormat() { return depthFormat; }
 VkPhysicalDevice PhysicalDevice::getPhysicalDevice() { return physicalDevice; }
 QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() { return queueFamilyIndices; }
+VkSampleCountFlagBits PhysicalDevice::getSampleCount() { return sampleCount; }
 
 SwapChainSupportInfo PhysicalDevice::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
 {
