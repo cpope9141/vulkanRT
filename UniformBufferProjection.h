@@ -1,10 +1,11 @@
 #pragma once
 #include "UniformBufferObject.h"
 
+#include "LogicalDevice.h"
+
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/mat4x4.hpp>
-#include "LogicalDevice.h"
 
 const uint8_t TYPE_ORTHOGRAPHIC = 0;
 const uint8_t TYPE_PERSPECTIVE = 1;

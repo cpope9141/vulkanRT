@@ -67,3 +67,4 @@ void LogicalDevice::destroy() { vkDestroyDevice(device, nullptr); }
 VkDevice LogicalDevice::getDevice() { return device; }
 VkQueue LogicalDevice::getGraphicsQueue() { return graphicsQueue; }
 PhysicalDevice LogicalDevice::getPhysicalDevice() { return physicalDevice; }
+VkQueue LogicalDevice::getPresentQueue() { return presentQueue; }

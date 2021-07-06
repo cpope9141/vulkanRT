@@ -11,11 +11,37 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 //public
 SwapChain::SwapChain()
 {
+    currentFrameIndex = 0;
+    imageExtent = { 0, 0 };
     imageFormat = VK_FORMAT_UNDEFINED;
     swapChain = VK_NULL_HANDLE;
+    nextImageIndex = 0;
 }
 
 SwapChain::~SwapChain() {}
+
+VkResult SwapChain::acquireNextImage(LogicalDevice logicalDevice)
+{
+    Frame currentFrame = inFlightFrames[currentFrameIndex];
+    VkResult result = VK_SUCCESS;
+    VkFence fence = currentFrame.getFence();
+
+    vkWaitForFences(logicalDevice.getDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
+
+    result = vkAcquireNextImageKHR(logicalDevice.getDevice(),
+        swapChain,
+        UINT64_MAX,
+        currentFrame.getImageAvailableSemaphore(),
+        VK_NULL_HANDLE,
+        &nextImageIndex);
+
+    if (VK_SUCCESS != result)
+    {
+        throw std::runtime_error("Failed to acquire next image from swap chain");
+    }
+
+    return result;
+}
 
 void SwapChain::create(LogicalDevice logicalDevice, CommandPool commandPool)
 {
@@ -94,7 +120,66 @@ void SwapChain::destroy(LogicalDevice logicalDevice, CommandPool commandPool)
     vkDestroySwapchainKHR(logicalDevice.getDevice(), swapChain, nullptr);
 }
 
+std::vector<CommandBuffer> SwapChain::getCommandBuffers() { return commandBuffers; }
+std::vector<Framebuffer> SwapChain::getFramebuffers() { return framebuffers; }
+VkExtent2D SwapChain::getImageExtent() { return imageExtent; }
+uint32_t SwapChain::getNextImageIndex() { return nextImageIndex; }
 RenderPassPresentation SwapChain::getRenderPass() { return renderPass; }
+
+VkResult SwapChain::present(LogicalDevice logicalDevice)
+{
+    VkResult result = VK_ERROR_DEVICE_LOST;
+    Frame currentFrame = inFlightFrames[currentFrameIndex];
+    VkPresentInfoKHR presentInfo = {};
+    VkSemaphore renderFinishedSemaphore = currentFrame.getRenderFinishedSemaphore();
+
+    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    presentInfo.waitSemaphoreCount = 1;
+    presentInfo.pWaitSemaphores = &renderFinishedSemaphore;
+    presentInfo.swapchainCount = 1;
+    presentInfo.pSwapchains = &swapChain;
+    presentInfo.pImageIndices = &nextImageIndex;
+
+    result = vkQueuePresentKHR(logicalDevice.getPresentQueue(), &presentInfo);
+
+    if (VK_SUCCESS == result || VK_ERROR_OUT_OF_DATE_KHR == result || VK_SUBOPTIMAL_KHR == result)
+    {
+        currentFrameIndex = (currentFrameIndex + 1) % MAX_FRAMES_IN_FLIGHT;
+    }
+
+    return result;
+}
+
+VkResult SwapChain::submitDrawCommand(LogicalDevice logicalDevice, VkCommandBuffer commandBuffer)
+{
+    Frame currentFrame = inFlightFrames[currentFrameIndex];
+    VkSubmitInfo submitInfo = {};
+    VkSemaphore imageAvailableSemaphore = currentFrame.getImageAvailableSemaphore();
+    VkSemaphore renderFinishedSemaphore = currentFrame.getRenderFinishedSemaphore();
+    VkPipelineStageFlags waitDstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    VkFence currentFrameFence = currentFrame.getFence();
+
+    if (imagesInFlight.find(nextImageIndex) != imagesInFlight.end())
+    {
+        VkFence fence = imagesInFlight[nextImageIndex].getFence();
+        vkWaitForFences(logicalDevice.getDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
+    }
+
+    imagesInFlight[nextImageIndex] = currentFrame;
+
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.waitSemaphoreCount = 1;
+    submitInfo.pWaitSemaphores = &imageAvailableSemaphore;
+    submitInfo.pWaitDstStageMask = &waitDstStageMask;
+    submitInfo.signalSemaphoreCount = 1;
+    submitInfo.pSignalSemaphores = &renderFinishedSemaphore;
+    submitInfo.commandBufferCount = 1;
+    submitInfo.pCommandBuffers = &commandBuffer;
+
+    vkResetFences(logicalDevice.getDevice(), 1, &currentFrameFence);
+
+    return vkQueueSubmit(logicalDevice.getGraphicsQueue(), 1, &submitInfo, currentFrameFence);
+}
 
 //private
 void SwapChain::allocateCommandBuffers(LogicalDevice logicalDevice, CommandPool commandPool)
@@ -199,7 +284,7 @@ void SwapChain::createSyncObjects(LogicalDevice logicalDevice)
 {
     inFlightFrames.resize(MAX_FRAMES_IN_FLIGHT);
 
-    for (int i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
+    for (uint32_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
     {
         Frame frame;
         frame.create(logicalDevice);
@@ -225,7 +310,12 @@ void SwapChain::destroyImageViews(LogicalDevice logicalDevice)
     imageViews.clear();
 }
 
-void SwapChain::destroySyncObjects(LogicalDevice logicalDevice) { for (Frame frame : inFlightFrames) { frame.destroy(logicalDevice); } }
+void SwapChain::destroySyncObjects(LogicalDevice logicalDevice)
+{
+    for (Frame frame : inFlightFrames) { frame.destroy(logicalDevice); }
+    inFlightFrames.clear();
+    imagesInFlight.clear();
+}
 
 void SwapChain::freeCommandBuffers(LogicalDevice logicalDevice)
 {

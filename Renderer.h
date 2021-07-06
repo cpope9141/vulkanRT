@@ -7,6 +7,10 @@
 #include "SwapChain.h"
 #include "UniformBufferProjection.h"
 
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/mat4x4.hpp>
+
 #define ENABLE_VALIDATION_LAYERS true
 
 const std::vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
@@ -26,6 +30,9 @@ public:
 	void create();
 	void destroy();
 	LogicalDevice getLogicalDevice();
+	void prepare();
+	void submit();
+	void waitForDeviceIdle();
 
 private:
 	CommandPool commandPool;
@@ -34,8 +41,10 @@ private:
 	LogicalDevice logicalDevice;
 	PhysicalDevice physicalDevice;
 	SwapChain swapChain;
-	UniformBufferProjection uboOrthoProjection{ TYPE_ORTHOGRAPHIC };
+	UniformBufferProjection uboOrthoProjection = UniformBufferProjection(TYPE_ORTHOGRAPHIC);
+	glm::mat4 viewMatrix;
 
 	void createSwapChainObjects();
 	void destroySwapChainObjects();
+	void recreateSwapChain();
 };

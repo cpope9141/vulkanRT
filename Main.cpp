@@ -15,6 +15,9 @@ int main()
     while (!windowShouldClose())
     {
         glfwPollEvents();
+
+        renderer.prepare();
+        renderer.submit();
     }
 
     renderer.destroy();

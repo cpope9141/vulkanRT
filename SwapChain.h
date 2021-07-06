@@ -18,12 +18,20 @@ public:
 	SwapChain();
 	~SwapChain();
 
+	VkResult acquireNextImage(LogicalDevice logicalDevice);
 	void create(LogicalDevice logicalDevice, CommandPool commandPool);
 	void destroy(LogicalDevice logicalDevice, CommandPool commandPool);
+	std::vector<CommandBuffer> getCommandBuffers();
+	std::vector<Framebuffer> getFramebuffers();
+	VkExtent2D getImageExtent();
+	uint32_t getNextImageIndex();
 	RenderPassPresentation getRenderPass();
+	VkResult present(LogicalDevice logicalDevice);
+	VkResult submitDrawCommand(LogicalDevice logicalDevice, VkCommandBuffer commandBuffer);
 
 private:
 	std::vector<CommandBuffer> commandBuffers;
+	uint32_t currentFrameIndex;
 	Image depthImage;
 	ImageView depthImageView;
 	std::vector<Framebuffer> framebuffers;
@@ -31,8 +39,9 @@ private:
 	VkFormat imageFormat;
 	std::vector<VkImage> images;
 	std::vector<ImageView> imageViews;
-	std::map<int, Frame> imagesInFlight;
+	std::map<uint32_t, Frame> imagesInFlight;
 	std::vector<Frame> inFlightFrames;
+	uint32_t nextImageIndex;
 	RenderPassPresentation renderPass;
 	VkSwapchainKHR swapChain;
 

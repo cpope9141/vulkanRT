@@ -13,6 +13,7 @@ public:
 	VkDevice getDevice();
 	VkQueue getGraphicsQueue();
 	PhysicalDevice getPhysicalDevice();
+	VkQueue getPresentQueue();
 
 private:
 	VkDevice device;
