@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include "WindowManager.h"
+
 //public
 Renderer::Renderer() {}
 Renderer::~Renderer() {}
@@ -12,10 +14,15 @@ void Renderer::create()
 	commandPool.create(logicalDevice);
 	createSwapChainObjects();
 	graphicsPipelinePostProcess.create(logicalDevice, swapChain.getRenderPass().getRenderPass());
+
+	uboOrthoProjection.create(logicalDevice);
+	uboOrthoProjection.update(logicalDevice, HEIGHT, WIDTH, 1.0f, 96.0f);
 }
 
 void Renderer::destroy()
 {
+	uboOrthoProjection.destroy(logicalDevice);
+
 	graphicsPipelinePostProcess.destroy(logicalDevice);
 	destroySwapChainObjects();
 	commandPool.destroy(logicalDevice);

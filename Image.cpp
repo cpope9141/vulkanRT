@@ -52,6 +52,7 @@ void Image::destroy(LogicalDevice logicalDevice)
 }
 
 VkImage Image::getImage() { return image; }
+uint32_t Image::getMipLevels() { return mipLevels; }
 
 //private
 void Image::createImage(LogicalDevice logicalDevice,

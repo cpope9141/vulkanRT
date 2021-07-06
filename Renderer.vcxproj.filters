@@ -61,6 +61,18 @@
     <Filter Include="Header Files\Renderer\Pipeline\Graphics\PostProcess">
       <UniqueIdentifier>{09c4435a-09ac-406b-9187-f85c822211db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\Buffer">
+      <UniqueIdentifier>{7021e9a3-ac2b-4df7-9f08-e18e7bbee05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Buffer">
+      <UniqueIdentifier>{e33702e8-06b6-4e6d-869e-a8842438f64c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Buffer\Uniform">
+      <UniqueIdentifier>{25cbf658-94d9-42ad-a4e4-2c524cd52e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Buffer\Uniform">
+      <UniqueIdentifier>{dc989cbe-aa4b-47c4-9d1a-8d7c8f21af85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -141,6 +153,27 @@
     <ClCompile Include="ShaderStagesPostProcess.cpp">
       <Filter>Source Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
     </ClCompile>
+    <ClCompile Include="DescriptorSet.cpp">
+      <Filter>Source Files\Renderer\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetPostProcess.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferProjection.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.h">
@@ -217,6 +250,27 @@
     </ClInclude>
     <ClInclude Include="ShaderStagesPostProcess.h">
       <Filter>Header Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSet.h">
+      <Filter>Header Files\Renderer\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetPostProcess.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferObject.h">
+      <Filter>Header Files\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferObject.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferProjection.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@ public:
 		bool genMipLevels);
 	void destroy(LogicalDevice logicalDevice);
 	VkImage getImage();
+	uint32_t getMipLevels();
 
 private:
 	uint32_t arrayLayers;

@@ -147,8 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BufferObject.cpp" />
     <ClCompile Include="CommandBuffer.cpp" />
     <ClCompile Include="CommandPool.cpp" />
+    <ClCompile Include="DescriptorSet.cpp" />
+    <ClCompile Include="DescriptorSetPostProcess.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
@@ -165,18 +168,25 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="RenderPassPresentation.cpp" />
+    <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="ShaderSPIRV.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
     <ClCompile Include="ShaderStagesGraphics.cpp" />
     <ClCompile Include="ShaderStagesPostProcess.cpp" />
     <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="UniformBufferObject.cpp" />
+    <ClCompile Include="UniformBufferProjection.cpp" />
     <ClCompile Include="ValidationLayer.cpp" />
     <ClCompile Include="QuadVertexData.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BufferObject.h" />
     <ClInclude Include="CommandBuffer.h" />
     <ClInclude Include="CommandPool.h" />
+    <ClInclude Include="DescriptorSet.h" />
+    <ClInclude Include="DescriptorSetPostProcess.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="GraphicsPipeline.h" />
@@ -192,11 +202,15 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="RenderPassPresentation.h" />
+    <ClInclude Include="Sampler.h" />
     <ClInclude Include="ShaderSPIRV.h" />
     <ClInclude Include="ShaderStages.h" />
     <ClInclude Include="ShaderStagesGraphics.h" />
     <ClInclude Include="ShaderStagesPostProcess.h" />
     <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="UniformBufferObject.h" />
+    <ClInclude Include="UniformBufferProjection.h" />
     <ClInclude Include="ValidationLayer.h" />
     <ClInclude Include="QuadVertexData.h" />
     <ClInclude Include="WindowManager.h" />

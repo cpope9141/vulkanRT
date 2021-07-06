@@ -5,6 +5,7 @@
 #include "LogicalDevice.h"
 #include "PhysicalDevice.h"
 #include "SwapChain.h"
+#include "UniformBufferProjection.h"
 
 #define ENABLE_VALIDATION_LAYERS true
 
@@ -33,6 +34,7 @@ private:
 	LogicalDevice logicalDevice;
 	PhysicalDevice physicalDevice;
 	SwapChain swapChain;
+	UniformBufferProjection uboOrthoProjection{ TYPE_ORTHOGRAPHIC };
 
 	void createSwapChainObjects();
 	void destroySwapChainObjects();
