@@ -10,7 +10,7 @@ DescriptorSet::DescriptorSet()
 
 DescriptorSet::~DescriptorSet() {}
 
-void DescriptorSet::createDescriptorSets(LogicalDevice logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool)
+void DescriptorSet::allocateDescriptorSet(LogicalDevice logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool)
 {
     VkDescriptorSetAllocateInfo allocInfo = {};
 
@@ -21,14 +21,14 @@ void DescriptorSet::createDescriptorSets(LogicalDevice logicalDevice, VkDescript
 
     if (VK_SUCCESS == vkAllocateDescriptorSets(logicalDevice.getDevice(), &allocInfo, &descriptorSet))
     {
-        std::vector<VkWriteDescriptorSet> writeDescriptorSet = writeDescriptorSets(logicalDevice);
-
-        vkUpdateDescriptorSets(logicalDevice.getDevice(), writeDescriptorSet.size(), writeDescriptorSet.data(), 0, nullptr);
+        updateDescriptorSet(logicalDevice);
     }
     else {
         throw std::runtime_error("Failed to allocate descriptor sets");
     }
 }
+
+VkDescriptorSet DescriptorSet::getDescriptorSet() { return descriptorSet; }
 
 //protected
 VkDescriptorBufferInfo DescriptorSet::createDescriptorBufferInfo(UniformBufferObject* ubo, VkDeviceSize offset)

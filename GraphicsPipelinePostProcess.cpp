@@ -20,14 +20,15 @@ VkShaderStageFlagBits GraphicsPipelinePostProcess::getPushConstantStages() { ret
 void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevice)
 {
     std::vector<VkDescriptorPoolSize> poolSizes;
-    poolSizes.resize(2);
+    //poolSizes.resize(2);
+    poolSizes.resize(1);
     VkDescriptorPoolCreateInfo poolInfo = {};
 
     poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     poolSizes[0].descriptorCount = 1;
-
-    poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSizes[1].descriptorCount = 1;
+    
+    //poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    //poolSizes[1].descriptorCount = 1;
 
     poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     poolInfo.poolSizeCount = poolSizes.size();
@@ -43,7 +44,8 @@ void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevi
 void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
-    bindings.resize(2);
+    //bindings.resize(2);
+    bindings.resize(1);
     VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 
     bindings[0].binding = 0;
@@ -52,11 +54,11 @@ void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice logica
     bindings[0].pImmutableSamplers = nullptr;
     bindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
-    bindings[1].binding = 1;
-    bindings[1].descriptorCount = 1;
-    bindings[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    bindings[1].pImmutableSamplers = nullptr;
-    bindings[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+    //bindings[1].binding = 1;
+    //bindings[1].descriptorCount = 1;
+    //bindings[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    //bindings[1].pImmutableSamplers = nullptr;
+    //bindings[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     layoutInfo.bindingCount = bindings.size();

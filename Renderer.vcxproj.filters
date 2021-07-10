@@ -73,6 +73,18 @@
     <Filter Include="Source Files\Renderer\Buffer\Uniform">
       <UniqueIdentifier>{dc989cbe-aa4b-47c4-9d1a-8d7c8f21af85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\Model">
+      <UniqueIdentifier>{d2d77921-6a14-425b-939c-64dd920b02a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Buffer\Transfer">
+      <UniqueIdentifier>{1f09505e-c4b0-4836-9030-1b11c4a4ebc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Buffer\Transfer">
+      <UniqueIdentifier>{e1f48fe2-e26d-4e8c-ba75-45408037f823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Model">
+      <UniqueIdentifier>{0bb717d2-2272-4433-a38d-24bbe8810383}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -174,6 +186,24 @@
     <ClCompile Include="UniformBufferProjection.cpp">
       <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
     </ClCompile>
+    <ClCompile Include="VertexData.cpp">
+      <Filter>Source Files\Renderer\VertexData</Filter>
+    </ClCompile>
+    <ClCompile Include="TransferBufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer\Transfer</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortBufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer\Transfer</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Renderer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Source Files\Renderer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadBufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer\Transfer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.h">
@@ -271,6 +301,27 @@
     </ClInclude>
     <ClInclude Include="UniformBufferProjection.h">
       <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Renderer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Header Files\Renderer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexData.h">
+      <Filter>Header Files\Renderer\VertexData</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferBufferObject.h">
+      <Filter>Header Files\Renderer\Buffer\Transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortBufferObject.h">
+      <Filter>Header Files\Renderer\Buffer\Transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadBufferObject.h">
+      <Filter>Header Files\Renderer\Buffer\Transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

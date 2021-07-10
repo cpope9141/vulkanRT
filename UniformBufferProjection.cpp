@@ -36,7 +36,7 @@ void UniformBufferProjection::update(LogicalDevice logicalDevice, float height, 
     {
         projection = glm::perspective(glm::radians(45.0f), width / height, near, far);
     }
-    else 
+    else
     {
         throw std::runtime_error("Invalid projection type");
     }

@@ -1,15 +1,13 @@
 #pragma once
 #include "CommandPool.h"
+#include "DescriptorSetPostProcess.h"
 #include "GraphicsPipelinePostProcess.h"
 #include "Instance.h"
 #include "LogicalDevice.h"
+#include "Panel.h"
 #include "PhysicalDevice.h"
 #include "SwapChain.h"
 #include "UniformBufferProjection.h"
-
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/mat4x4.hpp>
 
 #define ENABLE_VALIDATION_LAYERS true
 
@@ -36,15 +34,18 @@ public:
 
 private:
 	CommandPool commandPool;
+	DescriptorSetPostProcess descriptorSetPostProcess;
 	GraphicsPipelinePostProcess graphicsPipelinePostProcess;
 	Instance instance;
 	LogicalDevice logicalDevice;
+	Panel panel;
 	PhysicalDevice physicalDevice;
 	SwapChain swapChain;
 	UniformBufferProjection uboOrthoProjection = UniformBufferProjection(TYPE_ORTHOGRAPHIC);
-	glm::mat4 viewMatrix;
 
+	void addDrawCommands(VkDescriptorSet ds, Pipeline* gp, void* pc, uint32_t pcSize, VertexData* vertexData);
 	void createSwapChainObjects();
 	void destroySwapChainObjects();
+	void drawPostProcess();
 	void recreateSwapChain();
 };

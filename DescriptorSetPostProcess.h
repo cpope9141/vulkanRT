@@ -1,6 +1,8 @@
 #pragma once
 #include "DescriptorSet.h"
 
+#include "GraphicsPipeline.h"
+#include "LogicalDevice.h"
 #include "Texture.h"
 #include "UniformBufferObject.h" 
 
@@ -10,8 +12,10 @@ public:
 	DescriptorSetPostProcess();
 	~DescriptorSetPostProcess();
 
+	void create(LogicalDevice logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo);
+
 protected:
-	virtual std::vector<VkWriteDescriptorSet> writeDescriptorSets(LogicalDevice logicalDevice) override;
+	virtual void updateDescriptorSet(LogicalDevice logicalDevice) override;
 
 private:
 	Texture* texture;

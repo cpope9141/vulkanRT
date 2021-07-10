@@ -162,8 +162,11 @@
     <ClCompile Include="LogicalDevice.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MemoryUtilities.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PhysicalDevice.cpp" />
     <ClCompile Include="Pipeline.cpp" />
+    <ClCompile Include="QuadBufferObject.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
@@ -173,12 +176,15 @@
     <ClCompile Include="ShaderStages.cpp" />
     <ClCompile Include="ShaderStagesGraphics.cpp" />
     <ClCompile Include="ShaderStagesPostProcess.cpp" />
+    <ClCompile Include="ShortBufferObject.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TransferBufferObject.cpp" />
     <ClCompile Include="UniformBufferObject.cpp" />
     <ClCompile Include="UniformBufferProjection.cpp" />
     <ClCompile Include="ValidationLayer.cpp" />
     <ClCompile Include="QuadVertexData.cpp" />
+    <ClCompile Include="VertexData.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -196,8 +202,11 @@
     <ClInclude Include="Instance.h" />
     <ClInclude Include="LogicalDevice.h" />
     <ClInclude Include="MemoryUtilities.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Panel.h" />
     <ClInclude Include="PhysicalDevice.h" />
     <ClInclude Include="Pipeline.h" />
+    <ClInclude Include="QuadBufferObject.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
@@ -207,12 +216,16 @@
     <ClInclude Include="ShaderStages.h" />
     <ClInclude Include="ShaderStagesGraphics.h" />
     <ClInclude Include="ShaderStagesPostProcess.h" />
+    <ClInclude Include="ShortBufferObject.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TransferBufferObject.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="UniformBufferObject.h" />
     <ClInclude Include="UniformBufferProjection.h" />
     <ClInclude Include="ValidationLayer.h" />
     <ClInclude Include="QuadVertexData.h" />
+    <ClInclude Include="VertexData.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

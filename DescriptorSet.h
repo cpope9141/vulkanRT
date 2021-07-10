@@ -12,12 +12,13 @@ public:
 	DescriptorSet();
 	~DescriptorSet();
 
-	void createDescriptorSets(LogicalDevice logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool);
+	void allocateDescriptorSet(LogicalDevice logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool);
+	VkDescriptorSet getDescriptorSet();
 
 protected:
 	VkDescriptorSet descriptorSet;
 
 	VkDescriptorBufferInfo createDescriptorBufferInfo(UniformBufferObject* ubo, VkDeviceSize offset);
 	VkDescriptorImageInfo createDescriptorImageInfo(Texture* texture, VkImageLayout imageLayout);
-	virtual std::vector<VkWriteDescriptorSet> writeDescriptorSets(LogicalDevice logicalDevice) = 0;
+	virtual void updateDescriptorSet(LogicalDevice logicalDevice) = 0;
 };

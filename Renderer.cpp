@@ -6,11 +6,7 @@
 #include <iostream>
 
 //public
-Renderer::Renderer()
-{
-	viewMatrix = glm::lookAt(glm::vec3(0.0f, 3.0f, -7.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-}
-
+Renderer::Renderer() {}
 Renderer::~Renderer() {}
 
 void Renderer::create()
@@ -24,11 +20,17 @@ void Renderer::create()
 
 	uboOrthoProjection.create(logicalDevice);
 	uboOrthoProjection.update(logicalDevice, HEIGHT, WIDTH, 1.0f, 96.0f);
+
+    panel.init(logicalDevice, commandPool);
+
+    descriptorSetPostProcess.create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthoProjection);
 }
 
 void Renderer::destroy()
 {
     waitForDeviceIdle();
+
+    panel.deinit(logicalDevice);
 
 	uboOrthoProjection.destroy(logicalDevice);
 
@@ -82,6 +84,7 @@ void Renderer::submit()
         swapChain.getImageExtent().width,
         swapChain.getFramebuffers()[nextImageIndex].getFramebuffer(),
         commandBuffer);
+    drawPostProcess();
     vkCmdEndRenderPass(commandBuffer);
 
     if (VK_SUCCESS == vkEndCommandBuffer(commandBuffer))
@@ -114,6 +117,26 @@ void Renderer::submit()
 void Renderer::waitForDeviceIdle() { vkDeviceWaitIdle(logicalDevice.getDevice()); }
 
 //private
+void Renderer::addDrawCommands(VkDescriptorSet ds, Pipeline* gp, void* pc, uint32_t pcSize, VertexData* vertexData)
+{
+    int nextImageIndex = swapChain.getNextImageIndex();
+    VkCommandBuffer commandBuffer = swapChain.getCommandBuffers()[nextImageIndex].getCommandBuffer();
+    VkBuffer vertexBuffer = vertexData->getVertexBuffer();
+    VkDeviceSize offsets = 0;
+
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, gp->getPipeline());
+    vkCmdBindVertexBuffers(commandBuffer, 0, 1, &vertexBuffer, &offsets);
+    vkCmdBindIndexBuffer(commandBuffer, vertexData->getIndexBuffer(), 0, vertexData->getIndexType());
+    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, gp->getPipelineLayout(), 0, 1, &ds, 0, nullptr);
+
+    if (nullptr != pc)
+    {
+        vkCmdPushConstants(commandBuffer, gp->getPipelineLayout(), gp->getPushConstantStages(), 0, pcSize, pc);
+    }
+
+    vkCmdDrawIndexed(commandBuffer, vertexData->getIndexCount(), 1, 0, 0, 0);
+}
+
 void Renderer::createSwapChainObjects()
 {
 	swapChain.create(logicalDevice, commandPool);
@@ -122,6 +145,17 @@ void Renderer::createSwapChainObjects()
 void Renderer::destroySwapChainObjects()
 {
 	swapChain.destroy(logicalDevice, commandPool);
+}
+
+void Renderer::drawPostProcess()
+{
+    glm::mat4 pc;
+
+    panel.setPosition(glm::vec3(0, 0, 0));
+    panel.setScale(glm::vec3(WIDTH, HEIGHT, 1));
+    pc = panel.prepareModelMatrix();
+
+    addDrawCommands(descriptorSetPostProcess.getDescriptorSet(), &graphicsPipelinePostProcess, &pc, sizeof(pc), panel.getVertexData());
 }
 
 void Renderer::recreateSwapChain()
