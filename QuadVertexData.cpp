@@ -2,9 +2,6 @@
 
 #include "Types.h"
 
-#include <vector>
-
-
 const uint16_t INDICES[] = { 0, 1, 3, 3, 1, 2 };
 const std::vector<Vertex> VERTICES =
 {
@@ -14,18 +11,18 @@ const std::vector<Vertex> VERTICES =
     {{0.5f, 0.5f}, {1.0f, 0.0f}}
 };
 
-VkVertexInputBindingDescription getBindingDescription()
+//public
+QuadVertexData::QuadVertexData()
 {
-    VkVertexInputBindingDescription bindingDescription = {};
-
-    bindingDescription.binding = 0;
-    bindingDescription.stride = 16;
-    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
-    return bindingDescription;
+    indexBufferObject = &indexBuffer;
+    indexCount = 6;
+    indexType = VK_INDEX_TYPE_UINT16;
+    vertexBufferObject = &vertexBuffer;
 }
 
-std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions()
+QuadVertexData::~QuadVertexData() {}
+
+std::vector<VkVertexInputAttributeDescription> QuadVertexData::getAttributeDescriptions()
 {
     std::vector<VkVertexInputAttributeDescription> attributeDescriptions;
 
@@ -44,16 +41,16 @@ std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions()
     return attributeDescriptions;
 }
 
-//public
-QuadVertexData::QuadVertexData()
+VkVertexInputBindingDescription QuadVertexData::getBindingDescription()
 {
-    indexBufferObject = &indexBuffer;
-    indexCount = 6;
-    indexType = VK_INDEX_TYPE_UINT16;
-    vertexBufferObject = &vertexBuffer;
-}
+    VkVertexInputBindingDescription bindingDescription = {};
 
-QuadVertexData::~QuadVertexData() {}
+    bindingDescription.binding = 0;
+    bindingDescription.stride = sizeof(Vertex);
+    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    return bindingDescription;
+}
 
 void QuadVertexData::init(LogicalDevice logicalDevice, CommandPool commandPool)
 {

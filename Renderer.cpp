@@ -1,12 +1,20 @@
 #include "Renderer.h"
 
+#include "Types.h"
 #include "WindowManager.h"
 
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 //public
-Renderer::Renderer() {}
+Renderer::Renderer()
+{
+    viewMatrix = glm::lookAt(glm::vec3(0.0f, 3.0f, -7.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
 Renderer::~Renderer() {}
 
 void Renderer::create()
@@ -16,25 +24,12 @@ void Renderer::create()
 	logicalDevice.create(physicalDevice);
 	commandPool.create(logicalDevice);
 	createSwapChainObjects();
-	graphicsPipelinePostProcess.create(logicalDevice, swapChain.getRenderPass().getRenderPass());
-
-	uboOrthoProjection.create(logicalDevice);
-	uboOrthoProjection.update(logicalDevice, HEIGHT, WIDTH, 1.0f, 96.0f);
-
-    panel.init(logicalDevice, commandPool);
-
-    descriptorSetPostProcess.create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthoProjection);
 }
 
 void Renderer::destroy()
 {
     waitForDeviceIdle();
 
-    panel.deinit(logicalDevice);
-
-	uboOrthoProjection.destroy(logicalDevice);
-
-	graphicsPipelinePostProcess.destroy(logicalDevice);
 	destroySwapChainObjects();
 	commandPool.destroy(logicalDevice);
 	logicalDevice.destroy();
@@ -59,6 +54,12 @@ void Renderer::prepare()
         if (VK_SUCCESS == vkBeginCommandBuffer(commandBuffer, &beginInfo))
         {
             //ratracing commands here
+            renderPassMultiSample.beginRenderPass(HEIGHT,
+                WIDTH,
+                fbosMultiSample[nextImageIndex].getFramebuffer(),
+                commandBuffer);
+            drawStaticModelPBR(cerberusRT);
+            vkCmdEndRenderPass(commandBuffer);
         }
         else
         {
@@ -117,7 +118,7 @@ void Renderer::submit()
 void Renderer::waitForDeviceIdle() { vkDeviceWaitIdle(logicalDevice.getDevice()); }
 
 //private
-void Renderer::addDrawCommands(VkDescriptorSet ds, Pipeline* gp, void* pc, uint32_t pcSize, VertexData* vertexData)
+void Renderer::addDrawCommands(VkDescriptorSet ds, GraphicsPipeline* gp, void* pc, uint32_t pcSize, VertexData* vertexData)
 {
     int nextImageIndex = swapChain.getNextImageIndex();
     VkCommandBuffer commandBuffer = swapChain.getCommandBuffers()[nextImageIndex].getCommandBuffer();
@@ -140,10 +141,74 @@ void Renderer::addDrawCommands(VkDescriptorSet ds, Pipeline* gp, void* pc, uint3
 void Renderer::createSwapChainObjects()
 {
 	swapChain.create(logicalDevice, commandPool);
+    fbosMultiSample.resize(swapChain.getFramebuffers().size());
+    renderPassMultiSample.create(logicalDevice, VK_FORMAT_R32G32B32A32_SFLOAT);
+
+    for (size_t i = 0; i < fbosMultiSample.size(); i++)
+    {
+        fbosMultiSample[i] = FramebufferObjectMultiSample(HEIGHT, WIDTH, VK_FORMAT_R32G32B32A32_SFLOAT);
+        fbosMultiSample[i].create(logicalDevice, &renderPassMultiSample);
+    }
+
+    graphicsPipelinePBR.create(logicalDevice, renderPassMultiSample.getRenderPass());
+    graphicsPipelinePostProcess.create(logicalDevice, swapChain.getRenderPass().getRenderPass());
+
+    panel.init(logicalDevice, commandPool);
+    cerberusRT.init(logicalDevice, commandPool);
+
+    uboOrthographic.create(logicalDevice);
+    uboOrthographic.update(logicalDevice, HEIGHT, WIDTH, 1.0f, 96.0f);
+    uboPerspective.create(logicalDevice);
+    uboPerspective.update(logicalDevice, HEIGHT, WIDTH, 1.0f, 96.0f);
+    uboLighting.create(logicalDevice);
+    PositionalLight positionalLight0 = {};
+    positionalLight0.attenuation = glm::vec3(1, 0.14f, 0.07f);
+    positionalLight0.color = glm::vec3(5);
+    positionalLight0.position = glm::vec3(-1, 0, -1);
+    PositionalLight positionalLight1 = {};
+    positionalLight1.attenuation = glm::vec3(1, 0.14f, 0.07f);
+    positionalLight1.color = glm::vec3(5);
+    positionalLight1.position = glm::vec3(1, 0, -1);
+    PositionalLight positionalLights[2] = { positionalLight0, positionalLight1 };
+    DirectionalLight directionalLight = {};
+    directionalLight.color = glm::vec3(1, 1, 1);
+    directionalLight.direction = glm::vec3(-10, -5, 0);
+    uboLighting.update(logicalDevice, directionalLight, positionalLights);
+    uboStaticModel.create(logicalDevice);
+    uboStaticModel.update(logicalDevice, viewMatrix, cerberusRT.prepareModelMatrix(), cerberusRT.prepareModelMatrix());
+
+    descriptorSetPBR.create(logicalDevice, &graphicsPipelinePBR, &uboPerspective, &uboLighting, &uboStaticModel, &cerberusRT);
+
+    descriptorSetPostProcess.resize(swapChain.getFramebuffers().size());
+
+    for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
+    {
+        Texture t = fbosMultiSample[i].getColorAttachment();
+        descriptorSetPostProcess[i] = DescriptorSetPostProcess();
+        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
+    }
 }
 
 void Renderer::destroySwapChainObjects()
 {
+    descriptorSetPBR.destroy(logicalDevice, &graphicsPipelinePBR);
+
+    for (DescriptorSetPostProcess dspp : descriptorSetPostProcess) { dspp.destroy(logicalDevice, &graphicsPipelinePostProcess); }
+    descriptorSetPostProcess.clear();
+
+    cerberusRT.deinit(logicalDevice);
+    panel.deinit(logicalDevice);
+
+    uboLighting.destroy(logicalDevice);
+    uboStaticModel.destroy(logicalDevice);
+    uboPerspective.destroy(logicalDevice);
+    uboOrthographic.destroy(logicalDevice);
+
+    graphicsPipelinePostProcess.destroy(logicalDevice);
+    graphicsPipelinePBR.destroy(logicalDevice);
+    for (FramebufferObjectMultiSample fboms : fbosMultiSample) { fboms.destroy(logicalDevice); }
+    fbosMultiSample.clear();
+    renderPassMultiSample.destroy(logicalDevice);
 	swapChain.destroy(logicalDevice, commandPool);
 }
 
@@ -155,7 +220,14 @@ void Renderer::drawPostProcess()
     panel.setScale(glm::vec3(WIDTH, HEIGHT, 1));
     pc = panel.prepareModelMatrix();
 
-    addDrawCommands(descriptorSetPostProcess.getDescriptorSet(), &graphicsPipelinePostProcess, &pc, sizeof(pc), panel.getVertexData());
+    addDrawCommands(descriptorSetPostProcess[swapChain.getNextImageIndex()].getDescriptorSet(), &graphicsPipelinePostProcess, &pc, sizeof(pc), panel.getVertexData());
+}
+
+void Renderer::drawStaticModelPBR(ModelRT staticModelPBR)
+{
+    glm::vec3 pc(0, 3, -7);
+
+    addDrawCommands(descriptorSetPBR.getDescriptorSet(), &graphicsPipelinePBR, &pc, sizeof(pc), staticModelPBR.getVertexData());
 }
 
 void Renderer::recreateSwapChain()

@@ -85,6 +85,18 @@
     <Filter Include="Source Files\Renderer\Model">
       <UniqueIdentifier>{0bb717d2-2272-4433-a38d-24bbe8810383}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics\PBR">
+      <UniqueIdentifier>{8a423972-cc2d-401d-bd2b-bdbd9cd502fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR">
+      <UniqueIdentifier>{9e4ab95a-8072-400b-8caf-bf7649ff9137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Framebuffer">
+      <UniqueIdentifier>{26d8d91c-0491-47b8-ab14-6ba74d7d056a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Framebuffer">
+      <UniqueIdentifier>{69d9d256-1558-45e5-88f2-404d73abe739}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -106,9 +118,6 @@
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CommandPool.cpp">
-      <Filter>Source Files\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Framebuffer.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="PhysicalDevice.cpp">
@@ -204,6 +213,54 @@
     <ClCompile Include="QuadBufferObject.cpp">
       <Filter>Source Files\Renderer\Buffer\Transfer</Filter>
     </ClCompile>
+    <ClCompile Include="ModelRT.cpp">
+      <Filter>Source Files\Renderer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RGBAResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CerberusRT.cpp">
+      <Filter>Source Files\Renderer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMeshVertexData.cpp">
+      <Filter>Source Files\Renderer\VertexData</Filter>
+    </ClCompile>
+    <ClCompile Include="IntegerBufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer\Transfer</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMeshBufferObject.cpp">
+      <Filter>Source Files\Renderer\Buffer\Transfer</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelinePBR.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesPBR.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPassMultiSample.cpp">
+      <Filter>Source Files\Renderer\RenderPass</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetPBR.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferPBRLighting.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferStaticModelPBR.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="Framebuffer.cpp">
+      <Filter>Source Files\Renderer\Framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="FramebufferObject.cpp">
+      <Filter>Source Files\Renderer\Framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="FramebufferObjectMultiSample.cpp">
+      <Filter>Source Files\Renderer\Framebuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.h">
@@ -222,9 +279,6 @@
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="CommandPool.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Framebuffer.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="PhysicalDevice.h">
@@ -322,6 +376,54 @@
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelRT.h">
+      <Filter>Header Files\Renderer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RGBAResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CerberusRT.h">
+      <Filter>Header Files\Renderer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMeshVertexData.h">
+      <Filter>Header Files\Renderer\VertexData</Filter>
+    </ClInclude>
+    <ClInclude Include="IntegerBufferObject.h">
+      <Filter>Header Files\Renderer\Buffer\Transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMeshBufferObject.h">
+      <Filter>Header Files\Renderer\Buffer\Transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipelinePBR.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesPBR.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPassMultiSample.h">
+      <Filter>Header Files\Renderer\RenderPass</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetPBR.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferPBRLighting.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferStaticModelPBR.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="Framebuffer.h">
+      <Filter>Header Files\Renderer\Framebuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="FramebufferObject.h">
+      <Filter>Header Files\Renderer\Framebuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="FramebufferObjectMultiSample.h">
+      <Filter>Header Files\Renderer\Framebuffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

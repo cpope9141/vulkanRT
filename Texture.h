@@ -1,6 +1,8 @@
 #pragma once
+#include "CommandPool.h"
 #include "Image.h"
 #include "ImageView.h"
+#include "RGBAResource.h"
 #include "Sampler.h"
 #include "vulkan/vulkan_core.h"
 
@@ -15,10 +17,11 @@ public:
 		uint32_t width,
 		VkFormat format,
 		VkImageAspectFlags imageAspect,
-		VkImageUsageFlagBits usage,
+		VkImageUsageFlags usage,
 		VkSampleCountFlagBits sampleCount,
 		bool enableAnisotropy,
 		VkBorderColor borderColor);
+	void create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource);
 	void destroy(LogicalDevice logicalDevice);
 	uint32_t getHeight();
 	Image getImage();

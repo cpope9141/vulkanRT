@@ -11,22 +11,27 @@ DescriptorSetPostProcess::DescriptorSetPostProcess()
 
 DescriptorSetPostProcess::~DescriptorSetPostProcess() {}
 
-void DescriptorSetPostProcess::create(LogicalDevice logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo) {
-    //this->texture = texture;
+void DescriptorSetPostProcess::create(LogicalDevice logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo, Texture* texture)
+{
+    this->texture = texture;
     this->ubo = ubo;
 
     allocateDescriptorSet(logicalDevice, gp->getDescriptorSetLayout(), gp->getDescriptorPool());
+}
+
+void DescriptorSetPostProcess::destroy(LogicalDevice logicalDevice, GraphicsPipeline* gp)
+{
+    vkFreeDescriptorSets(logicalDevice.getDevice(), gp->getDescriptorPool(), 1, &descriptorSet);
 }
 
 //protected
 void DescriptorSetPostProcess::updateDescriptorSet(LogicalDevice logicalDevice)
 {
     VkDescriptorBufferInfo descriptorBufferInfo = createDescriptorBufferInfo(ubo, 0);
-    //VkDescriptorImageInfo descriptorImageInfo = createDescriptorImageInfo(texture, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    VkDescriptorImageInfo descriptorImageInfo = createDescriptorImageInfo(texture, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
     std::vector<VkWriteDescriptorSet> writeDescriptorSets;
-    //writeDescriptorSets.resize(2);
-    writeDescriptorSets.resize(1);
+    writeDescriptorSets.resize(2);
 
     writeDescriptorSets[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[0].dstBinding = 0;
@@ -36,7 +41,6 @@ void DescriptorSetPostProcess::updateDescriptorSet(LogicalDevice logicalDevice)
     writeDescriptorSets[0].descriptorCount = 1;
     writeDescriptorSets[0].pBufferInfo = &descriptorBufferInfo;
 
-    /*
     writeDescriptorSets[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[1].dstBinding = 1;
     writeDescriptorSets[1].dstArrayElement = 0;
@@ -44,7 +48,6 @@ void DescriptorSetPostProcess::updateDescriptorSet(LogicalDevice logicalDevice)
     writeDescriptorSets[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     writeDescriptorSets[1].descriptorCount = 1;
     writeDescriptorSets[1].pImageInfo = &descriptorImageInfo;
-    */
 
     vkUpdateDescriptorSets(logicalDevice.getDevice(), writeDescriptorSets.size(), writeDescriptorSets.data(), 0, nullptr);
 }

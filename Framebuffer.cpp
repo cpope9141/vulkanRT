@@ -25,7 +25,8 @@ void Framebuffer::create(LogicalDevice logicalDevice, VkRenderPass renderPass, V
     framebufferInfo.attachmentCount = 1;
     framebufferInfo.pAttachments = &imageView;
 
-    if (VK_SUCCESS != vkCreateFramebuffer(logicalDevice.getDevice(), &framebufferInfo, nullptr, &framebuffer)) {
+    if (VK_SUCCESS != vkCreateFramebuffer(logicalDevice.getDevice(), &framebufferInfo, nullptr, &framebuffer))
+    {
         throw std::runtime_error("Failed to create framebuffer");
     }
 }
@@ -36,8 +37,8 @@ void Framebuffer::create(LogicalDevice logicalDevice, VkRenderPass renderPass, u
     std::vector<VkImageView> attachments(attachmentCount, VK_NULL_HANDLE);
     VkFramebufferCreateInfo framebufferInfo = {};
 
-    attachments[0] = imageView;//put(0, imageView);
-    attachments[1] = depthView;//put(1, depthView);
+    attachments[0] = imageView;
+    attachments[1] = depthView;
 
     if (ATTACHMENT_COUNT_MULTI_SAMPLE == attachmentCount) {
         attachments[ATTACHMENT_COUNT_MULTI_SAMPLE - 1] = resolveView;

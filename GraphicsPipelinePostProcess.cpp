@@ -1,5 +1,7 @@
 #include "GraphicsPipelinePostProcess.h"
 
+#include "QuadVertexData.h"
+
 #include <iostream>
 
 const uint8_t PUSH_CONSTANT_SIZE = 16 * sizeof(float);
@@ -20,20 +22,20 @@ VkShaderStageFlagBits GraphicsPipelinePostProcess::getPushConstantStages() { ret
 void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevice)
 {
     std::vector<VkDescriptorPoolSize> poolSizes;
-    //poolSizes.resize(2);
-    poolSizes.resize(1);
+    poolSizes.resize(2);
     VkDescriptorPoolCreateInfo poolInfo = {};
 
     poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     poolSizes[0].descriptorCount = 1;
     
-    //poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    //poolSizes[1].descriptorCount = 1;
+    poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    poolSizes[1].descriptorCount = 1;
 
     poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
     poolInfo.poolSizeCount = poolSizes.size();
     poolInfo.pPoolSizes = poolSizes.data();
-    poolInfo.maxSets = 1;
+    poolInfo.maxSets = 10;
 
     if (VK_SUCCESS != vkCreateDescriptorPool(logicalDevice.getDevice(), &poolInfo, nullptr, &descriptorPool))
     {
@@ -44,8 +46,7 @@ void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevi
 void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
-    //bindings.resize(2);
-    bindings.resize(1);
+    bindings.resize(2);
     VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 
     bindings[0].binding = 0;
@@ -54,11 +55,11 @@ void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice logica
     bindings[0].pImmutableSamplers = nullptr;
     bindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
-    //bindings[1].binding = 1;
-    //bindings[1].descriptorCount = 1;
-    //bindings[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    //bindings[1].pImmutableSamplers = nullptr;
-    //bindings[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+    bindings[1].binding = 1;
+    bindings[1].descriptorCount = 1;
+    bindings[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindings[1].pImmutableSamplers = nullptr;
+    bindings[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
 
     layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     layoutInfo.bindingCount = bindings.size();
@@ -90,3 +91,6 @@ void GraphicsPipelinePostProcess::createPipelineLayout(LogicalDevice logicalDevi
         throw std::runtime_error("Failed to create pipeline layout");
     }
 }
+
+std::vector<VkVertexInputAttributeDescription> GraphicsPipelinePostProcess::getAttributeDescriptions() { return QuadVertexData::getAttributeDescriptions(); }
+VkVertexInputBindingDescription GraphicsPipelinePostProcess::getBindingDescription() { return QuadVertexData::getBindingDescription(); }

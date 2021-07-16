@@ -15,6 +15,8 @@ protected:
 	virtual void createDescriptorPool(LogicalDevice logicalDevice) override;
 	virtual void createDescriptorSetLayout(LogicalDevice logicalDevice) override;
 	virtual void createPipelineLayout(LogicalDevice logicalDevice) override;
+	virtual std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions() override;
+	virtual VkVertexInputBindingDescription getBindingDescription() override;
 
 private:
 	ShaderStagesPostProcess shaderStagesPostProcess;

@@ -116,14 +116,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.162.1\Include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.162.1\Include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glm;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\stb-master;C:\Users\chris\source\repos\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\lib-vc2019;C:\VulkanSDK\1.2.162.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\lib-vc2019;C:\VulkanSDK\1.2.162.1\Lib;C:\Users\chris\source\repos\assimp\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.162.1\Include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.162.1\Include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\include;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glm;C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\stb-master;C:\Users\chris\source\repos\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -142,27 +142,35 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\lib-vc2019;C:\VulkanSDK\1.2.162.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Libraries\glfw-3.3.3.bin.WIN64\lib-vc2019;C:\VulkanSDK\1.2.162.1\Lib;C:\Users\chris\source\repos\assimp\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BufferObject.cpp" />
+    <ClCompile Include="CerberusRT.cpp" />
     <ClCompile Include="CommandBuffer.cpp" />
     <ClCompile Include="CommandPool.cpp" />
     <ClCompile Include="DescriptorSet.cpp" />
+    <ClCompile Include="DescriptorSetPBR.cpp" />
     <ClCompile Include="DescriptorSetPostProcess.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
+    <ClCompile Include="FramebufferObject.cpp" />
+    <ClCompile Include="FramebufferObjectMultiSample.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
+    <ClCompile Include="GraphicsPipelinePBR.cpp" />
     <ClCompile Include="GraphicsPipelinePostProcess.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageView.cpp" />
     <ClCompile Include="Instance.cpp" />
+    <ClCompile Include="IntegerBufferObject.cpp" />
     <ClCompile Include="LogicalDevice.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MemoryUtilities.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
+    <ClCompile Include="ModelRT.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PhysicalDevice.cpp" />
     <ClCompile Include="Pipeline.cpp" />
@@ -170,18 +178,25 @@
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
+    <ClCompile Include="RenderPassMultiSample.cpp" />
     <ClCompile Include="RenderPassPresentation.cpp" />
+    <ClCompile Include="RGBAResource.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="ShaderSPIRV.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
     <ClCompile Include="ShaderStagesGraphics.cpp" />
+    <ClCompile Include="ShaderStagesPBR.cpp" />
     <ClCompile Include="ShaderStagesPostProcess.cpp" />
     <ClCompile Include="ShortBufferObject.cpp" />
+    <ClCompile Include="StaticMeshBufferObject.cpp" />
+    <ClCompile Include="StaticMeshVertexData.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransferBufferObject.cpp" />
     <ClCompile Include="UniformBufferObject.cpp" />
+    <ClCompile Include="UniformBufferPBRLighting.cpp" />
     <ClCompile Include="UniformBufferProjection.cpp" />
+    <ClCompile Include="UniformBufferStaticModelPBR.cpp" />
     <ClCompile Include="ValidationLayer.cpp" />
     <ClCompile Include="QuadVertexData.cpp" />
     <ClCompile Include="VertexData.cpp" />
@@ -189,20 +204,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BufferObject.h" />
+    <ClInclude Include="CerberusRT.h" />
     <ClInclude Include="CommandBuffer.h" />
     <ClInclude Include="CommandPool.h" />
     <ClInclude Include="DescriptorSet.h" />
+    <ClInclude Include="DescriptorSetPBR.h" />
     <ClInclude Include="DescriptorSetPostProcess.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Framebuffer.h" />
+    <ClInclude Include="FramebufferObject.h" />
+    <ClInclude Include="FramebufferObjectMultiSample.h" />
     <ClInclude Include="GraphicsPipeline.h" />
+    <ClInclude Include="GraphicsPipelinePBR.h" />
     <ClInclude Include="GraphicsPipelinePostProcess.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageView.h" />
     <ClInclude Include="Instance.h" />
+    <ClInclude Include="IntegerBufferObject.h" />
     <ClInclude Include="LogicalDevice.h" />
     <ClInclude Include="MemoryUtilities.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="ModelRT.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PhysicalDevice.h" />
     <ClInclude Include="Pipeline.h" />
@@ -210,19 +233,26 @@
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
+    <ClInclude Include="RenderPassMultiSample.h" />
     <ClInclude Include="RenderPassPresentation.h" />
+    <ClInclude Include="RGBAResource.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="ShaderSPIRV.h" />
     <ClInclude Include="ShaderStages.h" />
     <ClInclude Include="ShaderStagesGraphics.h" />
+    <ClInclude Include="ShaderStagesPBR.h" />
     <ClInclude Include="ShaderStagesPostProcess.h" />
     <ClInclude Include="ShortBufferObject.h" />
+    <ClInclude Include="StaticMeshBufferObject.h" />
+    <ClInclude Include="StaticMeshVertexData.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransferBufferObject.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UniformBufferObject.h" />
+    <ClInclude Include="UniformBufferPBRLighting.h" />
     <ClInclude Include="UniformBufferProjection.h" />
+    <ClInclude Include="UniformBufferStaticModelPBR.h" />
     <ClInclude Include="ValidationLayer.h" />
     <ClInclude Include="QuadVertexData.h" />
     <ClInclude Include="VertexData.h" />

@@ -15,7 +15,7 @@ void Texture::create(LogicalDevice logicalDevice,
     uint32_t width,
     VkFormat format,
     VkImageAspectFlags imageAspect,
-    VkImageUsageFlagBits usage,
+    VkImageUsageFlags usage,
     VkSampleCountFlagBits sampleCount,
     bool enableAnisotropy,
     VkBorderColor borderColor)
@@ -26,6 +26,16 @@ void Texture::create(LogicalDevice logicalDevice,
 
     this->height = height;
     this->width = width;
+}
+
+void Texture::create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource)
+{
+    image.create(logicalDevice, commandPool, resource);
+    imageView.create(logicalDevice, image.getImage(), VK_IMAGE_VIEW_TYPE_2D, image.getMipLevels(), VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, 1);
+    sampler.create(logicalDevice, filter, image.getMipLevels(), VK_FORMAT_R8G8B8A8_UNORM, true, VK_BORDER_COLOR_INT_OPAQUE_BLACK, VK_COMPARE_OP_ALWAYS);
+
+    this->height = static_cast<uint32_t>(resource.height);
+    this->width = static_cast<uint32_t>(resource.width);
 }
 
 void Texture::destroy(LogicalDevice logicalDevice)
