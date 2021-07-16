@@ -14,13 +14,17 @@ const std::vector<Vertex> VERTICES =
 //public
 QuadVertexData::QuadVertexData()
 {
-    indexBufferObject = &indexBuffer;
+    indexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
     indexCount = 6;
     indexType = VK_INDEX_TYPE_UINT16;
-    vertexBufferObject = &vertexBuffer;
+    vertexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 }
 
-QuadVertexData::~QuadVertexData() {}
+QuadVertexData::~QuadVertexData()
+{
+    delete indexBufferObject;
+    delete vertexBufferObject;
+}
 
 std::vector<VkVertexInputAttributeDescription> QuadVertexData::getAttributeDescriptions()
 {
@@ -54,6 +58,6 @@ VkVertexInputBindingDescription QuadVertexData::getBindingDescription()
 
 void QuadVertexData::init(LogicalDevice logicalDevice, CommandPool commandPool)
 {
-    indexBuffer.create(logicalDevice, commandPool, INDICES, 6 * sizeof(uint16_t));
-    vertexBuffer.create(logicalDevice, commandPool, VERTICES.data(), VERTICES.size() * sizeof(Vertex));
+    indexBufferObject->create(logicalDevice, commandPool, INDICES, 6 * sizeof(uint16_t));
+    vertexBufferObject->create(logicalDevice, commandPool, VERTICES.data(), VERTICES.size() * sizeof(Vertex));
 }

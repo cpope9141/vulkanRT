@@ -7,12 +7,16 @@
 //public
 StaticMeshVertexData::StaticMeshVertexData()
 {
-    indexBufferObject = &indexBuffer;
+    indexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
     indexType = VK_INDEX_TYPE_UINT32;
-    vertexBufferObject = &vertexBuffer;
+    vertexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 }
 
-StaticMeshVertexData::~StaticMeshVertexData() {}
+StaticMeshVertexData::~StaticMeshVertexData()
+{
+    delete indexBufferObject;
+    delete vertexBufferObject;
+}
 
 std::vector<VkVertexInputAttributeDescription> StaticMeshVertexData::getAttributeDescriptions()
 {
@@ -55,8 +59,8 @@ VkVertexInputBindingDescription StaticMeshVertexData::getBindingDescription()
 
 void StaticMeshVertexData::init(LogicalDevice logicalDevice, CommandPool commandPool, ModelResource& modelResource)
 {
-    indexBuffer.create(logicalDevice, commandPool, modelResource.indices.data(), modelResource.indices.size() * sizeof(uint32_t));
-    vertexBuffer.create(logicalDevice, commandPool, modelResource.vertices.data(), modelResource.vertices.size() * sizeof(StaticMeshVertex));
+    indexBufferObject->create(logicalDevice, commandPool, modelResource.indices.data(), modelResource.indices.size() * sizeof(uint32_t));
+    vertexBufferObject->create(logicalDevice, commandPool, modelResource.vertices.data(), modelResource.vertices.size() * sizeof(StaticMeshVertex));
 
     indexCount = modelResource.indices.size();
 }

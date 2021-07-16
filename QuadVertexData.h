@@ -1,10 +1,6 @@
 #pragma once
 #include "VertexData.h"
 
-#include "QuadBufferObject.h"
-#include "ShortBufferObject.h"
-#include "vulkan/vulkan_core.h"
-
 #include <vector>
 
 class QuadVertexData : public VertexData
@@ -17,8 +13,4 @@ public:
 	static VkVertexInputBindingDescription getBindingDescription();
 
 	void init(LogicalDevice logicalDevice, CommandPool commandPool);
-
-private:
-	ShortBufferObject indexBuffer;
-	QuadBufferObject vertexBuffer;
 };

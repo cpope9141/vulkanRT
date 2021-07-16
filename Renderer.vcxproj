@@ -164,7 +164,6 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageView.cpp" />
     <ClCompile Include="Instance.cpp" />
-    <ClCompile Include="IntegerBufferObject.cpp" />
     <ClCompile Include="LogicalDevice.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MemoryUtilities.cpp" />
@@ -174,7 +173,6 @@
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PhysicalDevice.cpp" />
     <ClCompile Include="Pipeline.cpp" />
-    <ClCompile Include="QuadBufferObject.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
@@ -187,8 +185,6 @@
     <ClCompile Include="ShaderStagesGraphics.cpp" />
     <ClCompile Include="ShaderStagesPBR.cpp" />
     <ClCompile Include="ShaderStagesPostProcess.cpp" />
-    <ClCompile Include="ShortBufferObject.cpp" />
-    <ClCompile Include="StaticMeshBufferObject.cpp" />
     <ClCompile Include="StaticMeshVertexData.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -220,7 +216,6 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageView.h" />
     <ClInclude Include="Instance.h" />
-    <ClInclude Include="IntegerBufferObject.h" />
     <ClInclude Include="LogicalDevice.h" />
     <ClInclude Include="MemoryUtilities.h" />
     <ClInclude Include="Model.h" />
@@ -229,7 +224,6 @@
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PhysicalDevice.h" />
     <ClInclude Include="Pipeline.h" />
-    <ClInclude Include="QuadBufferObject.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
@@ -242,8 +236,6 @@
     <ClInclude Include="ShaderStagesGraphics.h" />
     <ClInclude Include="ShaderStagesPBR.h" />
     <ClInclude Include="ShaderStagesPostProcess.h" />
-    <ClInclude Include="ShortBufferObject.h" />
-    <ClInclude Include="StaticMeshBufferObject.h" />
     <ClInclude Include="StaticMeshVertexData.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="Texture.h" />
