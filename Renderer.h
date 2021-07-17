@@ -61,8 +61,12 @@ private:
 
 	void addDrawCommands(VkDescriptorSet ds, GraphicsPipeline* gp, void* pc, uint32_t pcSize, VertexData* vertexData);
 	void createSwapChainObjects();
+	void createUniformBuffers();
 	void destroySwapChainObjects();
+	void destroyUniformBuffers();
 	void drawPostProcess();
 	void drawStaticModelPBR(ModelRT staticModelPBR);
+	void loadAssets();
 	void recreateSwapChain();
+	void releaseAssets();
 };

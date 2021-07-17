@@ -23,6 +23,8 @@ void Renderer::create()
 	physicalDevice.selectPhysicalDevice(instance.getInstance());
 	logicalDevice.create(physicalDevice);
 	commandPool.create(logicalDevice);
+    loadAssets();
+    createUniformBuffers();
 	createSwapChainObjects();
 }
 
@@ -31,6 +33,8 @@ void Renderer::destroy()
     waitForDeviceIdle();
 
 	destroySwapChainObjects();
+    destroyUniformBuffers();
+    releaseAssets();
 	commandPool.destroy(logicalDevice);
 	logicalDevice.destroy();
 	instance.destroy();
@@ -153,9 +157,19 @@ void Renderer::createSwapChainObjects()
     graphicsPipelinePBR.create(logicalDevice, renderPassMultiSample.getRenderPass());
     graphicsPipelinePostProcess.create(logicalDevice, swapChain.getRenderPass().getRenderPass());
 
-    panel.init(logicalDevice, commandPool);
-    cerberusRT.init(logicalDevice, commandPool);
+    descriptorSetPBR.create(logicalDevice, &graphicsPipelinePBR, &uboPerspective, &uboLighting, &uboStaticModel, &cerberusRT);
+    descriptorSetPostProcess.resize(swapChain.getFramebuffers().size());
 
+    for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
+    {
+        Texture t = fbosMultiSample[i].getColorAttachment();
+        descriptorSetPostProcess[i] = DescriptorSetPostProcess();
+        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
+    }
+}
+
+void Renderer::createUniformBuffers()
+{
     uboOrthographic.create(logicalDevice);
     uboOrthographic.update(logicalDevice, HEIGHT, WIDTH, 1.0f, 96.0f);
     uboPerspective.create(logicalDevice);
@@ -176,17 +190,6 @@ void Renderer::createSwapChainObjects()
     uboLighting.update(logicalDevice, directionalLight, positionalLights);
     uboStaticModel.create(logicalDevice);
     uboStaticModel.update(logicalDevice, viewMatrix, cerberusRT.prepareModelMatrix(), cerberusRT.prepareModelMatrix());
-
-    descriptorSetPBR.create(logicalDevice, &graphicsPipelinePBR, &uboPerspective, &uboLighting, &uboStaticModel, &cerberusRT);
-
-    descriptorSetPostProcess.resize(swapChain.getFramebuffers().size());
-
-    for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
-    {
-        Texture t = fbosMultiSample[i].getColorAttachment();
-        descriptorSetPostProcess[i] = DescriptorSetPostProcess();
-        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
-    }
 }
 
 void Renderer::destroySwapChainObjects()
@@ -196,20 +199,20 @@ void Renderer::destroySwapChainObjects()
     for (DescriptorSetPostProcess dspp : descriptorSetPostProcess) { dspp.destroy(logicalDevice, &graphicsPipelinePostProcess); }
     descriptorSetPostProcess.clear();
 
-    cerberusRT.deinit(logicalDevice);
-    panel.deinit(logicalDevice);
-
-    uboLighting.destroy(logicalDevice);
-    uboStaticModel.destroy(logicalDevice);
-    uboPerspective.destroy(logicalDevice);
-    uboOrthographic.destroy(logicalDevice);
-
     graphicsPipelinePostProcess.destroy(logicalDevice);
     graphicsPipelinePBR.destroy(logicalDevice);
     for (FramebufferObjectMultiSample fboms : fbosMultiSample) { fboms.destroy(logicalDevice); }
     fbosMultiSample.clear();
     renderPassMultiSample.destroy(logicalDevice);
 	swapChain.destroy(logicalDevice, commandPool);
+}
+
+void Renderer::destroyUniformBuffers()
+{
+    uboLighting.destroy(logicalDevice);
+    uboStaticModel.destroy(logicalDevice);
+    uboPerspective.destroy(logicalDevice);
+    uboOrthographic.destroy(logicalDevice);
 }
 
 void Renderer::drawPostProcess()
@@ -230,6 +233,12 @@ void Renderer::drawStaticModelPBR(ModelRT staticModelPBR)
     addDrawCommands(descriptorSetPBR.getDescriptorSet(), &graphicsPipelinePBR, &pc, sizeof(pc), staticModelPBR.getVertexData());
 }
 
+void Renderer::loadAssets()
+{
+    panel.init(logicalDevice, commandPool);
+    cerberusRT.init(logicalDevice, commandPool);
+}
+
 void Renderer::recreateSwapChain()
 {
     int height = 0;
@@ -243,4 +252,10 @@ void Renderer::recreateSwapChain()
     waitForDeviceIdle();
     destroySwapChainObjects();
     createSwapChainObjects();
+}
+
+void Renderer::releaseAssets()
+{
+    cerberusRT.deinit(logicalDevice);
+    panel.deinit(logicalDevice);
 }
