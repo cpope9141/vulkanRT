@@ -8,6 +8,12 @@
 
 #include <vector>
 
+struct CubeVertex
+{
+    glm::vec3 position;
+    glm::vec2 texelCoords;
+};
+
 struct Vertex
 {
 	glm::vec2 position;
@@ -44,4 +50,11 @@ struct PBRLighting
 {
     alignas(16) DirectionalLight directionalLight;
     alignas(16) PositionalLight positionalLights[2];
+};
+
+struct HDRResource
+{
+    int height;
+    float* imageHDR;
+    int width;
 };

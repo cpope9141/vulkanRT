@@ -3,6 +3,7 @@
 
 #include "GraphicsPipeline.h"
 #include "ModelRT.h"
+#include "PrecomputedIBL.h"
 #include "Texture.h"
 #include "UniformBufferPBRLighting.h"
 #include "UniformBufferProjection.h"
@@ -19,7 +20,7 @@ public:
 		UniformBufferProjection* uboProjection,
 		UniformBufferPBRLighting* uboLighting,
 		UniformBufferStaticModelPBR* uboStaticModel,
-		//PrecomputedIBL iblGeneratedMaps,
+		PrecomputedIBL* precomputedIBL,
 		ModelRT* modelRT);
 	void destroy(LogicalDevice logicalDevice, GraphicsPipeline* gp);
 
@@ -30,7 +31,7 @@ private:
 	Texture* albedo;
 	Texture* ao;
 	//Texture integratedBRDF;
-	//CubeMap irradiance;
+	CubeMap* irradiance;
 	Texture* metallic;
 	Texture* normal;
 	//CubeMap prefiltered;

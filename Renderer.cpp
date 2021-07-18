@@ -157,7 +157,7 @@ void Renderer::createSwapChainObjects()
     graphicsPipelinePBR.create(logicalDevice, renderPassMultiSample.getRenderPass());
     graphicsPipelinePostProcess.create(logicalDevice, swapChain.getRenderPass().getRenderPass());
 
-    descriptorSetPBR.create(logicalDevice, &graphicsPipelinePBR, &uboPerspective, &uboLighting, &uboStaticModel, &cerberusRT);
+    descriptorSetPBR.create(logicalDevice, &graphicsPipelinePBR, &uboPerspective, &uboLighting, &uboStaticModel, &precomputedIBL, &cerberusRT);
     descriptorSetPostProcess.resize(swapChain.getFramebuffers().size());
 
     for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
@@ -177,11 +177,11 @@ void Renderer::createUniformBuffers()
     uboLighting.create(logicalDevice);
     PositionalLight positionalLight0 = {};
     positionalLight0.attenuation = glm::vec3(1, 0.14f, 0.07f);
-    positionalLight0.color = glm::vec3(5);
+    positionalLight0.color = glm::vec3(1);
     positionalLight0.position = glm::vec3(-1, 0, -1);
     PositionalLight positionalLight1 = {};
     positionalLight1.attenuation = glm::vec3(1, 0.14f, 0.07f);
-    positionalLight1.color = glm::vec3(5);
+    positionalLight1.color = glm::vec3(1);
     positionalLight1.position = glm::vec3(1, 0, -1);
     PositionalLight positionalLights[2] = { positionalLight0, positionalLight1 };
     DirectionalLight directionalLight = {};
@@ -237,6 +237,7 @@ void Renderer::loadAssets()
 {
     panel.init(logicalDevice, commandPool);
     cerberusRT.init(logicalDevice, commandPool);
+    precomputedIBL.create(logicalDevice, commandPool);
 }
 
 void Renderer::recreateSwapChain()
@@ -256,6 +257,7 @@ void Renderer::recreateSwapChain()
 
 void Renderer::releaseAssets()
 {
+    precomputedIBL.destroy(logicalDevice);
     cerberusRT.deinit(logicalDevice);
     panel.deinit(logicalDevice);
 }

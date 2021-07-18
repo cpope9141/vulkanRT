@@ -1,7 +1,5 @@
 #include "StaticMeshVertexData.h"
 
-#include "Types.h"
-
 #include <iostream>
 
 //public

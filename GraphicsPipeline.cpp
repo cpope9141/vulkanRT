@@ -93,7 +93,8 @@ VkPipelineColorBlendStateCreateInfo GraphicsPipeline::colorBlendStateCreateInfo(
     return colorBlending;
 }
 
-VkPipelineDepthStencilStateCreateInfo GraphicsPipeline::depthStencilStateCreateInfo() {
+VkPipelineDepthStencilStateCreateInfo GraphicsPipeline::depthStencilStateCreateInfo()
+{
     VkPipelineDepthStencilStateCreateInfo depthStencil = {};
     depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     depthStencil.depthTestEnable = VK_TRUE;

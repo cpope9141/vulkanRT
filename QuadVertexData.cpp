@@ -2,7 +2,7 @@
 
 #include "Types.h"
 
-const uint16_t INDICES[] = { 0, 1, 3, 3, 1, 2 };
+const std::vector<uint16_t> INDICES = { 0, 1, 3, 3, 1, 2 };
 const std::vector<Vertex> VERTICES =
 {
     {{-0.5f, 0.5f}, {0.0f, 0.0f}},
@@ -15,7 +15,7 @@ const std::vector<Vertex> VERTICES =
 QuadVertexData::QuadVertexData()
 {
     indexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
-    indexCount = 6;
+    indexCount = INDICES.size();
     indexType = VK_INDEX_TYPE_UINT16;
     vertexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 }
@@ -58,6 +58,6 @@ VkVertexInputBindingDescription QuadVertexData::getBindingDescription()
 
 void QuadVertexData::init(LogicalDevice logicalDevice, CommandPool commandPool)
 {
-    indexBufferObject->create(logicalDevice, commandPool, INDICES, 6 * sizeof(uint16_t));
+    indexBufferObject->create(logicalDevice, commandPool, INDICES.data(), INDICES.size() * sizeof(uint16_t));
     vertexBufferObject->create(logicalDevice, commandPool, VERTICES.data(), VERTICES.size() * sizeof(Vertex));
 }

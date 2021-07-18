@@ -9,7 +9,7 @@ public:
 	~GraphicsPipelinePostProcess();
 
 	virtual uint8_t getPushConstantSize() override;
-	virtual VkShaderStageFlagBits getPushConstantStages() override;
+	virtual VkShaderStageFlags getPushConstantStages() override;
 
 protected:
 	virtual void createDescriptorPool(LogicalDevice logicalDevice) override;

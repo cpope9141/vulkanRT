@@ -16,12 +16,12 @@ public:
 protected:
 	VkPipelineColorBlendAttachmentState colorBlendAttachmentState();
 	VkPipelineColorBlendStateCreateInfo colorBlendStateCreateInfo(VkPipelineColorBlendAttachmentState& colorBlendAttachment);
-	VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo();
+	virtual VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo();
 	VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo(std::vector<VkDynamicState>& dynamicStates);
 	virtual std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions() = 0;
 	virtual VkVertexInputBindingDescription getBindingDescription() = 0;
 	virtual VkPipelineMultisampleStateCreateInfo multisamplingStateCreateInfo(VkSampleCountFlagBits samples);
-	VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo();
+	virtual VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo();
 	virtual VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo(VkVertexInputBindingDescription& bindingDescription, std::vector<VkVertexInputAttributeDescription>& attributeDescriptions);
 
 private:

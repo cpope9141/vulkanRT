@@ -36,11 +36,11 @@ layout(push_constant) uniform PushConstant {
 layout(binding = 3) uniform sampler2D albedoSampler;
 layout(binding = 4) uniform sampler2D aoSampler;
 //layout(binding = 5) uniform sampler2D integratedBRDFSampler;
-//layout(binding = 6) uniform samplerCube irradianceSampler;
-layout(binding = 5) uniform sampler2D metallicSampler;
-layout(binding = 6) uniform sampler2D normalSampler;
+layout(binding = 5) uniform samplerCube irradianceSampler;
+layout(binding = 6) uniform sampler2D metallicSampler;
+layout(binding = 7) uniform sampler2D normalSampler;
 //layout(binding = 9) uniform samplerCube prefilteredSampler;
-layout(binding = 7) uniform sampler2D roughnessSampler;
+layout(binding = 8) uniform sampler2D roughnessSampler;
 
 /*
  * inputs
@@ -58,7 +58,7 @@ layout(location = 0) out vec4 outputFragColor;
 /*
  * functions declarations
  */
-//vec3 ambientReflectance(vec3 N, vec3 R, float NdotV, vec3 F0, float metallicClamped, float roughnessClamped, vec3 albedo);
+vec3 ambientReflectance(vec3 N, vec3 R, float NdotV, vec3 F0, float metallicClamped, float roughnessClamped, vec3 albedo);
 vec3 calculateNormal();
 vec3 directReflectance(vec3 N, vec3 V, float NdotV, vec3 F0, float metallicClamped, float roughnessClamped, vec3 albedo);
 float distributionGGX(vec3 N, vec3 H, float roughness);
@@ -69,7 +69,6 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0, float roughness);
 /*
  * functions
  */
- /*
 vec3 ambientReflectance(vec3 N, vec3 R, float NdotV, vec3 F0, float metallicClamped, float roughnessClamped, vec3 albedo) {
     float ao = texture(aoSampler, inputTexelCoords).r;
     vec3 F = fresnelSchlick(NdotV, F0, roughnessClamped);    
@@ -81,15 +80,17 @@ vec3 ambientReflectance(vec3 N, vec3 R, float NdotV, vec3 F0, float metallicClam
     vec3 diffuse = irradiance * albedo;
     
     //specular component
+	/*
     const float MAX_REFLECTION_LOD = 9.0;
     float lod = roughnessClamped * MAX_REFLECTION_LOD;
     vec3 prefilteredColor = textureLod(prefilteredSampler, R, lod).rgb;       
     vec2 brdf = texture(integratedBRDFSampler, vec2(NdotV, roughnessClamped)).rg;
     vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
+	*/
+	vec3 specular = vec3(0.0);
 
     return (kD * diffuse + specular) * ao;
 }
-*/
 
 vec3 calculateNormal() {
     vec3 tangentSpaceNormal = texture(normalSampler, inputTexelCoords).xyz * 2.0 - 1.0;
@@ -168,7 +169,7 @@ void main() {
     vec3 F0 = mix(vec3(0.04), albedo, metallicClamped);//surface reflection at zero incidence
     float NdotV = clamp(dot(N, V), 0.0, 1.0);   
     vec3 Lo = directReflectance(N, V, NdotV, F0, metallicClamped, roughnessClamped, albedo);
-    vec3 ambient = vec3(0.0);//ambientReflectance(N, R, NdotV, F0, metallicClamped, roughnessClamped, albedo);
+    vec3 ambient = ambientReflectance(N, R, NdotV, F0, metallicClamped, roughnessClamped, albedo);
    
     outputFragColor = vec4(ambient + Lo, 1.0); 
 }   

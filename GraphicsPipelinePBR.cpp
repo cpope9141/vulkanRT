@@ -5,7 +5,7 @@
 #include <iostream>
 
 const uint8_t PUSH_CONSTANT_SIZE = 3 * sizeof(float);
-const VkShaderStageFlagBits PUSH_CONSTANT_STAGES = VK_SHADER_STAGE_FRAGMENT_BIT;
+const VkShaderStageFlags PUSH_CONSTANT_STAGES = VK_SHADER_STAGE_FRAGMENT_BIT;
 
 //public
 GraphicsPipelinePBR::GraphicsPipelinePBR()
@@ -16,7 +16,7 @@ GraphicsPipelinePBR::GraphicsPipelinePBR()
 GraphicsPipelinePBR::~GraphicsPipelinePBR() {}
 
 uint8_t GraphicsPipelinePBR::getPushConstantSize() { return PUSH_CONSTANT_SIZE; }
-VkShaderStageFlagBits GraphicsPipelinePBR::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
+VkShaderStageFlags GraphicsPipelinePBR::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
 
 //protected
 void GraphicsPipelinePBR::createDescriptorPool(LogicalDevice logicalDevice)
@@ -30,7 +30,7 @@ void GraphicsPipelinePBR::createDescriptorPool(LogicalDevice logicalDevice)
 
     poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     //poolSizes[1].descriptorCount = 8;
-    poolSizes[1].descriptorCount = 5;
+    poolSizes[1].descriptorCount = 6;
 
     poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
@@ -48,7 +48,7 @@ void GraphicsPipelinePBR::createDescriptorSetLayout(LogicalDevice logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
     //bindings.resize(11);
-    bindings.resize(8);
+    bindings.resize(9);
     VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 
     bindings[0].binding = 0;
@@ -98,13 +98,13 @@ void GraphicsPipelinePBR::createDescriptorSetLayout(LogicalDevice logicalDevice)
     bindings[7].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindings[7].pImmutableSamplers = nullptr;
     bindings[7].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-    /*
+    
     bindings[8].binding = 8;
     bindings[8].descriptorCount = 1;
     bindings[8].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindings[8].pImmutableSamplers = nullptr;
     bindings[8].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-
+    /*
     bindings[9].binding = 9;
     bindings[9].descriptorCount = 1;
     bindings[9].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -160,18 +160,4 @@ VkPipelineMultisampleStateCreateInfo GraphicsPipelinePBR::multisamplingStateCrea
     multisampling.rasterizationSamples = samples;
 
     return multisampling;
-}
-
-VkPipelineVertexInputStateCreateInfo GraphicsPipelinePBR::vertexInputStateCreateInfo(VkVertexInputBindingDescription& bindingDescription,
-    std::vector<VkVertexInputAttributeDescription>& attributeDescriptions)
-{
-    VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo = {};
-
-    vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputStateCreateInfo.vertexBindingDescriptionCount = 1;
-    vertexInputStateCreateInfo.pVertexBindingDescriptions = &bindingDescription;
-    vertexInputStateCreateInfo.vertexAttributeDescriptionCount = attributeDescriptions.size();
-    vertexInputStateCreateInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
-
-    return vertexInputStateCreateInfo;
 }

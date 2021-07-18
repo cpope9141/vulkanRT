@@ -13,14 +13,14 @@ Framebuffer::Framebuffer()
 
 Framebuffer::~Framebuffer() {}
 
-void Framebuffer::create(LogicalDevice logicalDevice, VkRenderPass renderPass, VkExtent2D imageExtent, VkImageView imageView)
+void Framebuffer::create(LogicalDevice logicalDevice, VkRenderPass renderPass, uint32_t height, uint32_t width, VkImageView imageView)
 {
     VkFramebufferCreateInfo framebufferInfo = {};
 
     framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     framebufferInfo.renderPass = renderPass;
-    framebufferInfo.width = imageExtent.width;
-    framebufferInfo.height = imageExtent.height;
+    framebufferInfo.width = width;
+    framebufferInfo.height = height;
     framebufferInfo.layers = 1;
     framebufferInfo.attachmentCount = 1;
     framebufferInfo.pAttachments = &imageView;

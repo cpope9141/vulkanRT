@@ -15,7 +15,7 @@ public:
 	VkPipeline getPipeline();
 	VkPipelineLayout getPipelineLayout();
 	virtual uint8_t getPushConstantSize() = 0;
-	virtual VkShaderStageFlagBits getPushConstantStages() = 0;
+	virtual VkShaderStageFlags getPushConstantStages() = 0;
 
 protected:
 	VkDescriptorPool descriptorPool;

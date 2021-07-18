@@ -91,6 +91,24 @@
     <Filter Include="Source Files\Renderer\Framebuffer">
       <UniqueIdentifier>{69d9d256-1558-45e5-88f2-404d73abe739}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\Texture">
+      <UniqueIdentifier>{a06bb8a4-f670-43e3-a29d-128b79de9849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Texture">
+      <UniqueIdentifier>{08a99d69-fec8-41a7-80bb-8e4510f7dbe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics\PBR\IBL">
+      <UniqueIdentifier>{483d2079-7c5d-491f-a433-015a2b7c84c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance">
+      <UniqueIdentifier>{bd1617bb-5379-4576-8ec5-93c7a592ed8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR\IBL">
+      <UniqueIdentifier>{b0a3efe3-844e-4ad3-bd24-fabccd01638b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance">
+      <UniqueIdentifier>{7e142004-350d-4c8b-aa4e-2e038d0aa08b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -174,9 +192,6 @@
     <ClCompile Include="DescriptorSetPostProcess.cpp">
       <Filter>Source Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Sampler.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
@@ -242,6 +257,36 @@
     </ClCompile>
     <ClCompile Include="TransferBufferObject.cpp">
       <Filter>Source Files\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="PrecomputedIBL.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Renderer\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>Source Files\Renderer\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Renderer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeVertexData.cpp">
+      <Filter>Source Files\Renderer\VertexData</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelineIrradiance.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesIrradiance.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPassIBL.cpp">
+      <Filter>Source Files\Renderer\RenderPass</Filter>
+    </ClCompile>
+    <ClCompile Include="FramebufferObjectIBL.cpp">
+      <Filter>Source Files\Renderer\Framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetIrradiance.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +368,6 @@
     <ClInclude Include="DescriptorSetPostProcess.h">
       <Filter>Header Files\Renderer\Pipeline\Graphics\PostProcess</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Sampler.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
@@ -394,6 +436,36 @@
     </ClInclude>
     <ClInclude Include="TransferBufferObject.h">
       <Filter>Header Files\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="PrecomputedIBL.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap.h">
+      <Filter>Header Files\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Renderer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeVertexData.h">
+      <Filter>Header Files\Renderer\VertexData</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipelineIrradiance.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesIrradiance.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPassIBL.h">
+      <Filter>Header Files\Renderer\RenderPass</Filter>
+    </ClInclude>
+    <ClInclude Include="FramebufferObjectIBL.h">
+      <Filter>Header Files\Renderer\Framebuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetIrradiance.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include <iostream>
 
 const uint8_t BYTES_8_BITS_PER_CHANNEL = 4;
+const uint8_t BYTES_32_BITS_PER_CHANNEL = 16;
 
 //public
 Image::Image()
@@ -19,6 +20,31 @@ Image::Image()
 }
 
 Image::~Image() {}
+
+void Image::copyToImage(VkImage dst, uint32_t height, uint32_t width, uint32_t baseArrayLayer, uint32_t mipLevel, CommandBuffer commandBuffer)
+{
+	VkImageCopy copyRegion = {};
+
+	copyRegion.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	copyRegion.srcSubresource.baseArrayLayer = 0;
+	copyRegion.srcSubresource.mipLevel = 0;
+	copyRegion.srcSubresource.layerCount = 1;
+
+	copyRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	copyRegion.dstSubresource.baseArrayLayer = baseArrayLayer;
+	copyRegion.dstSubresource.mipLevel = mipLevel;
+	copyRegion.dstSubresource.layerCount = 1;
+
+	copyRegion.extent = { width, height, 1 };
+
+	vkCmdCopyImage(commandBuffer.getCommandBuffer(),
+		image,
+		VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+		dst,
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		1,
+		&copyRegion);
+}
 
 void Image::create(LogicalDevice logicalDevice,
 	uint32_t height,
@@ -88,6 +114,61 @@ void Image::create(LogicalDevice logicalDevice, CommandPool commandPool, const R
 	copyBufferToImage(logicalDevice, commandPool, pStagingBuffer, image, resource.width, resource.height, 1, imageSize);
 
 	generateMipmaps(logicalDevice, commandPool, VK_FORMAT_R8G8B8A8_SRGB, resource.width, resource.height, mipLevels);
+
+	vkDestroyBuffer(logicalDevice.getDevice(), pStagingBuffer, nullptr);
+	vkFreeMemory(logicalDevice.getDevice(), pStagingBufferMemory, nullptr);
+}
+
+void Image::create(LogicalDevice& logicalDevice, CommandPool& commandPool, HDRResource resources[6])
+{
+	VkDeviceSize imageSize = resources[0].width * resources[0].height * 6 * BYTES_32_BITS_PER_CHANNEL;
+	VkDeviceSize bytes = resources[0].width * resources[0].height * BYTES_32_BITS_PER_CHANNEL;
+	VkBuffer pStagingBuffer;
+	VkDeviceMemory pStagingBufferMemory;
+	void* data = nullptr;
+	uint8_t* dst = nullptr;
+	CommandBuffer commandBuffer(commandPool);
+
+	createBuffer(logicalDevice,
+		imageSize,
+		VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+		&pStagingBuffer,
+		&pStagingBufferMemory);
+
+	vkMapMemory(logicalDevice.getDevice(), pStagingBufferMemory, 0, imageSize, 0, &data);
+
+	dst = reinterpret_cast<uint8_t*>(data);
+	for (uint8_t i = 0; i < 6; i++)
+	{
+		std::memcpy(dst + i * bytes, resources[i].imageHDR, bytes);
+	}
+
+	vkUnmapMemory(logicalDevice.getDevice(), pStagingBufferMemory);
+
+	create(logicalDevice,
+		resources[0].width,
+		resources[0].height,
+		VK_FORMAT_R32G32B32A32_SFLOAT,
+		(VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT),
+		VK_SAMPLE_COUNT_1_BIT,
+		6,
+		VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT,
+		false);
+
+	transitionLayout(logicalDevice,
+		commandBuffer,
+		VK_IMAGE_LAYOUT_UNDEFINED,
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		true);
+
+	copyBufferToImage(logicalDevice, commandPool, pStagingBuffer, image, resources[0].width, resources[0].height, 6, bytes);
+
+	transitionLayout(logicalDevice,
+		commandBuffer,
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+		true);
 
 	vkDestroyBuffer(logicalDevice.getDevice(), pStagingBuffer, nullptr);
 	vkFreeMemory(logicalDevice.getDevice(), pStagingBufferMemory, nullptr);

@@ -10,6 +10,7 @@
 #include "LogicalDevice.h"
 #include "Panel.h"
 #include "PhysicalDevice.h"
+#include "PrecomputedIBL.h"
 #include "RenderPassMultiSample.h"
 #include "SwapChain.h"
 #include "UniformBufferPBRLighting.h"
@@ -51,6 +52,7 @@ private:
 	LogicalDevice logicalDevice;
 	Panel panel;
 	PhysicalDevice physicalDevice;
+	PrecomputedIBL precomputedIBL;
 	RenderPassMultiSample renderPassMultiSample;
 	SwapChain swapChain;
 	UniformBufferPBRLighting uboLighting;

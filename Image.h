@@ -3,6 +3,7 @@
 #include "CommandPool.h"
 #include "LogicalDevice.h"
 #include "RGBAResource.h"
+#include "Types.h"
 #include "vulkan/vulkan_core.h"
 
 class Image
@@ -11,6 +12,7 @@ public:
 	Image();
 	~Image();
 
+	void copyToImage(VkImage dst, uint32_t height, uint32_t width, uint32_t baseArrayLayer, uint32_t mipLevel, CommandBuffer commandBuffer);
 	void create(LogicalDevice logicalDevice,
 		uint32_t height,
 		uint32_t width,
@@ -21,6 +23,7 @@ public:
 		VkImageCreateFlags flags,
 		bool genMipLevels);
 	void create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource);
+	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, HDRResource resources[6]);
 	void destroy(LogicalDevice logicalDevice);
 	VkImage getImage();
 	uint32_t getMipLevels();

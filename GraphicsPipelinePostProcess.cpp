@@ -16,7 +16,7 @@ GraphicsPipelinePostProcess::GraphicsPipelinePostProcess()
 GraphicsPipelinePostProcess::~GraphicsPipelinePostProcess() {}
 
 uint8_t GraphicsPipelinePostProcess::getPushConstantSize() { return PUSH_CONSTANT_SIZE; }
-VkShaderStageFlagBits GraphicsPipelinePostProcess::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
+VkShaderStageFlags GraphicsPipelinePostProcess::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
 
 //protected
 void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevice)
