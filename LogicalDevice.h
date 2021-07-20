@@ -8,16 +8,16 @@ public:
 	LogicalDevice();
 	~LogicalDevice();
 
-	void create(PhysicalDevice physicalDevice);
+	void create(PhysicalDevice& physicalDevice);
 	void destroy();
 	VkDevice getDevice();
 	VkQueue getGraphicsQueue();
-	PhysicalDevice getPhysicalDevice();
+	PhysicalDevice* getPhysicalDevicePtr();
 	VkQueue getPresentQueue();
 
 private:
 	VkDevice device;
 	VkQueue graphicsQueue;
-	PhysicalDevice physicalDevice;
+	PhysicalDevice* physicalDevice;
 	VkQueue presentQueue;
 };

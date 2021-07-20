@@ -28,7 +28,7 @@ void RenderPassPresentation::create(LogicalDevice logicalDevice, VkFormat imageF
     colorAttachmentRef.attachment = 0;
     colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
-    attachments[1].format = logicalDevice.getPhysicalDevice().getDepthFormat();
+    attachments[1].format = logicalDevice.getPhysicalDevicePtr()->getDepthFormat();
     attachments[1].samples = VK_SAMPLE_COUNT_1_BIT;
     attachments[1].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     attachments[1].storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;

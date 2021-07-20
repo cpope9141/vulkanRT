@@ -46,14 +46,14 @@ VkResult SwapChain::acquireNextImage(LogicalDevice logicalDevice)
 void SwapChain::create(LogicalDevice logicalDevice, CommandPool commandPool)
 {
 	VkSurfaceKHR surface = getSurface();
-	PhysicalDevice physicalDevice = logicalDevice.getPhysicalDevice();
-	SwapChainSupportInfo swapChainSupportInfo = physicalDevice.querySwapChainSupport(physicalDevice.getPhysicalDevice(), surface);
+	PhysicalDevice* physicalDevice = logicalDevice.getPhysicalDevicePtr();
+	SwapChainSupportInfo swapChainSupportInfo = physicalDevice->querySwapChainSupport(physicalDevice->getPhysicalDevice(), surface);
 	VkSurfaceFormatKHR surfaceFormat = chooseSurfaceFormat(swapChainSupportInfo.formats);
     VkPresentModeKHR presentMode = choosePresentMode(swapChainSupportInfo.presentModes);
     VkExtent2D extent = chooseImageExtent(swapChainSupportInfo.capabilities, getWindow());
     uint32_t imageCount = swapChainSupportInfo.capabilities.minImageCount + 1;
     VkSwapchainCreateInfoKHR createInfo = {};
-    QueueFamilyIndices indices = physicalDevice.getQueueFamilyIndices();
+    QueueFamilyIndices indices = physicalDevice->getQueueFamilyIndices();
     uint32_t queueFamilyIndices[] = { indices.getGraphicsFamily().value(), indices.getPresentFamily().value() };
 
     if (swapChainSupportInfo.capabilities.maxImageCount > 0 && imageCount > swapChainSupportInfo.capabilities.maxImageCount)
@@ -245,7 +245,7 @@ VkSurfaceFormatKHR SwapChain::chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR
 
 void SwapChain::createDepthResources(LogicalDevice logicalDevice, CommandPool commandPool)
 {
-    VkFormat depthFormat = logicalDevice.getPhysicalDevice().getDepthFormat();
+    VkFormat depthFormat = logicalDevice.getPhysicalDevicePtr()->getDepthFormat();
 
     depthImage.create(logicalDevice,
         imageExtent.height,

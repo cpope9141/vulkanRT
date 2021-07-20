@@ -354,7 +354,7 @@ void Image::createImage(LogicalDevice logicalDevice,
 void Image::generateMipmaps(LogicalDevice logicalDevice, CommandPool commandPool, VkFormat imageFormat, int width, int height, uint32_t mipLevels)
 {
 	VkFormatProperties formatProperties = {};
-	vkGetPhysicalDeviceFormatProperties(logicalDevice.getPhysicalDevice().getPhysicalDevice(), imageFormat, &formatProperties);
+	vkGetPhysicalDeviceFormatProperties(logicalDevice.getPhysicalDevicePtr()->getPhysicalDevice(), imageFormat, &formatProperties);
 
 	if (0 != (formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT))
 	{

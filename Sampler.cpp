@@ -15,7 +15,7 @@ void Sampler::create(LogicalDevice logicalDevice, VkFilter filter, uint32_t mipL
     VkSamplerCreateInfo samplerInfo = {};
 
     if (VK_FILTER_NEAREST != filter) {
-        filter = formatIsFilterable(logicalDevice.getPhysicalDevice().getPhysicalDevice(), format, VK_IMAGE_TILING_OPTIMAL) ? filter : VK_FILTER_NEAREST;
+        filter = formatIsFilterable(logicalDevice.getPhysicalDevicePtr()->getPhysicalDevice(), format, VK_IMAGE_TILING_OPTIMAL) ? filter : VK_FILTER_NEAREST;
     }
 
     samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;

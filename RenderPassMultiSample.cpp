@@ -18,7 +18,7 @@ void RenderPassMultiSample::create(LogicalDevice logicalDevice, VkFormat imageFo
     VkRenderPassCreateInfo renderPassInfo = {};
 
     attachments[0].format = imageFormat;
-    attachments[0].samples = logicalDevice.getPhysicalDevice().getSampleCount();
+    attachments[0].samples = logicalDevice.getPhysicalDevicePtr()->getSampleCount();
     attachments[0].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     attachments[0].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
     attachments[0].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
@@ -29,8 +29,8 @@ void RenderPassMultiSample::create(LogicalDevice logicalDevice, VkFormat imageFo
     colorAttachmentRef.attachment = 0;
     colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
-    attachments[1].format = logicalDevice.getPhysicalDevice().getDepthFormat();
-    attachments[1].samples = logicalDevice.getPhysicalDevice().getSampleCount();
+    attachments[1].format = logicalDevice.getPhysicalDevicePtr()->getDepthFormat();
+    attachments[1].samples = logicalDevice.getPhysicalDevicePtr()->getSampleCount();
     attachments[1].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     attachments[1].storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     attachments[1].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;

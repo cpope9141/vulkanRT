@@ -10,12 +10,13 @@ LogicalDevice::LogicalDevice()
 {
 	device = VK_NULL_HANDLE;
     graphicsQueue = VK_NULL_HANDLE;
+    physicalDevice = nullptr;
     presentQueue = VK_NULL_HANDLE;
 }
 
 LogicalDevice::~LogicalDevice() {}
 
-void LogicalDevice::create(PhysicalDevice physicalDevice)
+void LogicalDevice::create(PhysicalDevice& physicalDevice)
 {
     const float priority = 1.0f;
     QueueFamilyIndices indices = physicalDevice.getQueueFamilyIndices();
@@ -55,7 +56,7 @@ void LogicalDevice::create(PhysicalDevice physicalDevice)
         vkGetDeviceQueue(device, indices.getGraphicsFamily().value(), 0, &graphicsQueue);
         vkGetDeviceQueue(device, indices.getPresentFamily().value(), 0, &presentQueue);
 
-        this->physicalDevice = physicalDevice;
+        this->physicalDevice = &physicalDevice;
     }
     else
     {
@@ -66,5 +67,5 @@ void LogicalDevice::create(PhysicalDevice physicalDevice)
 void LogicalDevice::destroy() { vkDestroyDevice(device, nullptr); }
 VkDevice LogicalDevice::getDevice() { return device; }
 VkQueue LogicalDevice::getGraphicsQueue() { return graphicsQueue; }
-PhysicalDevice LogicalDevice::getPhysicalDevice() { return physicalDevice; }
+PhysicalDevice* LogicalDevice::getPhysicalDevicePtr() { return physicalDevice; }
 VkQueue LogicalDevice::getPresentQueue() { return presentQueue; }

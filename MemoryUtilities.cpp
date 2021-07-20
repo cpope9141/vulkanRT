@@ -52,7 +52,7 @@ void createBuffer(LogicalDevice logicalDevice, VkDeviceSize size, VkBufferUsageF
 uint32_t findMemoryType(LogicalDevice logicalDevice, uint32_t typeFilter, VkMemoryPropertyFlags properties)
 {
     VkPhysicalDeviceMemoryProperties memoryProperties = {};
-    vkGetPhysicalDeviceMemoryProperties(logicalDevice.getPhysicalDevice().getPhysicalDevice(), &memoryProperties);
+    vkGetPhysicalDeviceMemoryProperties(logicalDevice.getPhysicalDevicePtr()->getPhysicalDevice(), &memoryProperties);
 
     for (uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++)
     {

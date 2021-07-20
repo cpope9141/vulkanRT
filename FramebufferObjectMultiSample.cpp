@@ -9,7 +9,7 @@ FramebufferObjectMultiSample::~FramebufferObjectMultiSample() {}
 
 void FramebufferObjectMultiSample::create(LogicalDevice logicalDevice, RenderPass* renderPass)
 {
-	VkSampleCountFlagBits sampleCount = logicalDevice.getPhysicalDevice().getSampleCount();
+	VkSampleCountFlagBits sampleCount = logicalDevice.getPhysicalDevicePtr()->getSampleCount();
 
 	colorAttachment.create(logicalDevice,
 		height,
@@ -24,7 +24,7 @@ void FramebufferObjectMultiSample::create(LogicalDevice logicalDevice, RenderPas
 	depthAttachment.create(logicalDevice,
 		height,
 		width,
-		logicalDevice.getPhysicalDevice().getDepthFormat(),
+		logicalDevice.getPhysicalDevicePtr()->getDepthFormat(),
 		VK_IMAGE_ASPECT_DEPTH_BIT,
 		VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
 		sampleCount,

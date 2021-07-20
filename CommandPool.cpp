@@ -13,7 +13,7 @@ CommandPool::~CommandPool() {}
 
 void CommandPool::create(LogicalDevice logicalDevice)
 {
-    QueueFamilyIndices queueFamilyIndices = logicalDevice.getPhysicalDevice().getQueueFamilyIndices();
+    QueueFamilyIndices queueFamilyIndices = logicalDevice.getPhysicalDevicePtr()->getQueueFamilyIndices();
     VkCommandPoolCreateInfo commandPoolCreateInfo = {};
 
     commandPoolCreateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;

@@ -21,7 +21,7 @@ void GraphicsPipeline::create(LogicalDevice logicalDevice, VkRenderPass renderPa
     VkPipelineInputAssemblyStateCreateInfo inputAssemblyState = inputAssemblyStateCreateInfo();
     VkPipelineViewportStateCreateInfo viewportState = viewportStateCreateInfo();
     VkPipelineRasterizationStateCreateInfo rasterizationStage = rasterizationStateCreateInfo();
-    VkPipelineMultisampleStateCreateInfo multisamplingState = multisamplingStateCreateInfo(logicalDevice.getPhysicalDevice().getSampleCount());
+    VkPipelineMultisampleStateCreateInfo multisamplingState = multisamplingStateCreateInfo(logicalDevice.getPhysicalDevicePtr()->getSampleCount());
     VkPipelineDepthStencilStateCreateInfo depthStencil = depthStencilStateCreateInfo();
     VkPipelineColorBlendStateCreateInfo colorBlendState = colorBlendStateCreateInfo(colorBlendAttachment);
     VkPipelineDynamicStateCreateInfo dynamicState = dynamicStateCreateInfo(dynamicStates);
