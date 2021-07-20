@@ -9,7 +9,7 @@ public:
 	CerberusRT();
 	~CerberusRT();
 
-	void init(LogicalDevice logicalDevice, CommandPool commandPool);
+	void init(LogicalDevice& logicalDevice, CommandPool& commandPool);
 
 private:
 	StaticMeshVertexData staticMeshVertexData;

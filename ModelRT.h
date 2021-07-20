@@ -11,12 +11,12 @@ public:
 	ModelRT();
 	~ModelRT();
 
-	void deinit(LogicalDevice logicalDevice);
-	Texture* getAlbedo();
-	Texture* getAmbientOcclusion();
-	Texture* getMetallic();
-	Texture* getNormal();
-	Texture* getRoughness();
+	void deinit(LogicalDevice& logicalDevice);
+	Texture* getAlbedoPtr();
+	Texture* getAmbientOcclusionPtr();
+	Texture* getMetallicPtr();
+	Texture* getNormalPtr();
+	Texture* getRoughnessPtr();
 
 protected:
 	Texture albedo = Texture(VK_FILTER_LINEAR);
@@ -25,5 +25,5 @@ protected:
 	Texture normal = Texture(VK_FILTER_LINEAR);
 	Texture roughness = Texture(VK_FILTER_LINEAR);
 
-	void createTexture(LogicalDevice logicalDevice, CommandPool commandPool, const char* path, Texture& texture);
+	void createTexture(LogicalDevice& logicalDevice, CommandPool& commandPool, const char* path, Texture& texture);
 };

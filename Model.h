@@ -12,7 +12,7 @@ public:
 	Model();
 	~Model();
 
-	VertexData* getVertexData();
+	VertexData* getVertexDataPtr();
 	glm::mat4 prepareModelMatrix();
 	void setPosition(glm::vec3 position);
 	void setRotation(glm::vec3 rotation);

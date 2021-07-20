@@ -11,7 +11,7 @@ TransferBufferObject::TransferBufferObject(VkBufferUsageFlagBits usage)
 
 TransferBufferObject::~TransferBufferObject() {}
 
-void TransferBufferObject::create(LogicalDevice logicalDevice, CommandPool commandPool, const void* src, VkDeviceSize bufferSize)
+void TransferBufferObject::create(LogicalDevice& logicalDevice, CommandPool& commandPool, const void* src, VkDeviceSize bufferSize)
 {
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingBufferMemory;
@@ -42,7 +42,7 @@ void TransferBufferObject::create(LogicalDevice logicalDevice, CommandPool comma
 }
 
 //private
-void TransferBufferObject::copyBuffer(LogicalDevice logicalDevice, CommandPool commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size)
+void TransferBufferObject::copyBuffer(LogicalDevice& logicalDevice, CommandPool& commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size)
 {
     CommandBuffer commandBuffer(commandPool);
     VkBufferCopy copyRegion = {};

@@ -223,14 +223,14 @@ void Renderer::drawPostProcess()
     panel.setScale(glm::vec3(WIDTH, HEIGHT, 1));
     pc = panel.prepareModelMatrix();
 
-    addDrawCommands(descriptorSetPostProcess[swapChain.getNextImageIndex()].getDescriptorSet(), &graphicsPipelinePostProcess, &pc, sizeof(pc), panel.getVertexData());
+    addDrawCommands(descriptorSetPostProcess[swapChain.getNextImageIndex()].getDescriptorSet(), &graphicsPipelinePostProcess, &pc, sizeof(pc), panel.getVertexDataPtr());
 }
 
 void Renderer::drawStaticModelPBR(ModelRT staticModelPBR)
 {
     glm::vec3 pc(0, 3, -7);
 
-    addDrawCommands(descriptorSetPBR.getDescriptorSet(), &graphicsPipelinePBR, &pc, sizeof(pc), staticModelPBR.getVertexData());
+    addDrawCommands(descriptorSetPBR.getDescriptorSet(), &graphicsPipelinePBR, &pc, sizeof(pc), staticModelPBR.getVertexDataPtr());
 }
 
 void Renderer::loadAssets()

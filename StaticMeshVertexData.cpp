@@ -55,7 +55,7 @@ VkVertexInputBindingDescription StaticMeshVertexData::getBindingDescription()
     return bindingDescription;
 }
 
-void StaticMeshVertexData::init(LogicalDevice logicalDevice, CommandPool commandPool, ModelResource& modelResource)
+void StaticMeshVertexData::init(LogicalDevice& logicalDevice, CommandPool& commandPool, ModelResource& modelResource)
 {
     indexBufferObject->create(logicalDevice, commandPool, modelResource.indices.data(), modelResource.indices.size() * sizeof(uint32_t));
     vertexBufferObject->create(logicalDevice, commandPool, modelResource.vertices.data(), modelResource.vertices.size() * sizeof(StaticMeshVertex));

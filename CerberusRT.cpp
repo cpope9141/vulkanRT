@@ -22,7 +22,7 @@ CerberusRT::CerberusRT()
 
 CerberusRT::~CerberusRT() {}
 
-void CerberusRT::init(LogicalDevice logicalDevice, CommandPool commandPool)
+void CerberusRT::init(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
 	ModelResource resource = loadModel(std::string(MODEL));
 	createTexture(logicalDevice, commandPool, ALBEDO, albedo);

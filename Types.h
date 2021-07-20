@@ -14,7 +14,7 @@ struct CubeVertex
     glm::vec2 texelCoords;
 };
 
-struct Vertex
+struct QuadVertex
 {
 	glm::vec2 position;
 	glm::vec2 texelCoords;

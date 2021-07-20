@@ -15,7 +15,7 @@ Model::Model()
 
 Model::~Model() {}
 
-VertexData* Model::getVertexData() { return vertexData; }
+VertexData* Model::getVertexDataPtr() { return vertexData; }
 
 glm::mat4 Model::prepareModelMatrix()
 {

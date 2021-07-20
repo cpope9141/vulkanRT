@@ -8,7 +8,7 @@ public:
 	BufferObject();
 	~BufferObject();
 
-	void destroy(LogicalDevice logicalDevice);
+	void destroy(LogicalDevice& logicalDevice);
 	VkBuffer getBuffer();
 
 protected:

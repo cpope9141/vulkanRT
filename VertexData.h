@@ -9,7 +9,7 @@ public:
 	VertexData();
 	~VertexData();
 
-    void destroy(LogicalDevice logicalDevice);
+    void destroy(LogicalDevice& logicalDevice);
 	VkBuffer getIndexBuffer();
 	uint32_t getIndexCount();
 	VkIndexType getIndexType();

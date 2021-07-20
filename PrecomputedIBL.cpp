@@ -161,7 +161,7 @@ void PrecomputedIBL::generateIntegratedBRDF(LogicalDevice& logicalDevice, Comman
     panel.setScale(glm::vec3(WIDTH, HEIGHT, 1));
     pc.modelViewMatrix = panel.prepareModelMatrix();
 
-    addDrawCommands(commandBuffer, ds.getDescriptorSet(), &gp, &pc, sizeof(IntegratedBRDFPushConstant), panel.getVertexData());
+    addDrawCommands(commandBuffer, ds.getDescriptorSet(), &gp, &pc, sizeof(IntegratedBRDFPushConstant), panel.getVertexDataPtr());
 
     vkCmdEndRenderPass(commandBuffer.getCommandBuffer());
 
@@ -253,7 +253,7 @@ void PrecomputedIBL::generateIrradianceCubeMap(LogicalDevice& logicalDevice, Com
         pc.deltaPhi = 2.0f * PI / 180.0f;
         pc.deltaTheta = 0.5f * PI / 64.0f;
 
-        addDrawCommands(commandBuffer, ds.getDescriptorSet(), &gp, &pc, sizeof(IrradiancePushConstant), cube.getVertexData());
+        addDrawCommands(commandBuffer, ds.getDescriptorSet(), &gp, &pc, sizeof(IrradiancePushConstant), cube.getVertexDataPtr());
 
         vkCmdEndRenderPass(commandBuffer.getCommandBuffer());
 
@@ -361,7 +361,7 @@ void PrecomputedIBL::generatePrefilteredCubeMap(LogicalDevice& logicalDevice, Co
             pc.roughness = roughness;
             pc.sampleCount = 256;
 
-            addDrawCommands(commandBuffer, ds.getDescriptorSet(), &gp, &pc, sizeof(PrefilteredPushConstant), cube.getVertexData());
+            addDrawCommands(commandBuffer, ds.getDescriptorSet(), &gp, &pc, sizeof(PrefilteredPushConstant), cube.getVertexDataPtr());
 
             vkCmdEndRenderPass(commandBuffer.getCommandBuffer());
 

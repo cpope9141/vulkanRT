@@ -28,14 +28,14 @@ void DescriptorSetPBR::create(LogicalDevice logicalDevice,
 	PrecomputedIBL* precomputedIBL,
 	ModelRT* modelRT)
 {
-	albedo = modelRT->getAlbedo();
-	ao = modelRT->getAmbientOcclusion();
+	albedo = modelRT->getAlbedoPtr();
+	ao = modelRT->getAmbientOcclusionPtr();
 	integratedBRDF = precomputedIBL->getIntegratedBRDF();
 	irradiance = precomputedIBL->getIrradianceCubeMap();
-	metallic = modelRT->getMetallic();
-	normal = modelRT->getNormal();
+	metallic = modelRT->getMetallicPtr();
+	normal = modelRT->getNormalPtr();
 	prefiltered = precomputedIBL->getPrefilteredCubeMap();
-	roughness = modelRT->getRoughness();
+	roughness = modelRT->getRoughnessPtr();
 	this->uboLighting = uboLighting;
 	this->uboProjection = uboProjection;
 	this->uboStaticModel = uboStaticModel;

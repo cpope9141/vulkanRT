@@ -9,7 +9,7 @@ BufferObject::BufferObject()
 
 BufferObject::~BufferObject() {}
 
-void BufferObject::destroy(LogicalDevice logicalDevice)
+void BufferObject::destroy(LogicalDevice& logicalDevice)
 {
 	vkDestroyBuffer(logicalDevice.getDevice(), buffer, nullptr);
 	vkFreeMemory(logicalDevice.getDevice(), bufferMemory, nullptr);

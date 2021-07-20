@@ -8,12 +8,12 @@ Panel::Panel()
 
 Panel::~Panel() {}
 
-void Panel::deinit(LogicalDevice logicalDevice)
+void Panel::deinit(LogicalDevice& logicalDevice)
 {
 	vertexData->destroy(logicalDevice);
 }
 
-void Panel::init(LogicalDevice logicalDevice, CommandPool commandPool)
+void Panel::init(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
 	quadVertexData.init(logicalDevice, commandPool);
 }
