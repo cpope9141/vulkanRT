@@ -7,8 +7,11 @@ DescriptorSetPBR::DescriptorSetPBR()
 {
 	albedo = nullptr;
 	ao = nullptr;
+    integratedBRDF = nullptr;
+    irradiance = nullptr;
 	metallic = nullptr;
 	normal = nullptr;
+    prefiltered = nullptr;
 	roughness = nullptr;
     uboLighting = nullptr;
 	uboProjection = nullptr;
@@ -27,11 +30,11 @@ void DescriptorSetPBR::create(LogicalDevice logicalDevice,
 {
 	albedo = modelRT->getAlbedo();
 	ao = modelRT->getAmbientOcclusion();
-	//integratedBRDF = iblGeneratedMaps.getIntegratedBRDF();
+	integratedBRDF = precomputedIBL->getIntegratedBRDF();
 	irradiance = precomputedIBL->getIrradianceCubeMap();
 	metallic = modelRT->getMetallic();
 	normal = modelRT->getNormal();
-	//prefiltered = iblGeneratedMaps.getPrefilteredCubeMap();
+	prefiltered = precomputedIBL->getPrefilteredCubeMap();
 	roughness = modelRT->getRoughness();
 	this->uboLighting = uboLighting;
 	this->uboProjection = uboProjection;
@@ -54,16 +57,15 @@ void DescriptorSetPBR::updateDescriptorSet(LogicalDevice logicalDevice)
 
     VkDescriptorImageInfo albedoImageInfo = createDescriptorImageInfo(albedo, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     VkDescriptorImageInfo aoImageInfo = createDescriptorImageInfo(ao, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-    //VkDescriptorImageInfo integratedBRDFImageInfo = createDescriptorImageInfo(integratedBRDF, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    VkDescriptorImageInfo integratedBRDFImageInfo = createDescriptorImageInfo(integratedBRDF, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     VkDescriptorImageInfo irradianceImageInfo = createDescriptorImageInfo(irradiance, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     VkDescriptorImageInfo metallicImageInfo = createDescriptorImageInfo(metallic, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     VkDescriptorImageInfo normalImageInfo = createDescriptorImageInfo(normal, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-    //VkDescriptorImageInfo prefilteredImageInfo = createDescriptorImageInfo(prefiltered, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    VkDescriptorImageInfo prefilteredImageInfo = createDescriptorImageInfo(prefiltered, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     VkDescriptorImageInfo roughnessImageInfo = createDescriptorImageInfo(roughness, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
     std::vector<VkWriteDescriptorSet> writeDescriptorSets;
-    //writeDescriptorSets.resize(11);
-    writeDescriptorSets.resize(9);
+    writeDescriptorSets.resize(11);
 
     writeDescriptorSets[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[0].dstBinding = 0;
@@ -105,21 +107,13 @@ void DescriptorSetPBR::updateDescriptorSet(LogicalDevice logicalDevice)
     writeDescriptorSets[4].descriptorCount = 1;
     writeDescriptorSets[4].pImageInfo = &aoImageInfo;
 
-    //writeDescriptorSets[5].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    //writeDescriptorSets[5].dstBinding = 5;
-    //writeDescriptorSets[5].dstArrayElement = 0;
-    //writeDescriptorSets[5].dstSet = descriptorSet;
-    //writeDescriptorSets[5].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    //writeDescriptorSets[5].descriptorCount = 1;
-    //writeDescriptorSets[5].pImageInfo = &integratedBRDFImageInfo;
-
     writeDescriptorSets[5].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[5].dstBinding = 5;
     writeDescriptorSets[5].dstArrayElement = 0;
     writeDescriptorSets[5].dstSet = descriptorSet;
     writeDescriptorSets[5].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     writeDescriptorSets[5].descriptorCount = 1;
-    writeDescriptorSets[5].pImageInfo = &irradianceImageInfo;
+    writeDescriptorSets[5].pImageInfo = &integratedBRDFImageInfo;
 
     writeDescriptorSets[6].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[6].dstBinding = 6;
@@ -127,7 +121,7 @@ void DescriptorSetPBR::updateDescriptorSet(LogicalDevice logicalDevice)
     writeDescriptorSets[6].dstSet = descriptorSet;
     writeDescriptorSets[6].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     writeDescriptorSets[6].descriptorCount = 1;
-    writeDescriptorSets[6].pImageInfo = &metallicImageInfo;
+    writeDescriptorSets[6].pImageInfo = &irradianceImageInfo;
 
     writeDescriptorSets[7].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[7].dstBinding = 7;
@@ -135,15 +129,7 @@ void DescriptorSetPBR::updateDescriptorSet(LogicalDevice logicalDevice)
     writeDescriptorSets[7].dstSet = descriptorSet;
     writeDescriptorSets[7].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     writeDescriptorSets[7].descriptorCount = 1;
-    writeDescriptorSets[7].pImageInfo = &normalImageInfo;
-
-    //writeDescriptorSets[9].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    //writeDescriptorSets[9].dstBinding = 9;
-    //writeDescriptorSets[9].dstArrayElement = 0;
-    //writeDescriptorSets[9].dstSet = descriptorSet;
-    //writeDescriptorSets[9].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    //writeDescriptorSets[9].descriptorCount = 1;
-    //writeDescriptorSets[9].pImageInfo = &prefilteredImageInfo;
+    writeDescriptorSets[7].pImageInfo = &metallicImageInfo;
 
     writeDescriptorSets[8].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     writeDescriptorSets[8].dstBinding = 8;
@@ -151,7 +137,23 @@ void DescriptorSetPBR::updateDescriptorSet(LogicalDevice logicalDevice)
     writeDescriptorSets[8].dstSet = descriptorSet;
     writeDescriptorSets[8].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     writeDescriptorSets[8].descriptorCount = 1;
-    writeDescriptorSets[8].pImageInfo = &roughnessImageInfo;
+    writeDescriptorSets[8].pImageInfo = &normalImageInfo;
+
+    writeDescriptorSets[9].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    writeDescriptorSets[9].dstBinding = 9;
+    writeDescriptorSets[9].dstArrayElement = 0;
+    writeDescriptorSets[9].dstSet = descriptorSet;
+    writeDescriptorSets[9].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    writeDescriptorSets[9].descriptorCount = 1;
+    writeDescriptorSets[9].pImageInfo = &prefilteredImageInfo;
+
+    writeDescriptorSets[10].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    writeDescriptorSets[10].dstBinding = 10;
+    writeDescriptorSets[10].dstArrayElement = 0;
+    writeDescriptorSets[10].dstSet = descriptorSet;
+    writeDescriptorSets[10].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    writeDescriptorSets[10].descriptorCount = 1;
+    writeDescriptorSets[10].pImageInfo = &roughnessImageInfo;
 
     vkUpdateDescriptorSets(logicalDevice.getDevice(), writeDescriptorSets.size(), writeDescriptorSets.data(), 0, nullptr);
 }

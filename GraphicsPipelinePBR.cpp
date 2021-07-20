@@ -29,8 +29,7 @@ void GraphicsPipelinePBR::createDescriptorPool(LogicalDevice logicalDevice)
     poolSizes[0].descriptorCount = 3;
 
     poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    //poolSizes[1].descriptorCount = 8;
-    poolSizes[1].descriptorCount = 6;
+    poolSizes[1].descriptorCount = 8;
 
     poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
@@ -47,8 +46,7 @@ void GraphicsPipelinePBR::createDescriptorPool(LogicalDevice logicalDevice)
 void GraphicsPipelinePBR::createDescriptorSetLayout(LogicalDevice logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
-    //bindings.resize(11);
-    bindings.resize(9);
+    bindings.resize(11);
     VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 
     bindings[0].binding = 0;
@@ -104,7 +102,7 @@ void GraphicsPipelinePBR::createDescriptorSetLayout(LogicalDevice logicalDevice)
     bindings[8].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindings[8].pImmutableSamplers = nullptr;
     bindings[8].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-    /*
+    
     bindings[9].binding = 9;
     bindings[9].descriptorCount = 1;
     bindings[9].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
@@ -116,7 +114,7 @@ void GraphicsPipelinePBR::createDescriptorSetLayout(LogicalDevice logicalDevice)
     bindings[10].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     bindings[10].pImmutableSamplers = nullptr;
     bindings[10].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-    */
+    
     layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     layoutInfo.bindingCount = bindings.size();
     layoutInfo.pBindings = bindings.data();

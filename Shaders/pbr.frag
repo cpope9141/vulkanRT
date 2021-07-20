@@ -35,12 +35,12 @@ layout(push_constant) uniform PushConstant {
 
 layout(binding = 3) uniform sampler2D albedoSampler;
 layout(binding = 4) uniform sampler2D aoSampler;
-//layout(binding = 5) uniform sampler2D integratedBRDFSampler;
-layout(binding = 5) uniform samplerCube irradianceSampler;
-layout(binding = 6) uniform sampler2D metallicSampler;
-layout(binding = 7) uniform sampler2D normalSampler;
-//layout(binding = 9) uniform samplerCube prefilteredSampler;
-layout(binding = 8) uniform sampler2D roughnessSampler;
+layout(binding = 5) uniform sampler2D integratedBRDFSampler;
+layout(binding = 6) uniform samplerCube irradianceSampler;
+layout(binding = 7) uniform sampler2D metallicSampler;
+layout(binding = 8) uniform sampler2D normalSampler;
+layout(binding = 9) uniform samplerCube prefilteredSampler;
+layout(binding = 10) uniform sampler2D roughnessSampler;
 
 /*
  * inputs
@@ -80,14 +80,11 @@ vec3 ambientReflectance(vec3 N, vec3 R, float NdotV, vec3 F0, float metallicClam
     vec3 diffuse = irradiance * albedo;
     
     //specular component
-	/*
-    const float MAX_REFLECTION_LOD = 9.0;
+    const float MAX_REFLECTION_LOD = 10.0;
     float lod = roughnessClamped * MAX_REFLECTION_LOD;
     vec3 prefilteredColor = textureLod(prefilteredSampler, R, lod).rgb;       
     vec2 brdf = texture(integratedBRDFSampler, vec2(NdotV, roughnessClamped)).rg;
     vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
-	*/
-	vec3 specular = vec3(0.0);
 
     return (kD * diffuse + specular) * ao;
 }

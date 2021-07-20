@@ -1,11 +1,9 @@
 #pragma once
 #include "FramebufferObject.h"
 
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
-
-const glm::vec2 FBO_IBL_IRRADIANCE_EXTENT = glm::vec2(128, 128);
+const uint32_t FBO_IBL_IRRADIANCE_EXTENT = 128;
+const uint32_t FBO_IBL_PREFILTERED_EXTENT = 512;
+const uint32_t FBO_IBL_INTEGRATED_BRDF_EXTENT = 512;
 
 class FramebufferObjectIBL : public FramebufferObject
 {

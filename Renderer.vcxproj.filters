@@ -109,6 +109,18 @@
     <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance">
       <UniqueIdentifier>{7e142004-350d-4c8b-aa4e-2e038d0aa08b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefilter">
+      <UniqueIdentifier>{e63997d5-9ee5-4458-be6c-f3428d328edf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefiltered">
+      <UniqueIdentifier>{2b6d9c60-c10e-4357-8fc0-8f7aeca34381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF">
+      <UniqueIdentifier>{a1015722-1dcf-4df8-8198-114be53ab5be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF">
+      <UniqueIdentifier>{7c6de8a1-49dd-4798-ad55-03b952908244}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -288,6 +300,24 @@
     <ClCompile Include="DescriptorSetIrradiance.cpp">
       <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderStagesPrefiltered.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefiltered</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelinePrefiltered.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefiltered</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetPrefiltered.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefiltered</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsPipelineIntegratedBRDF.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesIntegratedBRDF.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetIntegratedBRDF.cpp">
+      <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.h">
@@ -466,6 +496,24 @@
     </ClInclude>
     <ClInclude Include="DescriptorSetIrradiance.h">
       <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Irradiance</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipelinePrefiltered.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefilter</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesPrefiltered.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefilter</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetPrefiltered.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\Prefilter</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsPipelineIntegratedBRDF.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesIntegratedBRDF.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetIntegratedBRDF.h">
+      <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

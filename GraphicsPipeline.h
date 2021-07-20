@@ -1,6 +1,7 @@
 #pragma once
-#include "LogicalDevice.h"
 #include "Pipeline.h"
+
+#include "LogicalDevice.h"
 #include "vulkan/vulkan_core.h"
 
 const float MIN_SAMPLE_SHADING = 0.2f;

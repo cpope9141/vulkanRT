@@ -30,11 +30,11 @@ protected:
 private:
 	Texture* albedo;
 	Texture* ao;
-	//Texture integratedBRDF;
+	Texture* integratedBRDF;
 	CubeMap* irradiance;
 	Texture* metallic;
 	Texture* normal;
-	//CubeMap prefiltered;
+	CubeMap* prefiltered;
 	Texture* roughness;
 	UniformBufferPBRLighting* uboLighting;
 	UniformBufferProjection* uboProjection;
