@@ -11,5 +11,5 @@ public:
 	UniformBufferStaticModelPBR();
 	~UniformBufferStaticModelPBR();
 
-	void update(LogicalDevice logicalDevice, glm::mat4 viewMatrix, glm::mat4 modelMatrix, glm::mat4 normalMatrix);
+	void update(LogicalDevice& logicalDevice, glm::mat4 viewMatrix, glm::mat4 modelMatrix, glm::mat4 normalMatrix);
 };

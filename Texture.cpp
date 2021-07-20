@@ -10,7 +10,7 @@ Texture::Texture(VkFilter filter)
 
 Texture::~Texture() {}
 
-void Texture::create(LogicalDevice logicalDevice,
+void Texture::create(LogicalDevice& logicalDevice,
     uint32_t height,
     uint32_t width,
     VkFormat format,
@@ -28,7 +28,7 @@ void Texture::create(LogicalDevice logicalDevice,
     this->width = width;
 }
 
-void Texture::create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource)
+void Texture::create(LogicalDevice& logicalDevice, CommandPool& commandPool, const RGBAResource& resource)
 {
     image.create(logicalDevice, commandPool, resource);
     imageView.create(logicalDevice, image.getImage(), VK_IMAGE_VIEW_TYPE_2D, image.getMipLevels(), VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, 1);
@@ -38,7 +38,7 @@ void Texture::create(LogicalDevice logicalDevice, CommandPool commandPool, const
     this->width = static_cast<uint32_t>(resource.width);
 }
 
-void Texture::destroy(LogicalDevice logicalDevice)
+void Texture::destroy(LogicalDevice& logicalDevice)
 {
     sampler.destroy(logicalDevice);
     imageView.destroy(logicalDevice);

@@ -8,7 +8,7 @@ UniformBufferPBRLighting::UniformBufferPBRLighting()
 
 UniformBufferPBRLighting::~UniformBufferPBRLighting() {}
 
-void UniformBufferPBRLighting::update(LogicalDevice logicalDevice, DirectionalLight directionalLight, PositionalLight positionalLights[2])
+void UniformBufferPBRLighting::update(LogicalDevice& logicalDevice, DirectionalLight& directionalLight, PositionalLight positionalLights[2])
 {
     void* ptr = nullptr;
     PBRLighting pbrLighting = {};

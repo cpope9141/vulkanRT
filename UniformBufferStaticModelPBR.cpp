@@ -15,7 +15,7 @@ UniformBufferStaticModelPBR::UniformBufferStaticModelPBR()
 
 UniformBufferStaticModelPBR::~UniformBufferStaticModelPBR() {}
 
-void UniformBufferStaticModelPBR::update(LogicalDevice logicalDevice, glm::mat4 viewMatrix, glm::mat4 modelMatrix, glm::mat4 normalMatrix)
+void UniformBufferStaticModelPBR::update(LogicalDevice& logicalDevice, glm::mat4 viewMatrix, glm::mat4 modelMatrix, glm::mat4 normalMatrix)
 {
     void* ptr = nullptr;
     UBOStaticModelPBR ubo = {};

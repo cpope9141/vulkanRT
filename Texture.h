@@ -12,7 +12,7 @@ public:
 	Texture(VkFilter filter);
 	~Texture();
 
-	void create(LogicalDevice logicalDevice,
+	void create(LogicalDevice& logicalDevice,
 		uint32_t height,
 		uint32_t width,
 		VkFormat format,
@@ -21,8 +21,8 @@ public:
 		VkSampleCountFlagBits sampleCount,
 		bool enableAnisotropy,
 		VkBorderColor borderColor);
-	void create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource);
-	void destroy(LogicalDevice logicalDevice);
+	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, const RGBAResource& resource);
+	void destroy(LogicalDevice& logicalDevice);
 	uint32_t getHeight();
 	Image getImage();
 	VkImageView getImageView();

@@ -10,12 +10,12 @@ UniformBufferObject::UniformBufferObject()
 
 UniformBufferObject::~UniformBufferObject() {}
 
-void UniformBufferObject::create(LogicalDevice logicalDevice)
+void UniformBufferObject::create(LogicalDevice& logicalDevice)
 {
     create(logicalDevice, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, getSize());
 }
 
-void UniformBufferObject::create(LogicalDevice logicalDevice, VkBufferUsageFlagBits usage, VkDeviceSize size)
+void UniformBufferObject::create(LogicalDevice& logicalDevice, VkBufferUsageFlagBits usage, VkDeviceSize size)
 {
     createBuffer(logicalDevice,
         size,

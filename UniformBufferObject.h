@@ -9,8 +9,8 @@ public:
 	UniformBufferObject();
 	~UniformBufferObject();
 
-	void create(LogicalDevice logicalDevice);
-	void create(LogicalDevice logicalDevice, VkBufferUsageFlagBits usage, VkDeviceSize size);
+	void create(LogicalDevice& logicalDevice);
+	void create(LogicalDevice& logicalDevice, VkBufferUsageFlagBits usage, VkDeviceSize size);
 	VkDeviceSize getSize();
 
 protected:
