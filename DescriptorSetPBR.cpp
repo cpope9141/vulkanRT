@@ -20,7 +20,7 @@ DescriptorSetPBR::DescriptorSetPBR()
 
 DescriptorSetPBR::~DescriptorSetPBR() {}
 
-void DescriptorSetPBR::create(LogicalDevice logicalDevice,
+void DescriptorSetPBR::create(LogicalDevice& logicalDevice,
 	GraphicsPipeline* gp,
 	UniformBufferProjection* uboProjection,
 	UniformBufferPBRLighting* uboLighting,
@@ -43,13 +43,13 @@ void DescriptorSetPBR::create(LogicalDevice logicalDevice,
 	allocateDescriptorSet(logicalDevice, gp->getDescriptorSetLayout(), gp->getDescriptorPool());
 }
 
-void DescriptorSetPBR::destroy(LogicalDevice logicalDevice, GraphicsPipeline* gp)
+void DescriptorSetPBR::destroy(LogicalDevice& logicalDevice, GraphicsPipeline* gp)
 {
     vkFreeDescriptorSets(logicalDevice.getDevice(), gp->getDescriptorPool(), 1, &descriptorSet);
 }
 
 //protected
-void DescriptorSetPBR::updateDescriptorSet(LogicalDevice logicalDevice)
+void DescriptorSetPBR::updateDescriptorSet(LogicalDevice& logicalDevice)
 {
     VkDescriptorBufferInfo dbiProjection = createDescriptorBufferInfo(uboProjection, 0);
     VkDescriptorBufferInfo dbiLighting = createDescriptorBufferInfo(uboLighting, 0);

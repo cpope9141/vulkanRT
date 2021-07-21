@@ -19,7 +19,7 @@ uint8_t GraphicsPipelineIntegratedBRDF::getPushConstantSize() { return PUSH_CONS
 VkShaderStageFlags GraphicsPipelineIntegratedBRDF::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
 
 //protected
-void GraphicsPipelineIntegratedBRDF::createDescriptorPool(LogicalDevice logicalDevice)
+void GraphicsPipelineIntegratedBRDF::createDescriptorPool(LogicalDevice& logicalDevice)
 {
     std::vector<VkDescriptorPoolSize> poolSizes;
     poolSizes.resize(1);
@@ -39,7 +39,7 @@ void GraphicsPipelineIntegratedBRDF::createDescriptorPool(LogicalDevice logicalD
     }
 }
 
-void GraphicsPipelineIntegratedBRDF::createDescriptorSetLayout(LogicalDevice logicalDevice)
+void GraphicsPipelineIntegratedBRDF::createDescriptorSetLayout(LogicalDevice& logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
     bindings.resize(1);
@@ -61,7 +61,7 @@ void GraphicsPipelineIntegratedBRDF::createDescriptorSetLayout(LogicalDevice log
     }
 }
 
-void GraphicsPipelineIntegratedBRDF::createPipelineLayout(LogicalDevice logicalDevice)
+void GraphicsPipelineIntegratedBRDF::createPipelineLayout(LogicalDevice& logicalDevice)
 {
     VkPushConstantRange pushConstRange = {};
     VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};

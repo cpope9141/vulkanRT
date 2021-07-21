@@ -8,7 +8,7 @@ DescriptorSetIrradiance::DescriptorSetIrradiance()
 
 DescriptorSetIrradiance::~DescriptorSetIrradiance() {}
 
-void DescriptorSetIrradiance::create(LogicalDevice logicalDevice, GraphicsPipelineIrradiance* gp, CubeMap* cubeMap)
+void DescriptorSetIrradiance::create(LogicalDevice& logicalDevice, GraphicsPipelineIrradiance* gp, CubeMap* cubeMap)
 {
     this->cubeMap = cubeMap;
 
@@ -16,7 +16,7 @@ void DescriptorSetIrradiance::create(LogicalDevice logicalDevice, GraphicsPipeli
 }
 
 //protected
-void DescriptorSetIrradiance::updateDescriptorSet(LogicalDevice logicalDevice)
+void DescriptorSetIrradiance::updateDescriptorSet(LogicalDevice& logicalDevice)
 {
     VkDescriptorImageInfo irradianceImageInfo = createDescriptorImageInfo(cubeMap, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 

@@ -20,7 +20,7 @@ SwapChain::SwapChain()
 
 SwapChain::~SwapChain() {}
 
-VkResult SwapChain::acquireNextImage(LogicalDevice logicalDevice)
+VkResult SwapChain::acquireNextImage(LogicalDevice& logicalDevice)
 {
     Frame currentFrame = inFlightFrames[currentFrameIndex];
     VkResult result = VK_SUCCESS;
@@ -43,7 +43,7 @@ VkResult SwapChain::acquireNextImage(LogicalDevice logicalDevice)
     return result;
 }
 
-void SwapChain::create(LogicalDevice logicalDevice, CommandPool commandPool)
+void SwapChain::create(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
 	VkSurfaceKHR surface = getSurface();
 	PhysicalDevice* physicalDevice = logicalDevice.getPhysicalDevicePtr();
@@ -109,7 +109,7 @@ void SwapChain::create(LogicalDevice logicalDevice, CommandPool commandPool)
     }
 }
 
-void SwapChain::destroy(LogicalDevice logicalDevice, CommandPool commandPool)
+void SwapChain::destroy(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
     destroySyncObjects(logicalDevice);
     freeCommandBuffers(logicalDevice);
@@ -126,7 +126,7 @@ VkExtent2D SwapChain::getImageExtent() { return imageExtent; }
 uint32_t SwapChain::getNextImageIndex() { return nextImageIndex; }
 RenderPassPresentation SwapChain::getRenderPass() { return renderPass; }
 
-VkResult SwapChain::present(LogicalDevice logicalDevice)
+VkResult SwapChain::present(LogicalDevice& logicalDevice)
 {
     VkResult result = VK_ERROR_DEVICE_LOST;
     Frame currentFrame = inFlightFrames[currentFrameIndex];
@@ -150,7 +150,7 @@ VkResult SwapChain::present(LogicalDevice logicalDevice)
     return result;
 }
 
-VkResult SwapChain::submitDrawCommand(LogicalDevice logicalDevice, VkCommandBuffer commandBuffer)
+VkResult SwapChain::submitDrawCommand(LogicalDevice& logicalDevice, VkCommandBuffer commandBuffer)
 {
     Frame currentFrame = inFlightFrames[currentFrameIndex];
     VkSubmitInfo submitInfo = {};
@@ -182,7 +182,7 @@ VkResult SwapChain::submitDrawCommand(LogicalDevice logicalDevice, VkCommandBuff
 }
 
 //private
-void SwapChain::allocateCommandBuffers(LogicalDevice logicalDevice, CommandPool commandPool)
+void SwapChain::allocateCommandBuffers(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
     for (Framebuffer framebuffer : framebuffers)
     {
@@ -211,7 +211,7 @@ VkExtent2D SwapChain::chooseImageExtent(VkSurfaceCapabilitiesKHR capabilities, G
     return actualExtent;
 }
 
-VkPresentModeKHR SwapChain::choosePresentMode(std::vector<VkPresentModeKHR> availablePresentModes)
+VkPresentModeKHR SwapChain::choosePresentMode(std::vector<VkPresentModeKHR>& availablePresentModes)
 {
     VkPresentModeKHR presentMode = VK_PRESENT_MODE_IMMEDIATE_KHR;
 
@@ -227,7 +227,7 @@ VkPresentModeKHR SwapChain::choosePresentMode(std::vector<VkPresentModeKHR> avai
     return presentMode;
 }
 
-VkSurfaceFormatKHR SwapChain::chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR> availableFormats)
+VkSurfaceFormatKHR SwapChain::chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR>& availableFormats)
 {
     VkSurfaceFormatKHR chosenFormat = availableFormats[0];
 
@@ -243,7 +243,7 @@ VkSurfaceFormatKHR SwapChain::chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR
     return chosenFormat;
 }
 
-void SwapChain::createDepthResources(LogicalDevice logicalDevice, CommandPool commandPool)
+void SwapChain::createDepthResources(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
     VkFormat depthFormat = logicalDevice.getPhysicalDevicePtr()->getDepthFormat();
 
@@ -260,7 +260,7 @@ void SwapChain::createDepthResources(LogicalDevice logicalDevice, CommandPool co
     depthImageView.create(logicalDevice, depthImage.getImage(), VK_IMAGE_VIEW_TYPE_2D, 1, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, 1);
 }
 
-void SwapChain::createFramebuffers(LogicalDevice logicalDevice)
+void SwapChain::createFramebuffers(LogicalDevice& logicalDevice)
 {
     for (ImageView imageView : imageViews)
     {
@@ -270,7 +270,7 @@ void SwapChain::createFramebuffers(LogicalDevice logicalDevice)
     }
 }
 
-void SwapChain::createImageViews(LogicalDevice logicalDevice)
+void SwapChain::createImageViews(LogicalDevice& logicalDevice)
 {
     for (VkImage image : images)
     {
@@ -280,7 +280,7 @@ void SwapChain::createImageViews(LogicalDevice logicalDevice)
     }
 }
 
-void SwapChain::createSyncObjects(LogicalDevice logicalDevice)
+void SwapChain::createSyncObjects(LogicalDevice& logicalDevice)
 {
     inFlightFrames.resize(MAX_FRAMES_IN_FLIGHT);
 
@@ -292,32 +292,32 @@ void SwapChain::createSyncObjects(LogicalDevice logicalDevice)
     }
 }
 
-void SwapChain::destroyDepthResources(LogicalDevice logicalDevice)
+void SwapChain::destroyDepthResources(LogicalDevice& logicalDevice)
 {
     depthImageView.destroy(logicalDevice);
     depthImage.destroy(logicalDevice);
 }
 
-void SwapChain::destroyFramebuffers(LogicalDevice logicalDevice)
+void SwapChain::destroyFramebuffers(LogicalDevice& logicalDevice)
 {
     for (Framebuffer framebuffer : framebuffers) { framebuffer.destroy(logicalDevice); }
     framebuffers.clear();
 }
 
-void SwapChain::destroyImageViews(LogicalDevice logicalDevice)
+void SwapChain::destroyImageViews(LogicalDevice& logicalDevice)
 {
     for (ImageView imageView : imageViews) { imageView.destroy(logicalDevice); }
     imageViews.clear();
 }
 
-void SwapChain::destroySyncObjects(LogicalDevice logicalDevice)
+void SwapChain::destroySyncObjects(LogicalDevice& logicalDevice)
 {
     for (Frame frame : inFlightFrames) { frame.destroy(logicalDevice); }
     inFlightFrames.clear();
     imagesInFlight.clear();
 }
 
-void SwapChain::freeCommandBuffers(LogicalDevice logicalDevice)
+void SwapChain::freeCommandBuffers(LogicalDevice& logicalDevice)
 {
     for (CommandBuffer commandBuffer : commandBuffers) { commandBuffer.freeCommandBuffer(logicalDevice); }
     commandBuffers.clear();

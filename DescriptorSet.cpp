@@ -10,7 +10,7 @@ DescriptorSet::DescriptorSet()
 
 DescriptorSet::~DescriptorSet() {}
 
-void DescriptorSet::allocateDescriptorSet(LogicalDevice logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool)
+void DescriptorSet::allocateDescriptorSet(LogicalDevice& logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool)
 {
     VkDescriptorSetAllocateInfo allocInfo = {};
 

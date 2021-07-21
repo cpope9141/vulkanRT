@@ -12,11 +12,11 @@ public:
 	DescriptorSetPostProcess();
 	~DescriptorSetPostProcess();
 
-	void create(LogicalDevice logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo, Texture* texture);
-	void destroy(LogicalDevice logicalDevice, GraphicsPipeline* gp);
+	void create(LogicalDevice& logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo, Texture* texture);
+	void destroy(LogicalDevice& logicalDevice, GraphicsPipeline* gp);
 
 protected:
-	virtual void updateDescriptorSet(LogicalDevice logicalDevice) override;
+	virtual void updateDescriptorSet(LogicalDevice& logicalDevice) override;
 
 private:
 	Texture* texture;

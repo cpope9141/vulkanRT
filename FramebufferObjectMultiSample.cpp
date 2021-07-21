@@ -7,7 +7,7 @@ FramebufferObjectMultiSample::FramebufferObjectMultiSample() {}
 FramebufferObjectMultiSample::FramebufferObjectMultiSample(uint32_t height, uint32_t width, VkFormat colorFormat) : FramebufferObject(height, width, colorFormat) {}
 FramebufferObjectMultiSample::~FramebufferObjectMultiSample() {}
 
-void FramebufferObjectMultiSample::create(LogicalDevice logicalDevice, RenderPass* renderPass)
+void FramebufferObjectMultiSample::create(LogicalDevice& logicalDevice, RenderPass* renderPass)
 {
 	VkSampleCountFlagBits sampleCount = logicalDevice.getPhysicalDevicePtr()->getSampleCount();
 
@@ -52,7 +52,7 @@ void FramebufferObjectMultiSample::create(LogicalDevice logicalDevice, RenderPas
 		colorAttachment.getImageView());
 }
 
-void FramebufferObjectMultiSample::destroy(LogicalDevice logicalDevice) {
+void FramebufferObjectMultiSample::destroy(LogicalDevice& logicalDevice) {
 	FramebufferObject::destroy(logicalDevice);
 	msImageView.destroy(logicalDevice);
 	msImage.destroy(logicalDevice);

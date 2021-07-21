@@ -20,9 +20,9 @@ public:
 	virtual VkShaderStageFlags getPushConstantStages() override;
 
 protected:
-	virtual void createDescriptorPool(LogicalDevice logicalDevice) override;
-	virtual void createDescriptorSetLayout(LogicalDevice logicalDevice) override;
-	virtual void createPipelineLayout(LogicalDevice logicalDevice) override;
+	virtual void createDescriptorPool(LogicalDevice& logicalDevice) override;
+	virtual void createDescriptorSetLayout(LogicalDevice& logicalDevice) override;
+	virtual void createPipelineLayout(LogicalDevice& logicalDevice) override;
 	virtual VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo() override;
 	virtual std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions() override;
 	virtual VkVertexInputBindingDescription getBindingDescription() override;

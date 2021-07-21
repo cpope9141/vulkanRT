@@ -10,7 +10,7 @@ FramebufferObjectIBL::FramebufferObjectIBL(VkFormat colorFormat, uint32_t height
 
 FramebufferObjectIBL::~FramebufferObjectIBL() {}
 
-void FramebufferObjectIBL::create(LogicalDevice logicalDevice, RenderPass* renderPass)
+void FramebufferObjectIBL::create(LogicalDevice& logicalDevice, RenderPass* renderPass)
 {
 	colorAttachment.create(logicalDevice,
 		height,

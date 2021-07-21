@@ -15,17 +15,17 @@ public:
 	DescriptorSetPBR();
 	~DescriptorSetPBR();
 
-	void create(LogicalDevice logicalDevice,
+	void create(LogicalDevice& logicalDevice,
 		GraphicsPipeline* gp,
 		UniformBufferProjection* uboProjection,
 		UniformBufferPBRLighting* uboLighting,
 		UniformBufferStaticModelPBR* uboStaticModel,
 		PrecomputedIBL* precomputedIBL,
 		ModelRT* modelRT);
-	void destroy(LogicalDevice logicalDevice, GraphicsPipeline* gp);
+	void destroy(LogicalDevice& logicalDevice, GraphicsPipeline* gp);
 
 protected:
-	virtual void updateDescriptorSet(LogicalDevice logicalDevice) override;
+	virtual void updateDescriptorSet(LogicalDevice& logicalDevice) override;
 
 private:
 	Texture* albedo;

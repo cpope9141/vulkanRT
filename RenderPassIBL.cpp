@@ -6,7 +6,7 @@
 RenderPassIBL::RenderPassIBL() {}
 RenderPassIBL::~RenderPassIBL() {}
 
-void RenderPassIBL::create(LogicalDevice logicalDevice, VkFormat imageFormat)
+void RenderPassIBL::create(LogicalDevice& logicalDevice, VkFormat imageFormat)
 {
     VkAttachmentDescription attachment = {};
     std::vector<VkAttachmentDescription> attachments(1, attachment);

@@ -8,7 +8,7 @@ DescriptorSetIntegratedBRDF::DescriptorSetIntegratedBRDF()
 
 DescriptorSetIntegratedBRDF::~DescriptorSetIntegratedBRDF() {}
 
-void DescriptorSetIntegratedBRDF::create(LogicalDevice logicalDevice, GraphicsPipelineIntegratedBRDF* gp, UniformBufferProjection* ubo)
+void DescriptorSetIntegratedBRDF::create(LogicalDevice& logicalDevice, GraphicsPipelineIntegratedBRDF* gp, UniformBufferProjection* ubo)
 {
     this->ubo = ubo;
 
@@ -16,7 +16,7 @@ void DescriptorSetIntegratedBRDF::create(LogicalDevice logicalDevice, GraphicsPi
 }
 
 //protected
-void DescriptorSetIntegratedBRDF::updateDescriptorSet(LogicalDevice logicalDevice)
+void DescriptorSetIntegratedBRDF::updateDescriptorSet(LogicalDevice& logicalDevice)
 {
     VkDescriptorBufferInfo descriptorBufferInfo = createDescriptorBufferInfo(ubo, 0);
 

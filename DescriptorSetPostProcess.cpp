@@ -11,7 +11,7 @@ DescriptorSetPostProcess::DescriptorSetPostProcess()
 
 DescriptorSetPostProcess::~DescriptorSetPostProcess() {}
 
-void DescriptorSetPostProcess::create(LogicalDevice logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo, Texture* texture)
+void DescriptorSetPostProcess::create(LogicalDevice& logicalDevice, GraphicsPipeline* gp, UniformBufferObject* ubo, Texture* texture)
 {
     this->texture = texture;
     this->ubo = ubo;
@@ -19,13 +19,13 @@ void DescriptorSetPostProcess::create(LogicalDevice logicalDevice, GraphicsPipel
     allocateDescriptorSet(logicalDevice, gp->getDescriptorSetLayout(), gp->getDescriptorPool());
 }
 
-void DescriptorSetPostProcess::destroy(LogicalDevice logicalDevice, GraphicsPipeline* gp)
+void DescriptorSetPostProcess::destroy(LogicalDevice& logicalDevice, GraphicsPipeline* gp)
 {
     vkFreeDescriptorSets(logicalDevice.getDevice(), gp->getDescriptorPool(), 1, &descriptorSet);
 }
 
 //protected
-void DescriptorSetPostProcess::updateDescriptorSet(LogicalDevice logicalDevice)
+void DescriptorSetPostProcess::updateDescriptorSet(LogicalDevice& logicalDevice)
 {
     VkDescriptorBufferInfo descriptorBufferInfo = createDescriptorBufferInfo(ubo, 0);
     VkDescriptorImageInfo descriptorImageInfo = createDescriptorImageInfo(texture, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);

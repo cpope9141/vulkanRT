@@ -19,7 +19,7 @@ uint8_t GraphicsPipelinePostProcess::getPushConstantSize() { return PUSH_CONSTAN
 VkShaderStageFlags GraphicsPipelinePostProcess::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
 
 //protected
-void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevice)
+void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice& logicalDevice)
 {
     std::vector<VkDescriptorPoolSize> poolSizes;
     poolSizes.resize(2);
@@ -43,7 +43,7 @@ void GraphicsPipelinePostProcess::createDescriptorPool(LogicalDevice logicalDevi
     }
 }
 
-void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice logicalDevice)
+void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice& logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
     bindings.resize(2);
@@ -71,7 +71,7 @@ void GraphicsPipelinePostProcess::createDescriptorSetLayout(LogicalDevice logica
     }
 }
 
-void GraphicsPipelinePostProcess::createPipelineLayout(LogicalDevice logicalDevice)
+void GraphicsPipelinePostProcess::createPipelineLayout(LogicalDevice& logicalDevice)
 {
     VkPushConstantRange pushConstRange = {};
     VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};

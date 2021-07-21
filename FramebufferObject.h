@@ -11,8 +11,8 @@ public:
 	FramebufferObject(uint32_t height, uint32_t width, VkFormat colorFormat);
 	~FramebufferObject();
 
-	virtual void create(LogicalDevice logicalDevice, RenderPass* renderPass);
-	virtual void destroy(LogicalDevice logicalDevice);
+	virtual void create(LogicalDevice& logicalDevice, RenderPass* renderPass);
+	virtual void destroy(LogicalDevice& logicalDevice);
 	Texture getColorAttachment();
     Texture getDepthAttachment();
 	VkFramebuffer getFramebuffer();

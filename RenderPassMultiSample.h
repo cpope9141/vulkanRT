@@ -7,5 +7,5 @@ public:
 	RenderPassMultiSample();
 	~RenderPassMultiSample();
 
-	virtual void create(LogicalDevice logicalDevice, VkFormat imageFormat) override;
+	virtual void create(LogicalDevice& logicalDevice, VkFormat imageFormat) override;
 };

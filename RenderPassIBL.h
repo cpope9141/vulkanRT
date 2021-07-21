@@ -7,5 +7,5 @@ public:
 	RenderPassIBL();
 	~RenderPassIBL();
 
-	virtual void create(LogicalDevice logicalDevice, VkFormat imageFormat) override;
+	virtual void create(LogicalDevice& logicalDevice, VkFormat imageFormat) override;
 };

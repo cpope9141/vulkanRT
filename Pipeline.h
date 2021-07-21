@@ -9,7 +9,7 @@ public:
 	Pipeline();
 	~Pipeline();
 
-	void destroy(LogicalDevice logicalDevice);
+	void destroy(LogicalDevice& logicalDevice);
 	VkDescriptorPool getDescriptorPool();
 	VkDescriptorSetLayout getDescriptorSetLayout();
 	VkPipeline getPipeline();
@@ -24,7 +24,7 @@ protected:
 	VkPipelineLayout pipelineLayout;
 	ShaderStages* shaderStages;
 
-	virtual void createDescriptorPool(LogicalDevice logicalDevice) = 0;
-	virtual void createDescriptorSetLayout(LogicalDevice logicalDevice) = 0;
-	virtual void createPipelineLayout(LogicalDevice logicalDevice) = 0;
+	virtual void createDescriptorPool(LogicalDevice& logicalDevice) = 0;
+	virtual void createDescriptorSetLayout(LogicalDevice& logicalDevice) = 0;
+	virtual void createPipelineLayout(LogicalDevice& logicalDevice) = 0;
 };

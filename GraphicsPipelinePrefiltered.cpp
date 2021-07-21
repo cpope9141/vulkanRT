@@ -19,7 +19,7 @@ uint8_t GraphicsPipelinePrefiltered::getPushConstantSize() { return PUSH_CONSTAN
 VkShaderStageFlags GraphicsPipelinePrefiltered::getPushConstantStages() { return PUSH_CONSTANT_STAGES; }
 
 //protected
-void GraphicsPipelinePrefiltered::createDescriptorPool(LogicalDevice logicalDevice)
+void GraphicsPipelinePrefiltered::createDescriptorPool(LogicalDevice& logicalDevice)
 {
     std::vector<VkDescriptorPoolSize> poolSizes;
     poolSizes.resize(1);
@@ -39,7 +39,7 @@ void GraphicsPipelinePrefiltered::createDescriptorPool(LogicalDevice logicalDevi
     }
 }
 
-void GraphicsPipelinePrefiltered::createDescriptorSetLayout(LogicalDevice logicalDevice)
+void GraphicsPipelinePrefiltered::createDescriptorSetLayout(LogicalDevice& logicalDevice)
 {
     std::vector<VkDescriptorSetLayoutBinding> bindings;
     bindings.resize(1);
@@ -61,7 +61,7 @@ void GraphicsPipelinePrefiltered::createDescriptorSetLayout(LogicalDevice logica
     }
 }
 
-void GraphicsPipelinePrefiltered::createPipelineLayout(LogicalDevice logicalDevice)
+void GraphicsPipelinePrefiltered::createPipelineLayout(LogicalDevice& logicalDevice)
 {
     VkPushConstantRange pushConstRange = {};
     VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};

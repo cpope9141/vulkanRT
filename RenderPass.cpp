@@ -47,5 +47,5 @@ void RenderPass::beginRenderPass(uint32_t height, uint32_t width, VkFramebuffer 
 	vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 }
 
-void RenderPass::destroy(LogicalDevice logicalDevice) { vkDestroyRenderPass(logicalDevice.getDevice(), renderPass, nullptr); }
+void RenderPass::destroy(LogicalDevice& logicalDevice) { vkDestroyRenderPass(logicalDevice.getDevice(), renderPass, nullptr); }
 VkRenderPass RenderPass::getRenderPass() { return renderPass; }

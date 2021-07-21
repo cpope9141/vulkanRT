@@ -8,7 +8,7 @@ DescriptorSetPrefiltered::DescriptorSetPrefiltered()
 
 DescriptorSetPrefiltered::~DescriptorSetPrefiltered() {}
 
-void DescriptorSetPrefiltered::create(LogicalDevice logicalDevice, GraphicsPipelinePrefiltered* gp, CubeMap* cubeMap)
+void DescriptorSetPrefiltered::create(LogicalDevice& logicalDevice, GraphicsPipelinePrefiltered* gp, CubeMap* cubeMap)
 {
     this->cubeMap = cubeMap;
 
@@ -16,7 +16,7 @@ void DescriptorSetPrefiltered::create(LogicalDevice logicalDevice, GraphicsPipel
 }
 
 //protected
-void DescriptorSetPrefiltered::updateDescriptorSet(LogicalDevice logicalDevice)
+void DescriptorSetPrefiltered::updateDescriptorSet(LogicalDevice& logicalDevice)
 {
     VkDescriptorImageInfo prefilteredImageInfo = createDescriptorImageInfo(cubeMap, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 

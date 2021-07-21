@@ -12,7 +12,7 @@ public:
 	DescriptorSet();
 	~DescriptorSet();
 
-	void allocateDescriptorSet(LogicalDevice logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool);
+	void allocateDescriptorSet(LogicalDevice& logicalDevice, VkDescriptorSetLayout descriptorSetLayout, VkDescriptorPool descriptorPool);
 	VkDescriptorSet getDescriptorSet();
 
 protected:
@@ -20,5 +20,5 @@ protected:
 
 	VkDescriptorBufferInfo createDescriptorBufferInfo(UniformBufferObject* ubo, VkDeviceSize offset);
 	VkDescriptorImageInfo createDescriptorImageInfo(Texture* texture, VkImageLayout imageLayout);
-	virtual void updateDescriptorSet(LogicalDevice logicalDevice) = 0;
+	virtual void updateDescriptorSet(LogicalDevice& logicalDevice) = 0;
 };

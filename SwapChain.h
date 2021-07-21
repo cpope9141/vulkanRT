@@ -18,16 +18,16 @@ public:
 	SwapChain();
 	~SwapChain();
 
-	VkResult acquireNextImage(LogicalDevice logicalDevice);
-	void create(LogicalDevice logicalDevice, CommandPool commandPool);
-	void destroy(LogicalDevice logicalDevice, CommandPool commandPool);
+	VkResult acquireNextImage(LogicalDevice& logicalDevice);
+	void create(LogicalDevice& logicalDevice, CommandPool& commandPool);
+	void destroy(LogicalDevice& logicalDevice, CommandPool& commandPool);
 	std::vector<CommandBuffer> getCommandBuffers();
 	std::vector<Framebuffer> getFramebuffers();
 	VkExtent2D getImageExtent();
 	uint32_t getNextImageIndex();
 	RenderPassPresentation getRenderPass();
-	VkResult present(LogicalDevice logicalDevice);
-	VkResult submitDrawCommand(LogicalDevice logicalDevice, VkCommandBuffer commandBuffer);
+	VkResult present(LogicalDevice& logicalDevice);
+	VkResult submitDrawCommand(LogicalDevice& logicalDevice, VkCommandBuffer commandBuffer);
 
 private:
 	std::vector<CommandBuffer> commandBuffers;
@@ -45,17 +45,17 @@ private:
 	RenderPassPresentation renderPass;
 	VkSwapchainKHR swapChain;
 
-	void allocateCommandBuffers(LogicalDevice logicalDevice, CommandPool commandPool);
+	void allocateCommandBuffers(LogicalDevice& logicalDevice, CommandPool& commandPool);
 	VkExtent2D chooseImageExtent(VkSurfaceCapabilitiesKHR capabilities, GLFWwindow* window);
-	VkPresentModeKHR choosePresentMode(std::vector<VkPresentModeKHR> availablePresentModes);
-	VkSurfaceFormatKHR chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR> availableFormats);
-	void createDepthResources(LogicalDevice logicalDevice, CommandPool commandPool);
-	void createFramebuffers(LogicalDevice logicalDevice);
-	void createImageViews(LogicalDevice logicalDevice);
-	void createSyncObjects(LogicalDevice logicalDevice);
-	void destroyDepthResources(LogicalDevice logicalDevice);
-	void destroyFramebuffers(LogicalDevice logicalDevice);
-	void destroyImageViews(LogicalDevice logicalDevice);
-	void destroySyncObjects(LogicalDevice logicalDevice);
-	void freeCommandBuffers(LogicalDevice logicalDevice);
+	VkPresentModeKHR choosePresentMode(std::vector<VkPresentModeKHR>& availablePresentModes);
+	VkSurfaceFormatKHR chooseSurfaceFormat(std::vector<VkSurfaceFormatKHR>& availableFormats);
+	void createDepthResources(LogicalDevice& logicalDevice, CommandPool& commandPool);
+	void createFramebuffers(LogicalDevice& logicalDevice);
+	void createImageViews(LogicalDevice& logicalDevice);
+	void createSyncObjects(LogicalDevice& logicalDevice);
+	void destroyDepthResources(LogicalDevice& logicalDevice);
+	void destroyFramebuffers(LogicalDevice& logicalDevice);
+	void destroyImageViews(LogicalDevice& logicalDevice);
+	void destroySyncObjects(LogicalDevice& logicalDevice);
+	void freeCommandBuffers(LogicalDevice& logicalDevice);
 };
