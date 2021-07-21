@@ -1,5 +1,5 @@
 # vulkanRT
-Public demo of a Vulkan ray tracer (KHR extensions) and physically based materials. (UNDER CONSTRUCTION)
+(UNDER CONSTRUCTION) Public demo of a Vulkan ray tracer (KHR extensions) and physically based materials. Current code will render "Cerberus" with physically based materials and image based lighting. The next step will add required KHR extensions for enabling ray tracing.
 
 Current dependencies include:
 Assimp
