@@ -1,10 +1,10 @@
 # vulkanRT
-(UNDER CONSTRUCTION) Public demo of a Vulkan ray tracer (KHR extensions) and physically based materials. Current code will render "Cerberus" with physically based materials and image based lighting. The next step will add required KHR extensions for enabling ray tracing.
+(UNDER CONSTRUCTION) Public demo of a Vulkan ray tracer (KHR extensions) and physically based materials. Current code will ray trace "Cerberus" with physically based materials. A precomputed irradiance cube map is used for ambient diffuse.
 
 Current dependencies include:
-Assimp
-glm
-GLFW
-stb_image
+1. https://github.com/assimp/assimp
+2. https://github.com/g-truc/glm
+3. https://github.com/glfw/glfw
+4. https://github.com/nothings/stb
 
-![UnderConstruction_CurrentProgress](https://user-images.githubusercontent.com/77579409/126418869-c6daa771-05f6-45f7-84c1-4c6fa8696dd7.jpg)
+![initialRTCode](https://user-images.githubusercontent.com/77579409/126913155-6b3a553d-d5d4-442a-82d7-8c4540e10a48.jpg)
