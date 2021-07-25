@@ -32,4 +32,5 @@ void CerberusRT::init(LogicalDevice& logicalDevice, CommandPool& commandPool)
 	createTexture(logicalDevice, commandPool, ROUGHNESS, roughness);
 
 	staticMeshVertexData.init(logicalDevice, commandPool, resource);
+	staticMeshVertexData.setDeviceAddresses(logicalDevice);
 }

@@ -4,7 +4,7 @@
 #include "MemoryUtilities.h"
 
 //public
-TransferBufferObject::TransferBufferObject(VkBufferUsageFlagBits usage)
+TransferBufferObject::TransferBufferObject(VkBufferUsageFlags usage)
 {
     this->usage = usage;
 }

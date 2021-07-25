@@ -121,6 +121,24 @@
     <Filter Include="Source Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF">
       <UniqueIdentifier>{7c6de8a1-49dd-4798-ad55-03b952908244}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Renderer\RayTracer">
+      <UniqueIdentifier>{15fdb3b2-74b7-4b0c-8396-9502037f5510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\RayTracer">
+      <UniqueIdentifier>{8af72510-83c6-40e4-b812-fb291a5aa2dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\RayTracing">
+      <UniqueIdentifier>{90c46e9f-1589-4d1e-9525-b7a67fefb9b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\RayTracing">
+      <UniqueIdentifier>{87749a41-f3fa-4c2d-95f3-d86f7615e1b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Pipeline\RayTracing\PBR">
+      <UniqueIdentifier>{3c74d03f-1cd0-4c21-9d75-9ed4175643c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Pipeline\RayTracing\PBR">
+      <UniqueIdentifier>{810a3a62-ba68-40bb-abe0-12d612989907}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -318,6 +336,42 @@
     <ClCompile Include="DescriptorSetIntegratedBRDF.cpp">
       <Filter>Source Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
     </ClCompile>
+    <ClCompile Include="RayTracer.cpp">
+      <Filter>Source Files\Renderer\RayTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="AccelerationStructure.cpp">
+      <Filter>Source Files\Renderer\RayTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracingScratchBuffer.cpp">
+      <Filter>Source Files\Renderer\RayTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferInstance.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracingPipeline.cpp">
+      <Filter>Source Files\Renderer\Pipeline\RayTracing</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracingPipelinePBR.cpp">
+      <Filter>Source Files\Renderer\Pipeline\RayTracing\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesRTPBR.cpp">
+      <Filter>Source Files\Renderer\Pipeline\RayTracing\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStagesRayTracing.cpp">
+      <Filter>Source Files\Renderer\Pipeline\RayTracing</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferShaderBindingTable.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformBufferRT.cpp">
+      <Filter>Source Files\Renderer\Buffer\Uniform</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStorageBuffer.cpp">
+      <Filter>Source Files\Renderer\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorSetRTPBR.cpp">
+      <Filter>Source Files\Renderer\Pipeline\RayTracing\PBR</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.h">
@@ -514,6 +568,42 @@
     </ClInclude>
     <ClInclude Include="DescriptorSetIntegratedBRDF.h">
       <Filter>Header Files\Renderer\Pipeline\Graphics\PBR\IBL\IntegratedBRDF</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracer.h">
+      <Filter>Header Files\Renderer\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="AccelerationStructure.h">
+      <Filter>Header Files\Renderer\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracingScratchBuffer.h">
+      <Filter>Header Files\Renderer\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferInstance.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracingPipeline.h">
+      <Filter>Header Files\Renderer\Pipeline\RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracingPipelinePBR.h">
+      <Filter>Header Files\Renderer\Pipeline\RayTracing\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesRTPBR.h">
+      <Filter>Header Files\Renderer\Pipeline\RayTracing\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStagesRayTracing.h">
+      <Filter>Header Files\Renderer\Pipeline\RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferShaderBindingTable.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformBufferRT.h">
+      <Filter>Header Files\Renderer\Buffer\Uniform</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStorageBuffer.h">
+      <Filter>Header Files\Renderer\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorSetRTPBR.h">
+      <Filter>Header Files\Renderer\Pipeline\RayTracing\PBR</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

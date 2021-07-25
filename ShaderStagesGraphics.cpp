@@ -1,22 +1,16 @@
 #include "ShaderStagesGraphics.h"
 
-#include <fstream>
-#include <ios>
-#include <string>
-
-static std::vector<char> readBytecode(const std::string& relativePath);
-
 //public
 ShaderStagesGraphics::ShaderStagesGraphics() {}
 ShaderStagesGraphics::~ShaderStagesGraphics() {}
 
-void ShaderStagesGraphics::destroy(LogicalDevice logicalDevice)
+void ShaderStagesGraphics::destroy(LogicalDevice& logicalDevice)
 {
     vkDestroyShaderModule(logicalDevice.getDevice(), vertexShaderModule, nullptr);
     vkDestroyShaderModule(logicalDevice.getDevice(), fragmentShaderModule, nullptr);
 }
 
-std::vector<VkPipelineShaderStageCreateInfo> ShaderStagesGraphics::shaderStageCreateInfos(LogicalDevice logicalDevice)
+std::vector<VkPipelineShaderStageCreateInfo> ShaderStagesGraphics::shaderStageCreateInfos(LogicalDevice& logicalDevice)
 {
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
     shaderStages.resize(2);
@@ -36,20 +30,4 @@ std::vector<VkPipelineShaderStageCreateInfo> ShaderStagesGraphics::shaderStageCr
     shaderStages[1].pName = entryPoint;
 
     return shaderStages;
-}
-
-static std::vector<char> readBytecode(const std::string& relativePath)
-{
-    std::ifstream file(relativePath, std::ios::ate | std::ios::binary);
-
-    if (!file.is_open()) { throw std::runtime_error("failed to open file!"); }
-
-    size_t fileSize = (size_t)file.tellg();
-    std::vector<char> buffer(fileSize);
-
-    file.seekg(0);
-    file.read(buffer.data(), fileSize);
-    file.close();
-
-    return buffer;
 }

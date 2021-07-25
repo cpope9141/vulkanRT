@@ -5,9 +5,9 @@
 //public
 StaticMeshVertexData::StaticMeshVertexData()
 {
-    indexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
+    indexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR | VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT | VK_BUFFER_USAGE_STORAGE_BUFFER_BIT);
     indexType = VK_INDEX_TYPE_UINT32;
-    vertexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+    vertexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR | VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT | VK_BUFFER_USAGE_STORAGE_BUFFER_BIT);
 }
 
 StaticMeshVertexData::~StaticMeshVertexData()
@@ -60,5 +60,6 @@ void StaticMeshVertexData::init(LogicalDevice& logicalDevice, CommandPool& comma
     indexBufferObject->create(logicalDevice, commandPool, modelResource.indices.data(), modelResource.indices.size() * sizeof(uint32_t));
     vertexBufferObject->create(logicalDevice, commandPool, modelResource.vertices.data(), modelResource.vertices.size() * sizeof(StaticMeshVertex));
 
-    indexCount = modelResource.indices.size();
+    indexCount = static_cast<uint32_t>(modelResource.indices.size());
+    vertexCount = static_cast<uint32_t>(modelResource.vertices.size());
 }

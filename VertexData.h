@@ -11,13 +11,22 @@ public:
 
     void destroy(LogicalDevice& logicalDevice);
 	VkBuffer getIndexBuffer();
+	VkDeviceAddress getIndexBufferDeviceAddress();
 	uint32_t getIndexCount();
 	VkIndexType getIndexType();
 	VkBuffer getVertexBuffer();
+	VkDeviceAddress getVertexBufferDeviceAddress();
+	uint32_t getVertexCount();
+	void setDeviceAddresses(LogicalDevice& logicalDevice);
 
 protected:
+	VkDeviceAddress indexBufferDeviceAddress;
     TransferBufferObject* indexBufferObject;
 	uint32_t indexCount;
     VkIndexType indexType;
+	VkDeviceAddress vertexBufferDeviceAddress;
     TransferBufferObject* vertexBufferObject;
+	uint32_t vertexCount;
+
+	VkDeviceAddress getBufferDeviceAddress(LogicalDevice logicalDevice, VkBuffer buffer);
 };

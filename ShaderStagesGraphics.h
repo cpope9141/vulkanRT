@@ -8,8 +8,8 @@ public:
 	ShaderStagesGraphics();
 	~ShaderStagesGraphics();
 
-	virtual void destroy(LogicalDevice logicalDevice) override;
-	virtual std::vector<VkPipelineShaderStageCreateInfo> shaderStageCreateInfos(LogicalDevice logicalDevice) override;
+	virtual void destroy(LogicalDevice& logicalDevice) override;
+	virtual std::vector<VkPipelineShaderStageCreateInfo> shaderStageCreateInfos(LogicalDevice& logicalDevice) override;
 
 protected:
 	VkShaderModule fragmentShaderModule;

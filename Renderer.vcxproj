@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccelerationStructure.cpp" />
     <ClCompile Include="BufferObject.cpp" />
     <ClCompile Include="CerberusRT.cpp" />
     <ClCompile Include="CommandBuffer.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="DescriptorSetPBR.cpp" />
     <ClCompile Include="DescriptorSetPostProcess.cpp" />
     <ClCompile Include="DescriptorSetPrefiltered.cpp" />
+    <ClCompile Include="DescriptorSetRTPBR.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="FramebufferObject.cpp" />
@@ -185,6 +187,10 @@
     <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="PrecomputedIBL.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
+    <ClCompile Include="RayTracer.cpp" />
+    <ClCompile Include="RayTracingPipeline.cpp" />
+    <ClCompile Include="RayTracingPipelinePBR.cpp" />
+    <ClCompile Include="RayTracingScratchBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderPass.cpp" />
     <ClCompile Include="RenderPassIBL.cpp" />
@@ -192,6 +198,7 @@
     <ClCompile Include="RenderPassPresentation.cpp" />
     <ClCompile Include="RGBAResource.cpp" />
     <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="SceneStorageBuffer.cpp" />
     <ClCompile Include="ShaderSPIRV.cpp" />
     <ClCompile Include="ShaderStages.cpp" />
     <ClCompile Include="ShaderStagesGraphics.cpp" />
@@ -200,13 +207,18 @@
     <ClCompile Include="ShaderStagesPBR.cpp" />
     <ClCompile Include="ShaderStagesPostProcess.cpp" />
     <ClCompile Include="ShaderStagesPrefiltered.cpp" />
+    <ClCompile Include="ShaderStagesRayTracing.cpp" />
+    <ClCompile Include="ShaderStagesRTPBR.cpp" />
     <ClCompile Include="StaticMeshVertexData.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransferBufferObject.cpp" />
+    <ClCompile Include="UniformBufferInstance.cpp" />
     <ClCompile Include="UniformBufferObject.cpp" />
     <ClCompile Include="UniformBufferPBRLighting.cpp" />
     <ClCompile Include="UniformBufferProjection.cpp" />
+    <ClCompile Include="UniformBufferRT.cpp" />
+    <ClCompile Include="UniformBufferShaderBindingTable.cpp" />
     <ClCompile Include="UniformBufferStaticModelPBR.cpp" />
     <ClCompile Include="ValidationLayer.cpp" />
     <ClCompile Include="QuadVertexData.cpp" />
@@ -214,6 +226,7 @@
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccelerationStructure.h" />
     <ClInclude Include="BufferObject.h" />
     <ClInclude Include="CerberusRT.h" />
     <ClInclude Include="CommandBuffer.h" />
@@ -227,6 +240,7 @@
     <ClInclude Include="DescriptorSetPBR.h" />
     <ClInclude Include="DescriptorSetPostProcess.h" />
     <ClInclude Include="DescriptorSetPrefiltered.h" />
+    <ClInclude Include="DescriptorSetRTPBR.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="FramebufferObject.h" />
@@ -251,6 +265,10 @@
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="PrecomputedIBL.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
+    <ClInclude Include="RayTracer.h" />
+    <ClInclude Include="RayTracingPipeline.h" />
+    <ClInclude Include="RayTracingPipelinePBR.h" />
+    <ClInclude Include="RayTracingScratchBuffer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="RenderPassIBL.h" />
@@ -258,6 +276,7 @@
     <ClInclude Include="RenderPassPresentation.h" />
     <ClInclude Include="RGBAResource.h" />
     <ClInclude Include="Sampler.h" />
+    <ClInclude Include="SceneStorageBuffer.h" />
     <ClInclude Include="ShaderSPIRV.h" />
     <ClInclude Include="ShaderStages.h" />
     <ClInclude Include="ShaderStagesGraphics.h" />
@@ -266,14 +285,19 @@
     <ClInclude Include="ShaderStagesPBR.h" />
     <ClInclude Include="ShaderStagesPostProcess.h" />
     <ClInclude Include="ShaderStagesPrefiltered.h" />
+    <ClInclude Include="ShaderStagesRayTracing.h" />
+    <ClInclude Include="ShaderStagesRTPBR.h" />
     <ClInclude Include="StaticMeshVertexData.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransferBufferObject.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="UniformBufferInstance.h" />
     <ClInclude Include="UniformBufferObject.h" />
     <ClInclude Include="UniformBufferPBRLighting.h" />
     <ClInclude Include="UniformBufferProjection.h" />
+    <ClInclude Include="UniformBufferRT.h" />
+    <ClInclude Include="UniformBufferShaderBindingTable.h" />
     <ClInclude Include="UniformBufferStaticModelPBR.h" />
     <ClInclude Include="ValidationLayer.h" />
     <ClInclude Include="QuadVertexData.h" />

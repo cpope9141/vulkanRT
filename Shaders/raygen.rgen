@@ -1,0 +1,94 @@
+#version 460
+#extension GL_EXT_ray_tracing : require
+
+/*
+ * constants
+ */
+const int SAMPLES_SQRT = 3;
+const float SAMPLE_WIDTH = 1.0 / SAMPLES_SQRT;
+const float SAMPLE_MID_POINT_OFFSET = SAMPLE_WIDTH / 2.0;
+
+const int MAX_DEPTH = 10;
+
+/*
+ * structs
+ */
+struct hitPayload {
+    vec3 hitValue;
+    int depth;
+    vec3 attenuation;
+    int done;
+    vec3 rayOrigin;
+    vec3 rayDir;
+};
+
+/*
+ * uniforms
+ */
+layout(binding = 0, set = 0) uniform accelerationStructureEXT topLevelAS;
+layout(binding = 1, set = 0, rgba32f) uniform image2D image;
+
+layout(binding = 2, set = 0) uniform UniformBufferRTShadow {
+    mat4 viewInverse;
+    mat4 projInverse;
+    vec4 lightPos;
+    int vertexSize;
+} ubo;
+
+/*
+ * outputs
+ */
+layout(location = 0) rayPayloadEXT hitPayload rayPayload;
+
+/*
+ * functions
+ */
+void main() {
+    vec3 sampleValues = vec3(0.0);
+    
+    for(int i = 0; i < SAMPLES_SQRT; i++) {
+        float sampleX = (i * SAMPLE_WIDTH) + SAMPLE_MID_POINT_OFFSET;
+        
+        for(int j = 0; j < SAMPLES_SQRT; j++){
+            float sampleY = (j * SAMPLE_WIDTH) + SAMPLE_MID_POINT_OFFSET;
+            
+            const vec2 pixelSample = vec2(gl_LaunchIDEXT.xy) + vec2(sampleX, sampleY);
+            const vec2 inUV = pixelSample / vec2(gl_LaunchSizeEXT.xy);
+            vec2 d = inUV * 2.0 - 1.0;
+            
+            vec4 origin = ubo.viewInverse * vec4(0,0,0,1);
+            vec4 target = ubo.projInverse * vec4(d.x, d.y, 1, 1);
+            vec4 direction = ubo.viewInverse * vec4(normalize(target.xyz / target.w), 0);
+        
+            uint rayFlags = gl_RayFlagsOpaqueEXT;
+            uint cullMask = 0xff;
+            float tmin = 0.001;
+            float tmax = 10000.0;
+            
+            rayPayload.done = 1;
+            rayPayload.rayOrigin = origin.xyz;
+            rayPayload.rayDir = direction.xyz;
+            rayPayload.depth = 0;
+            rayPayload.hitValue = vec3(0.0);
+            rayPayload.attenuation = vec3(1.0, 1.0, 1.0);
+    
+            for(;;) {
+                traceRayEXT(topLevelAS, rayFlags, cullMask, 0, 0, 0, origin.xyz, tmin, direction.xyz, tmax, 0);
+                
+                sampleValues += rayPayload.hitValue * rayPayload.attenuation;
+                
+                rayPayload.depth++;
+                
+                if(rayPayload.done == 1 || MAX_DEPTH <= rayPayload.depth) {break;}
+                
+                origin.xyz = rayPayload.rayOrigin;
+                direction.xyz = rayPayload.rayDir;
+                rayPayload.done = 1;
+            }
+        }
+    }
+    
+    sampleValues = sampleValues / (SAMPLES_SQRT * SAMPLES_SQRT);
+    
+    imageStore(image, ivec2(gl_LaunchIDEXT.xy), vec4(sampleValues, 1.0));
+}

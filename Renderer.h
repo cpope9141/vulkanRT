@@ -11,6 +11,7 @@
 #include "Panel.h"
 #include "PhysicalDevice.h"
 #include "PrecomputedIBL.h"
+#include "RayTracer.h"
 #include "RenderPassMultiSample.h"
 #include "SwapChain.h"
 #include "UniformBufferPBRLighting.h"
@@ -19,7 +20,15 @@
 
 #define ENABLE_VALIDATION_LAYERS true
 
-const std::vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+const std::vector<const char*> deviceExtensions =
+{ 
+	VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME,
+	VK_KHR_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME,
+	VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME,
+	VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME,
+	VK_KHR_SPIRV_1_4_EXTENSION_NAME,
+	VK_KHR_SWAPCHAIN_EXTENSION_NAME
+};
 
 #ifdef NDEBUG
 const bool enableValidationLayers = false;
@@ -50,9 +59,11 @@ private:
 	GraphicsPipelinePostProcess graphicsPipelinePostProcess;
 	Instance instance;
 	LogicalDevice logicalDevice;
+	std::vector<ModelRT> models;
 	Panel panel;
 	PhysicalDevice physicalDevice;
 	PrecomputedIBL precomputedIBL;
+	RayTracer rayTracer;
 	RenderPassMultiSample renderPassMultiSample;
 	SwapChain swapChain;
 	UniformBufferPBRLighting uboLighting;

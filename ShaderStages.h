@@ -2,6 +2,7 @@
 #include "LogicalDevice.h"
 #include "vulkan/vulkan_core.h"
 
+#include <string>
 #include <vector>
 
 class ShaderStages
@@ -10,9 +11,10 @@ public:
 	ShaderStages();
 	~ShaderStages();
 
-	virtual void destroy(LogicalDevice logicalDevice) = 0;
-	virtual std::vector<VkPipelineShaderStageCreateInfo> shaderStageCreateInfos(LogicalDevice logicalDevice) = 0;
+	virtual void destroy(LogicalDevice& logicalDevice) = 0;
+	virtual std::vector<VkPipelineShaderStageCreateInfo> shaderStageCreateInfos(LogicalDevice& logicalDevice) = 0;
 
 protected:
 	VkShaderModule createShaderModule(LogicalDevice logicalDevice, const std::vector<char>& spirvCode);
+	std::vector<char> readBytecode(const std::string& relativePath);
 };

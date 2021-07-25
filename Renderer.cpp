@@ -23,8 +23,13 @@ void Renderer::create()
 	physicalDevice.selectPhysicalDevice(instance.getInstance());
 	logicalDevice.create(physicalDevice);
 	commandPool.create(logicalDevice);
+
     loadAssets();
     createUniformBuffers();
+
+    rayTracer.create(logicalDevice, commandPool, precomputedIBL, models, viewMatrix, uboPerspective.getProjection(), glm::vec3(10, 5, 0));
+    rayTracer.draw(logicalDevice, commandPool);
+
 	createSwapChainObjects();
 }
 
@@ -33,6 +38,9 @@ void Renderer::destroy()
     waitForDeviceIdle();
 
 	destroySwapChainObjects();
+
+    rayTracer.destroy(logicalDevice);
+
     destroyUniformBuffers();
     releaseAssets();
 	commandPool.destroy(logicalDevice);
@@ -162,9 +170,10 @@ void Renderer::createSwapChainObjects()
 
     for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
     {
-        Texture t = fbosMultiSample[i].getColorAttachment();
+        //Texture t = fbosMultiSample[i].getColorAttachment();
+        Texture* t = rayTracer.getOutputImage();
         descriptorSetPostProcess[i] = DescriptorSetPostProcess();
-        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
+        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, t);
     }
 }
 
@@ -238,6 +247,9 @@ void Renderer::loadAssets()
     panel.init(logicalDevice, commandPool);
     cerberusRT.init(logicalDevice, commandPool);
     precomputedIBL.create(logicalDevice, commandPool);
+
+    models.resize(1);
+    models[0] = cerberusRT;
 }
 
 void Renderer::recreateSwapChain()
