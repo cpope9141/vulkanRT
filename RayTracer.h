@@ -19,17 +19,17 @@ public:
 	RayTracer();
 	~RayTracer();
 
-	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, PrecomputedIBL& precomputedIBL, std::vector<ModelRT>& models, glm::mat4 view, glm::mat4 proj, glm::vec3 lightPos);
+	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, PrecomputedIBL& precomputedIBL, std::vector<ModelRT>& models, glm::mat4 view, glm::mat4 proj, glm::vec3 lightPos, size_t swapChainImagesCount);
 	void destroy(LogicalDevice& logicalDevice);
-	void draw(LogicalDevice& logicalDevice, CommandPool& commandPool);
-	Texture* getOutputImage();
+	void draw(LogicalDevice& logicalDevice, CommandBuffer& commandBuffer, uint32_t nextImageIndex);
+	std::vector<Texture>& getOutputImages();
 
 private:
 	VkPhysicalDeviceAccelerationStructureFeaturesKHR accelerationStructureFeatures;
 	std::vector<AccelerationStructure> blases;
 	Cube cube;
 	DescriptorSetRTPBR descriptorSetRTPBR;
-	Texture outputImage = Texture(VK_FILTER_LINEAR);
+	std::vector<Texture> outputImages;
 	RayTracingPipelinePBR rayTracingPipelinePBR;
 	VkPhysicalDeviceRayTracingPipelinePropertiesKHR rayTracingPipelineProperties;
 	SceneStorageBuffer sceneStorageBuffer;
@@ -48,7 +48,7 @@ private:
 	AccelerationStructure createBottomLevelAccelerationStructure(LogicalDevice& logicalDevice, CommandPool& commandPool, Model& model);
 	RayTracingScratchBuffer createScratchBuffer(LogicalDevice& logicalDevice, VkDeviceSize size);
 	void createShaderBindingTable(LogicalDevice& logicalDevice);
-	void createStorageImage(LogicalDevice& logicalDevice, CommandPool& commandPool);
+	void createStorageImages(LogicalDevice& logicalDevice, CommandPool& commandPool, size_t swapChainImagesCount);
 	void createTopLevelAccelerationStructure(LogicalDevice& logicalDevice, CommandPool& commandPool);
 	void destroyShaderBindingTable(LogicalDevice& logicalDevice);
 	void destroyStorageImage(LogicalDevice& logicalDevice);

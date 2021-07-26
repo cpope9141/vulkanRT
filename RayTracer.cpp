@@ -17,7 +17,7 @@ RayTracer::RayTracer()
 
 RayTracer::~RayTracer() {}
 
-void RayTracer::create(LogicalDevice& logicalDevice, CommandPool& commandPool, PrecomputedIBL& precomputedIBL, std::vector<ModelRT>& models, glm::mat4 view, glm::mat4 proj, glm::vec3 lightPos)
+void RayTracer::create(LogicalDevice& logicalDevice, CommandPool& commandPool, PrecomputedIBL& precomputedIBL, std::vector<ModelRT>& models, glm::mat4 view, glm::mat4 proj, glm::vec3 lightPos, size_t swapChainImagesCount)
 {
     VkPhysicalDevice physicalDevice = logicalDevice.getPhysicalDevicePtr()->getPhysicalDevice();
     VkPhysicalDeviceProperties2 deviceProperties2 = {};
@@ -39,7 +39,7 @@ void RayTracer::create(LogicalDevice& logicalDevice, CommandPool& commandPool, P
 
     createTopLevelAccelerationStructure(logicalDevice, commandPool);
 
-    createStorageImage(logicalDevice, commandPool);
+    createStorageImages(logicalDevice, commandPool, swapChainImagesCount);
 
     uboRT.create(logicalDevice);
 	uboRT.update(logicalDevice, view, proj, lightPos, sizeof(StaticMeshVertex));
@@ -78,14 +78,14 @@ void RayTracer::destroy(LogicalDevice& logicalDevice)
 	for (size_t i = 0; i < blases.size(); i++) { blases[i].destroy(logicalDevice); }
 }
 
-void RayTracer::draw(LogicalDevice& logicalDevice, CommandPool& commandPool)
+void RayTracer::draw(LogicalDevice& logicalDevice, CommandBuffer& commandBuffer, uint32_t nextImageIndex)
 {
 	PFN_vkCmdTraceRaysKHR vkCmdTraceRaysKHR =
 		reinterpret_cast<PFN_vkCmdTraceRaysKHR>(vkGetDeviceProcAddr(logicalDevice.getDevice(), "vkCmdTraceRaysKHR"));
 
 	const uint32_t handleSizeAligned = alignedSize(rayTracingPipelineProperties.shaderGroupHandleSize, rayTracingPipelineProperties.shaderGroupHandleAlignment);
-	CommandBuffer commandBuffer(commandPool);
 	VkDescriptorSet ds = descriptorSetRTPBR.getDescriptorSet();
+	Texture outputImage = outputImages[nextImageIndex];
 
 	VkStridedDeviceAddressRegionKHR hitShaderSbtEntry = {};
 	VkStridedDeviceAddressRegionKHR missShaderSbtEntry = {};
@@ -103,8 +103,6 @@ void RayTracer::draw(LogicalDevice& logicalDevice, CommandPool& commandPool)
 	raygenShaderSbtEntry.deviceAddress = getBufferDeviceAddress(logicalDevice, uboSBTRaygen.getBuffer());
 	raygenShaderSbtEntry.stride = handleSizeAligned;
 	raygenShaderSbtEntry.size = handleSizeAligned;
-
-	commandBuffer.beginOneTimeCommandBuffer(logicalDevice);
 
 	vkCmdBindPipeline(commandBuffer.getCommandBuffer(), VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, rayTracingPipelinePBR.getPipeline());
 	vkCmdBindDescriptorSets(commandBuffer.getCommandBuffer(), VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, rayTracingPipelinePBR.getPipelineLayout(), 0, 1, &ds, 0, nullptr);
@@ -127,11 +125,9 @@ void RayTracer::draw(LogicalDevice& logicalDevice, CommandPool& commandPool)
 	storageImage.getImage().transitionLayout(logicalDevice, commandBuffer, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_IMAGE_LAYOUT_GENERAL, false);
 
 	outputImage.getImage().transitionLayout(logicalDevice, commandBuffer, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, false);
-
-	commandBuffer.submitOneTimeCommandBuffer(logicalDevice);
 }
 
-Texture* RayTracer::getOutputImage() { return &outputImage; }
+std::vector<Texture>& RayTracer::getOutputImages() { return outputImages; }
 
 //private
 uint32_t RayTracer::alignedSize(uint32_t value, uint32_t alignment) { return (value + alignment - 1) & ~(alignment - 1); }
@@ -291,19 +287,23 @@ void RayTracer::createShaderBindingTable(LogicalDevice& logicalDevice)
 	}
 }
 
-void RayTracer::createStorageImage(LogicalDevice& logicalDevice, CommandPool& commandPool)
+void RayTracer::createStorageImages(LogicalDevice& logicalDevice, CommandPool& commandPool, size_t swapChainImagesCount)
 {
 	CommandBuffer commandBuffer(commandPool);
 
-	outputImage.create(logicalDevice,
-		HEIGHT,
-		WIDTH,
-		VK_FORMAT_R32G32B32A32_SFLOAT,
-		VK_IMAGE_ASPECT_COLOR_BIT,
-		VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-		VK_SAMPLE_COUNT_1_BIT,
-		false,
-		VK_BORDER_COLOR_INT_OPAQUE_BLACK);
+	outputImages.resize(swapChainImagesCount);
+	for (size_t i = 0; i < swapChainImagesCount; i++)
+	{
+		outputImages[i].create(logicalDevice,
+			HEIGHT,
+			WIDTH,
+			VK_FORMAT_R32G32B32A32_SFLOAT,
+			VK_IMAGE_ASPECT_COLOR_BIT,
+			VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+			VK_SAMPLE_COUNT_1_BIT,
+			false,
+			VK_BORDER_COLOR_INT_OPAQUE_BLACK);
+	}
 
 	storageImage.create(logicalDevice,
 		HEIGHT,
@@ -317,11 +317,14 @@ void RayTracer::createStorageImage(LogicalDevice& logicalDevice, CommandPool& co
 
 	commandBuffer.beginOneTimeCommandBuffer(logicalDevice);
 
-	outputImage.getImage().transitionLayout(logicalDevice,
-		commandBuffer,
-		VK_IMAGE_LAYOUT_UNDEFINED,
-		VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
-		false);
+	for (Texture outputImage : outputImages)
+	{
+		outputImage.getImage().transitionLayout(logicalDevice,
+			commandBuffer,
+			VK_IMAGE_LAYOUT_UNDEFINED,
+			VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+			false);
+	}
 
 	storageImage.getImage().transitionLayout(logicalDevice,
 		commandBuffer,
@@ -422,7 +425,8 @@ void RayTracer::destroyShaderBindingTable(LogicalDevice& logicalDevice)
 void RayTracer::destroyStorageImage(LogicalDevice& logicalDevice)
 {
 	storageImage.destroy(logicalDevice);
-	outputImage.destroy(logicalDevice);
+	for(Texture outputImage : outputImages) { outputImage.destroy(logicalDevice); }
+	outputImages.clear();
 }
 
 VkDeviceAddress RayTracer::getBufferDeviceAddress(LogicalDevice& logicalDevice, VkBuffer buffer)

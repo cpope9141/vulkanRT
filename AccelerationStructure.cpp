@@ -71,4 +71,6 @@ void AccelerationStructure::destroy(LogicalDevice& logicalDevice)
 
     vkDestroyBuffer(logicalDevice.getDevice(), buffer, nullptr);
     vkFreeMemory(logicalDevice.getDevice(), bufferMemory, nullptr);
+
+	handle = VK_NULL_HANDLE;
 }

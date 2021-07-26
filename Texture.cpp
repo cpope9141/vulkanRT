@@ -1,6 +1,13 @@
 #include "Texture.h"
 
 //public
+Texture::Texture()
+{
+    height = 0;
+    this->filter = VK_FILTER_LINEAR;
+    width = 0;
+}
+
 Texture::Texture(VkFilter filter)
 {
 	height = 0;

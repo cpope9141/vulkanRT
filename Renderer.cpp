@@ -26,10 +26,6 @@ void Renderer::create()
 
     loadAssets();
     createUniformBuffers();
-
-    rayTracer.create(logicalDevice, commandPool, precomputedIBL, models, viewMatrix, uboPerspective.getProjection(), glm::vec3(10, 5, 0));
-    rayTracer.draw(logicalDevice, commandPool);
-
 	createSwapChainObjects();
 }
 
@@ -38,9 +34,6 @@ void Renderer::destroy()
     waitForDeviceIdle();
 
 	destroySwapChainObjects();
-
-    rayTracer.destroy(logicalDevice);
-
     destroyUniformBuffers();
     releaseAssets();
 	commandPool.destroy(logicalDevice);
@@ -58,20 +51,23 @@ void Renderer::prepare()
     {
         uint32_t nextImageIndex = swapChain.getNextImageIndex();
         VkCommandBufferBeginInfo beginInfo = {};
-        VkCommandBuffer commandBuffer = swapChain.getCommandBuffers()[nextImageIndex].getCommandBuffer();
+        CommandBuffer commandBuffer = swapChain.getCommandBuffers()[nextImageIndex];
 
         beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
         beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
-        if (VK_SUCCESS == vkBeginCommandBuffer(commandBuffer, &beginInfo))
+        if (VK_SUCCESS == vkBeginCommandBuffer(commandBuffer.getCommandBuffer(), &beginInfo))
         {
-            //ratracing commands here
+            rayTracer.draw(logicalDevice, commandBuffer, nextImageIndex);
+
+            /* alternatively draw using rasterization pipeline
             renderPassMultiSample.beginRenderPass(HEIGHT,
                 WIDTH,
                 fbosMultiSample[nextImageIndex].getFramebuffer(),
                 commandBuffer);
             drawStaticModelPBR(cerberusRT);
             vkCmdEndRenderPass(commandBuffer);
+            */
         }
         else
         {
@@ -153,7 +149,8 @@ void Renderer::addDrawCommands(VkDescriptorSet ds, GraphicsPipeline* gp, void* p
 void Renderer::createSwapChainObjects()
 {
 	swapChain.create(logicalDevice, commandPool);
-    fbosMultiSample.resize(swapChain.getFramebuffers().size());
+    size_t swapChainImageCount = swapChain.getFramebuffers().size();
+    fbosMultiSample.resize(swapChainImageCount);
     renderPassMultiSample.create(logicalDevice, VK_FORMAT_R32G32B32A32_SFLOAT);
 
     for (size_t i = 0; i < fbosMultiSample.size(); i++)
@@ -166,15 +163,25 @@ void Renderer::createSwapChainObjects()
     graphicsPipelinePostProcess.create(logicalDevice, swapChain.getRenderPass().getRenderPass());
 
     descriptorSetPBR.create(logicalDevice, &graphicsPipelinePBR, &uboPerspective, &uboLighting, &uboStaticModel, &precomputedIBL, &cerberusRT);
-    descriptorSetPostProcess.resize(swapChain.getFramebuffers().size());
+    descriptorSetPostProcess.resize(swapChainImageCount);
+
+    rayTracer.create(logicalDevice, commandPool, precomputedIBL, models, viewMatrix, uboPerspective.getProjection(), glm::vec3(10, 5, 0), swapChainImageCount);
+    std::vector<Texture> outputImages = rayTracer.getOutputImages();
 
     for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
     {
-        //Texture t = fbosMultiSample[i].getColorAttachment();
-        Texture* t = rayTracer.getOutputImage();
+        Texture t = outputImages[i];
         descriptorSetPostProcess[i] = DescriptorSetPostProcess();
-        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, t);
+        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
     }
+    /* alternatively draw with rasterization pipeline
+    for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
+    {
+        Texture t = fbosMultiSample[i].getColorAttachment();
+        descriptorSetPostProcess[i] = DescriptorSetPostProcess();
+        descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
+    }
+    */
 }
 
 void Renderer::createUniformBuffers()
@@ -207,6 +214,8 @@ void Renderer::destroySwapChainObjects()
 
     for (DescriptorSetPostProcess dspp : descriptorSetPostProcess) { dspp.destroy(logicalDevice, &graphicsPipelinePostProcess); }
     descriptorSetPostProcess.clear();
+
+    rayTracer.destroy(logicalDevice);
 
     graphicsPipelinePostProcess.destroy(logicalDevice);
     graphicsPipelinePBR.destroy(logicalDevice);

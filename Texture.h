@@ -9,6 +9,7 @@
 class Texture
 {
 public:
+	Texture();
 	Texture(VkFilter filter);
 	~Texture();
 
