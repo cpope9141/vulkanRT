@@ -20,9 +20,6 @@ const uint SAMPLER_2D_INSTANCE_STRIDE = 5;
 /*
  * structs
  */
-/*
- * structs
- */
 struct hitPayload {
     vec3 hitValue;
     int depth;
@@ -205,7 +202,7 @@ void main() {
     
     vec2 interpTexelCoords = v0.texelCoords * barycentricCoords.x + v1.texelCoords * barycentricCoords.y + v2.texelCoords * barycentricCoords.z;
     
-    vec3 viewPosition = vec3(ubo.viewInverse * vec4(0,0,0,1));    
+    vec3 viewPosition = rayPayload.rayOrigin;   
 
     vec3 N = calculateNormal(interpTexelCoords, interpNormal, interpTangent);
     vec3 V = normalize(viewPosition - interpPosition);
