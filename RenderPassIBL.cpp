@@ -49,11 +49,11 @@ void RenderPassIBL::create(LogicalDevice& logicalDevice, VkFormat imageFormat)
     dependencies[1].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    renderPassInfo.attachmentCount = attachments.size();
+    renderPassInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
     renderPassInfo.pAttachments = attachments.data();
     renderPassInfo.subpassCount = 1;
     renderPassInfo.pSubpasses = &subpass;
-    renderPassInfo.dependencyCount = dependencies.size();
+    renderPassInfo.dependencyCount = static_cast<uint32_t>(dependencies.size());
     renderPassInfo.pDependencies = dependencies.data();
 
     if (VK_SUCCESS != vkCreateRenderPass(logicalDevice.getDevice(), &renderPassInfo, nullptr, &renderPass))

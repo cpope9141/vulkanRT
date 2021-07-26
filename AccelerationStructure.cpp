@@ -5,7 +5,15 @@
 #include <iostream>
 
 //public
-AccelerationStructure::AccelerationStructure() {}
+AccelerationStructure::AccelerationStructure()
+{
+	buffer = VK_NULL_HANDLE;
+	bufferMemory = VK_NULL_HANDLE;
+	deviceAddress = 0;
+	handle = VK_NULL_HANDLE;
+	referenceModel = nullptr;
+	this->type = VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR;
+}
 
 AccelerationStructure::AccelerationStructure(VkAccelerationStructureTypeKHR type)
 {

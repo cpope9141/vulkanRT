@@ -28,7 +28,7 @@ void RenderPass::beginRenderPass(uint32_t height, uint32_t width, VkFramebuffer 
 	renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
 	renderPassBeginInfo.renderPass = renderPass;
 	renderPassBeginInfo.renderArea = renderArea;
-	renderPassBeginInfo.clearValueCount = clearValues.size();
+	renderPassBeginInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
 	renderPassBeginInfo.pClearValues = clearValues.data();
 	renderPassBeginInfo.framebuffer = framebuffer;
 

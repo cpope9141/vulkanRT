@@ -293,7 +293,7 @@ void Image::copyBufferToImage(LogicalDevice logicalDevice, CommandPool commandPo
 	}
 
 	commandBuffer.beginOneTimeCommandBuffer(logicalDevice);
-	vkCmdCopyBufferToImage(commandBuffer.getCommandBuffer(), buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, regions.size(), regions.data());
+	vkCmdCopyBufferToImage(commandBuffer.getCommandBuffer(), buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, static_cast<uint32_t>(regions.size()), regions.data());
 	commandBuffer.submitOneTimeCommandBuffer(logicalDevice);
 }
 

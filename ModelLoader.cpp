@@ -84,7 +84,7 @@ static void processVertices(const aiMesh* mesh, ModelResource& model)
     model.vertices.resize(mesh->mNumVertices);
     aiVector3D* uvw = mesh->mTextureCoords[0];
 
-    for (uint32_t i = 0; i < model.vertices.size(); i++)
+    for (size_t i = 0; i < model.vertices.size(); i++)
     {
         aiVector3D normal = mesh->mNormals[i];
         model.vertices[i].normal = glm::vec3(normal.x, normal.y, normal.z);

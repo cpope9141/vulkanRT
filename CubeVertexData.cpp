@@ -59,7 +59,7 @@ const std::vector<CubeVertex> VERTICES = {
 CubeVertexData::CubeVertexData()
 {
     indexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
-    indexCount = INDICES.size();
+    indexCount = static_cast<uint32_t>(INDICES.size());
     indexType = VK_INDEX_TYPE_UINT16;
     vertexBufferObject = new TransferBufferObject(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 }

@@ -378,7 +378,7 @@ void RayTracer::createTopLevelAccelerationStructure(LogicalDevice& logicalDevice
 	accelerationStructureBuildGeometryInfo.pGeometries = &accelerationStructureGeometry;
 	accelerationStructureBuildGeometryInfo.srcAccelerationStructure = VK_NULL_HANDLE != tlas.handle ? tlas.handle : VK_NULL_HANDLE;
 
-	uint32_t primitiveCount = instances.size();
+	uint32_t primitiveCount = static_cast<uint32_t>(instances.size());
 
 	VkAccelerationStructureBuildSizesInfoKHR accelerationStructureBuildSizesInfo = {};
 	accelerationStructureBuildSizesInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR;

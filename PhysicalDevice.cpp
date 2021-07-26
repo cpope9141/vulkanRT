@@ -87,10 +87,10 @@ bool PhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice physicalDevice
     availableExtensions.resize(extensionCount);
     vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &extensionCount, availableExtensions.data());
 
-    for (int i = 0; i < deviceExtensions.size(); i++) {
+    for (size_t i = 0; i < deviceExtensions.size(); i++) {
         bool found = false;
 
-        for (int j = 0; j < availableExtensions.size(); j++) {
+        for (size_t j = 0; j < availableExtensions.size(); j++) {
             if (0 == strcmp(deviceExtensions[i], availableExtensions[j].extensionName)) {
                 found = true;
                 break;
@@ -117,7 +117,7 @@ QueueFamilyIndices PhysicalDevice::findQueueFamilies(VkPhysicalDevice physicalDe
     queueFamilyProperties.resize(queueFamilyCount);
     vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilyProperties.data());
 
-    for (int i = 0; i < queueFamilyProperties.size(); i++)
+    for (size_t i = 0; i < queueFamilyProperties.size(); i++)
     {
         vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, i, surface, &presentSupport);
 

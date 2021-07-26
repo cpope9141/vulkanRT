@@ -6,11 +6,17 @@
 //public
 DescriptorSetRTPBR::DescriptorSetRTPBR()
 {
+    sceneStorageBuffer = nullptr;
+    storageImage = nullptr;
+    tlas = nullptr;
+    uboRT = nullptr;
+    integratedBRDF = nullptr;
+    irradiance = nullptr;
+    prefiltered = nullptr;
+    environment = nullptr;
 }
 
-DescriptorSetRTPBR::~DescriptorSetRTPBR()
-{
-}
+DescriptorSetRTPBR::~DescriptorSetRTPBR() {}
 
 void DescriptorSetRTPBR::create(LogicalDevice& logicalDevice,
 	RayTracingPipelinePBR* rtp,

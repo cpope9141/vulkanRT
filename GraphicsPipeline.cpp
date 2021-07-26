@@ -30,7 +30,7 @@ void GraphicsPipeline::create(LogicalDevice logicalDevice, VkRenderPass renderPa
     createPipelineLayout(logicalDevice);
 
     pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    pipelineInfo.stageCount = stages.size();
+    pipelineInfo.stageCount = static_cast<uint32_t>(stages.size());
     pipelineInfo.pStages = stages.data();
     pipelineInfo.pVertexInputState = &vertexInputState;
     pipelineInfo.pInputAssemblyState = &inputAssemblyState;
@@ -114,7 +114,7 @@ VkPipelineDynamicStateCreateInfo GraphicsPipeline::dynamicStateCreateInfo(std::v
     VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
 
     dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-    dynamicStateCreateInfo.dynamicStateCount = dynamicStates.size();
+    dynamicStateCreateInfo.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
     dynamicStateCreateInfo.pDynamicStates = dynamicStates.data();
 
     return dynamicStateCreateInfo;
@@ -154,7 +154,7 @@ VkPipelineVertexInputStateCreateInfo GraphicsPipeline::vertexInputStateCreateInf
     vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
     vertexInputStateCreateInfo.vertexBindingDescriptionCount = 1;
     vertexInputStateCreateInfo.pVertexBindingDescriptions = &bindingDescription;
-    vertexInputStateCreateInfo.vertexAttributeDescriptionCount = attributeDescriptions.size();
+    vertexInputStateCreateInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
     vertexInputStateCreateInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
 
     return vertexInputStateCreateInfo;
@@ -178,8 +178,8 @@ VkPipelineViewportStateCreateInfo GraphicsPipeline::viewportStateCreateInfo()
     VkViewport viewport = {};
     viewport.x = 0.0f;
     viewport.y = 0.0f;
-    viewport.width = imageExtent.width;
-    viewport.height = imageExtent.height;
+    viewport.width = 0.0f;
+    viewport.height = 0.0f;
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
 
