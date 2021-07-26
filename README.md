@@ -7,4 +7,4 @@ Current dependencies include:
 3. https://github.com/glfw/glfw
 4. https://github.com/nothings/stb
 
-![initialRTCode](https://user-images.githubusercontent.com/77579409/126913155-6b3a553d-d5d4-442a-82d7-8c4540e10a48.jpg)
+![initialRTCodeView](https://user-images.githubusercontent.com/77579409/127026759-bddbfbb3-5c93-4af9-b410-513d561e3192.jpg)
