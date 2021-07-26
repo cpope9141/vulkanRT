@@ -1,5 +1,5 @@
 # vulkanRT
-(UNDER CONSTRUCTION) Public demo of a Vulkan ray tracer (KHR extensions) and physically based materials. Current code will ray trace "Cerberus" with physically based materials. A precomputed irradiance cube map is used for ambient diffuse.
+Demo of a Vulkan ray tracer using physically based materials. Current code will ray trace "Cerberus" with physically based materials. A precomputed irradiance cube map is used for ambient diffuse.
 
 Current dependencies include:
 1. https://github.com/assimp/assimp
