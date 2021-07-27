@@ -171,14 +171,12 @@ void Renderer::createSwapChainObjects()
     for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
     {
         Texture t = outputImages[i];
-        descriptorSetPostProcess[i] = DescriptorSetPostProcess();
         descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
     }
     /* alternatively draw with rasterization pipeline
     for (size_t i = 0; i < descriptorSetPostProcess.size(); i++)
     {
         Texture t = fbosMultiSample[i].getColorAttachment();
-        descriptorSetPostProcess[i] = DescriptorSetPostProcess();
         descriptorSetPostProcess[i].create(logicalDevice, &graphicsPipelinePostProcess, &uboOrthographic, &t);
     }
     */
