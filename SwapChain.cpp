@@ -46,7 +46,7 @@ VkResult SwapChain::acquireNextImage(LogicalDevice& logicalDevice)
 void SwapChain::create(LogicalDevice& logicalDevice, CommandPool& commandPool)
 {
 	VkSurfaceKHR surface = getSurface();
-	PhysicalDevice* physicalDevice = logicalDevice.getPhysicalDevicePtr();
+	const PhysicalDevice* physicalDevice = logicalDevice.getPhysicalDevicePtr();
 	SwapChainSupportInfo swapChainSupportInfo = physicalDevice->querySwapChainSupport(physicalDevice->getPhysicalDevice(), surface);
 	VkSurfaceFormatKHR surfaceFormat = chooseSurfaceFormat(swapChainSupportInfo.formats);
     VkPresentModeKHR presentMode = choosePresentMode(swapChainSupportInfo.presentModes);

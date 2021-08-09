@@ -16,7 +16,7 @@ LogicalDevice::LogicalDevice()
 
 LogicalDevice::~LogicalDevice() {}
 
-void LogicalDevice::create(PhysicalDevice& physicalDevice)
+void LogicalDevice::create(const PhysicalDevice& physicalDevice)
 {
     const float priority = 1.0f;
     QueueFamilyIndices indices = physicalDevice.getQueueFamilyIndices();
@@ -96,5 +96,5 @@ void LogicalDevice::create(PhysicalDevice& physicalDevice)
 void LogicalDevice::destroy() { vkDestroyDevice(device, nullptr); }
 VkDevice LogicalDevice::getDevice() { return device; }
 VkQueue LogicalDevice::getGraphicsQueue() { return graphicsQueue; }
-PhysicalDevice* LogicalDevice::getPhysicalDevicePtr() { return physicalDevice; }
+const PhysicalDevice* LogicalDevice::getPhysicalDevicePtr() { return physicalDevice; }
 VkQueue LogicalDevice::getPresentQueue() { return presentQueue; }

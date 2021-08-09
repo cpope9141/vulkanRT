@@ -17,11 +17,11 @@ public:
 	PhysicalDevice();
 	~PhysicalDevice();
 
-	VkFormat getDepthFormat();
-	VkPhysicalDevice getPhysicalDevice();
-	QueueFamilyIndices getQueueFamilyIndices();
-	VkSampleCountFlagBits getSampleCount();
-	SwapChainSupportInfo querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface);
+	VkFormat getDepthFormat() const;
+	VkPhysicalDevice getPhysicalDevice() const;
+	QueueFamilyIndices getQueueFamilyIndices() const;
+	VkSampleCountFlagBits getSampleCount() const;
+	SwapChainSupportInfo querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface) const;
 	void selectPhysicalDevice(VkInstance instance);
 
 private:

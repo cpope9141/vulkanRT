@@ -14,7 +14,8 @@ static void framebufferResizeCallback(GLFWwindow* window, int width, int height)
 void acknowledgeResize() { framebufferResized = false; }
 void createSurface(VkInstance instance)
 {
-    if (VK_SUCCESS != glfwCreateWindowSurface(instance, window, nullptr, &surface)) {
+    if (VK_SUCCESS != glfwCreateWindowSurface(instance, window, nullptr, &surface))
+    {
         throw std::runtime_error("Failed to create window surface");
     }
 }

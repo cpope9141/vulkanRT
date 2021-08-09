@@ -15,12 +15,12 @@ PhysicalDevice::PhysicalDevice()
 
 PhysicalDevice::~PhysicalDevice() {}
 
-VkFormat PhysicalDevice::getDepthFormat() { return depthFormat; }
-VkPhysicalDevice PhysicalDevice::getPhysicalDevice() { return physicalDevice; }
-QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() { return queueFamilyIndices; }
-VkSampleCountFlagBits PhysicalDevice::getSampleCount() { return sampleCount; }
+VkFormat PhysicalDevice::getDepthFormat() const { return depthFormat; }
+VkPhysicalDevice PhysicalDevice::getPhysicalDevice() const { return physicalDevice; }
+QueueFamilyIndices PhysicalDevice::getQueueFamilyIndices() const { return queueFamilyIndices; }
+VkSampleCountFlagBits PhysicalDevice::getSampleCount() const { return sampleCount; }
 
-SwapChainSupportInfo PhysicalDevice::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface)
+SwapChainSupportInfo PhysicalDevice::querySwapChainSupport(VkPhysicalDevice physicalDevice, VkSurfaceKHR surface) const
 {
     SwapChainSupportInfo supportInfo;
     uint32_t count = 0;
