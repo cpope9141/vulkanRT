@@ -10,9 +10,9 @@ public:
 
 	void create(const PhysicalDevice& physicalDevice);
 	void destroy();
-	VkDevice getDevice();
+	VkDevice getDevice() const;
 	VkQueue getGraphicsQueue();
-	const PhysicalDevice* getPhysicalDevicePtr();
+	const PhysicalDevice* getPhysicalDevicePtr() const;
 	VkQueue getPresentQueue();
 
 private:

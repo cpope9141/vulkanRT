@@ -11,7 +11,7 @@ CommandPool::CommandPool()
 
 CommandPool::~CommandPool() {}
 
-void CommandPool::create(LogicalDevice& logicalDevice)
+void CommandPool::create(const LogicalDevice& logicalDevice)
 {
     QueueFamilyIndices queueFamilyIndices = logicalDevice.getPhysicalDevicePtr()->getQueueFamilyIndices();
     VkCommandPoolCreateInfo commandPoolCreateInfo = {};
@@ -26,5 +26,5 @@ void CommandPool::create(LogicalDevice& logicalDevice)
     }
 }
 
-void CommandPool::destroy(LogicalDevice& logicalDevice) { vkDestroyCommandPool(logicalDevice.getDevice(), commandPool, nullptr); }
+void CommandPool::destroy(const LogicalDevice& logicalDevice) { vkDestroyCommandPool(logicalDevice.getDevice(), commandPool, nullptr); }
 VkCommandPool CommandPool::getCommandPool() { return commandPool; }

@@ -94,7 +94,7 @@ void LogicalDevice::create(const PhysicalDevice& physicalDevice)
 }
 
 void LogicalDevice::destroy() { vkDestroyDevice(device, nullptr); }
-VkDevice LogicalDevice::getDevice() { return device; }
+VkDevice LogicalDevice::getDevice() const { return device; }
 VkQueue LogicalDevice::getGraphicsQueue() { return graphicsQueue; }
-const PhysicalDevice* LogicalDevice::getPhysicalDevicePtr() { return physicalDevice; }
+const PhysicalDevice* LogicalDevice::getPhysicalDevicePtr() const { return physicalDevice; }
 VkQueue LogicalDevice::getPresentQueue() { return presentQueue; }

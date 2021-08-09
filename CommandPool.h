@@ -8,8 +8,8 @@ public:
 	CommandPool();
 	~CommandPool();
 
-	void create(LogicalDevice& logicalDevice);
-	void destroy(LogicalDevice& logicalDevice);
+	void create(const LogicalDevice& logicalDevice);
+	void destroy(const LogicalDevice& logicalDevice);
 	VkCommandPool getCommandPool();
 
 private:
