@@ -12,7 +12,7 @@ Pipeline::Pipeline()
 
 Pipeline::~Pipeline() {}
 
-void Pipeline::destroy(LogicalDevice& logicalDevice)
+void Pipeline::destroy(const LogicalDevice& logicalDevice)
 {
 	vkDestroyPipeline(logicalDevice.getDevice(), pipeline, nullptr);
     vkDestroyDescriptorPool(logicalDevice.getDevice(), descriptorPool, nullptr);

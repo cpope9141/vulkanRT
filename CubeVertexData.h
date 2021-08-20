@@ -12,5 +12,5 @@ public:
 	static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 	static VkVertexInputBindingDescription getBindingDescription();
 
-	void init(LogicalDevice logicalDevice, CommandPool commandPool);
+	void init(const LogicalDevice& logicalDevice, const CommandPool& commandPool);
 };

@@ -100,7 +100,7 @@ VkVertexInputBindingDescription CubeVertexData::getBindingDescription()
     return bindingDescription;
 }
 
-void CubeVertexData::init(LogicalDevice logicalDevice, CommandPool commandPool)
+void CubeVertexData::init(const LogicalDevice& logicalDevice, const CommandPool& commandPool)
 {
     indexBufferObject->create(logicalDevice, commandPool, INDICES.data(), INDICES.size() * sizeof(uint16_t));
     vertexBufferObject->create(logicalDevice, commandPool, VERTICES.data(), VERTICES.size() * sizeof(CubeVertex));

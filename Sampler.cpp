@@ -41,7 +41,7 @@ void Sampler::create(LogicalDevice logicalDevice, VkFilter filter, uint32_t mipL
     }
 }
 
-void Sampler::destroy(LogicalDevice logicalDevice) { vkDestroySampler(logicalDevice.getDevice(), sampler, nullptr); }
+void Sampler::destroy(const LogicalDevice& logicalDevice) { vkDestroySampler(logicalDevice.getDevice(), sampler, nullptr); }
 VkSampler Sampler::getSampler() { return sampler; }
 
 //private

@@ -30,7 +30,7 @@ void Cube::deinit(LogicalDevice logicalDevice)
 
 CubeMap* Cube::getCubeMap() { return &cubeMap; }
 
-void Cube::init(LogicalDevice& logicalDevice, CommandPool& commandPool)
+void Cube::init(const LogicalDevice& logicalDevice, const CommandPool& commandPool)
 {
 	HDRResource resources[6];
 

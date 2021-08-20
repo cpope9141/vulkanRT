@@ -11,8 +11,8 @@ public:
 	FramebufferObjectMultiSample(uint32_t height, uint32_t width, VkFormat colorFormat);
 	~FramebufferObjectMultiSample();
 
-	virtual void create(LogicalDevice& logicalDevice, RenderPass* renderPass) override;
-	virtual void destroy(LogicalDevice& logicalDevice) override;
+	virtual void create(const LogicalDevice& logicalDevice, RenderPass* renderPass) override;
+	virtual void destroy(const LogicalDevice& logicalDevice) override;
 
 private:
 	Image msImage;

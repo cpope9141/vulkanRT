@@ -6,7 +6,7 @@
 RenderPassMultiSample::RenderPassMultiSample() {}
 RenderPassMultiSample::~RenderPassMultiSample() {}
 
-void RenderPassMultiSample::create(LogicalDevice& logicalDevice, VkFormat imageFormat)
+void RenderPassMultiSample::create(const LogicalDevice& logicalDevice, VkFormat imageFormat)
 {
     VkAttachmentDescription attachment = {};
     std::vector<VkAttachmentDescription> attachments(3, attachment);

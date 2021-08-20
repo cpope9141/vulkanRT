@@ -17,7 +17,7 @@ FramebufferObject::FramebufferObject(uint32_t height, uint32_t width, VkFormat c
 
 FramebufferObject::~FramebufferObject() {}
 
-void FramebufferObject::create(LogicalDevice& logicalDevice, RenderPass* renderPass)
+void FramebufferObject::create(const LogicalDevice& logicalDevice, RenderPass* renderPass)
 {
 	colorAttachment.create(logicalDevice,
 		height,
@@ -42,7 +42,7 @@ void FramebufferObject::create(LogicalDevice& logicalDevice, RenderPass* renderP
 	framebuffer.create(logicalDevice, renderPass->getRenderPass(), height, width, colorAttachment.getImageView(), depthAttachment.getImageView(), VK_NULL_HANDLE);
 }
 
-void FramebufferObject::destroy(LogicalDevice& logicalDevice)
+void FramebufferObject::destroy(const LogicalDevice& logicalDevice)
 {
 	framebuffer.destroy(logicalDevice);
 	depthAttachment.destroy(logicalDevice);

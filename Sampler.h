@@ -9,7 +9,7 @@ public:
 	~Sampler();
 
 	void create(LogicalDevice logicalDevice, VkFilter filter, uint32_t mipLevels, VkFormat format, bool anisotropyEnable, VkBorderColor borderColor, VkCompareOp compareOp);
-	void destroy(LogicalDevice logicalDevice);
+	void destroy(const LogicalDevice& logicalDevice);
 	VkSampler getSampler();
 
 private:

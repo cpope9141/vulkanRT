@@ -13,7 +13,7 @@ public:
 	Texture(VkFilter filter);
 	~Texture();
 
-	void create(LogicalDevice& logicalDevice,
+	void create(const LogicalDevice& logicalDevice,
 		uint32_t height,
 		uint32_t width,
 		VkFormat format,
@@ -23,7 +23,7 @@ public:
 		bool enableAnisotropy,
 		VkBorderColor borderColor);
 	void create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const RGBAResource& resource);
-	void destroy(LogicalDevice& logicalDevice);
+	void destroy(const LogicalDevice& logicalDevice);
 	uint32_t getHeight();
 	Image getImage();
 	VkImageView getImageView();

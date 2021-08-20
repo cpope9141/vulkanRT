@@ -36,5 +36,5 @@ void ImageView::create(LogicalDevice logicalDevice, VkImage image, VkImageViewTy
     }
 }
 
-void ImageView::destroy(LogicalDevice logicalDevice) { vkDestroyImageView(logicalDevice.getDevice(), imageView, nullptr); }
+void ImageView::destroy(const LogicalDevice& logicalDevice) { vkDestroyImageView(logicalDevice.getDevice(), imageView, nullptr); }
 VkImageView ImageView::getImageView() { return imageView; }

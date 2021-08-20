@@ -32,7 +32,7 @@ const float PI = 3.14159265359;
 PrecomputedIBL::PrecomputedIBL() {}
 PrecomputedIBL::~PrecomputedIBL() {}
 
-void PrecomputedIBL::create(LogicalDevice& logicalDevice, CommandPool& commandPool)
+void PrecomputedIBL::create(const LogicalDevice& logicalDevice, const CommandPool& commandPool)
 {
 	Cube cube;
 	Panel panel;
@@ -97,7 +97,7 @@ void PrecomputedIBL::addDrawCommands(CommandBuffer& commandBuffer, VkDescriptorS
     vkCmdDrawIndexed(commandBuffer.getCommandBuffer(), vertexData->getIndexCount(), 1, 0, 0, 0);
 }
 
-void PrecomputedIBL::generateIntegratedBRDF(LogicalDevice& logicalDevice, CommandPool& commandPool, Panel& panel)
+void PrecomputedIBL::generateIntegratedBRDF(const LogicalDevice& logicalDevice, const CommandPool& commandPool, Panel& panel)
 {
     GraphicsPipelineIntegratedBRDF gp;
     RenderPassIBL renderPass;
@@ -187,7 +187,7 @@ void PrecomputedIBL::generateIntegratedBRDF(LogicalDevice& logicalDevice, Comman
     renderPass.destroy(logicalDevice);
 }
 
-void PrecomputedIBL::generateIrradianceCubeMap(LogicalDevice& logicalDevice, CommandPool& commandPool, Cube& cube)
+void PrecomputedIBL::generateIrradianceCubeMap(const LogicalDevice& logicalDevice, const CommandPool& commandPool, Cube& cube)
 {
     GraphicsPipelineIrradiance gp;
     RenderPassIBL renderPass;
@@ -285,7 +285,7 @@ void PrecomputedIBL::generateIrradianceCubeMap(LogicalDevice& logicalDevice, Com
     renderPass.destroy(logicalDevice);
 }
 
-void PrecomputedIBL::generatePrefilteredCubeMap(LogicalDevice& logicalDevice, CommandPool& commandPool, Cube& cube)
+void PrecomputedIBL::generatePrefilteredCubeMap(const LogicalDevice& logicalDevice, const CommandPool& commandPool, Cube& cube)
 {
     GraphicsPipelinePrefiltered gp;
     RenderPassIBL renderPass;

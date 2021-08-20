@@ -10,10 +10,10 @@ public:
 	DescriptorSetIntegratedBRDF();
 	~DescriptorSetIntegratedBRDF();
 
-	void create(LogicalDevice& logicalDevice, GraphicsPipelineIntegratedBRDF* gp, UniformBufferProjection* ubo);
+	void create(const LogicalDevice& logicalDevice, GraphicsPipelineIntegratedBRDF* gp, UniformBufferProjection* ubo);
 
 protected:
-	virtual void updateDescriptorSet(LogicalDevice& logicalDevice) override;
+	virtual void updateDescriptorSet(const LogicalDevice& logicalDevice) override;
 
 private:
 	UniformBufferProjection* ubo;

@@ -23,8 +23,8 @@ public:
 		VkImageCreateFlags flags,
 		bool genMipLevels);
 	void create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource);
-	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, HDRResource resources[6]);
-	void destroy(LogicalDevice logicalDevice);
+	void create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const HDRResource resources[6]);
+	void destroy(const LogicalDevice& logicalDevice);
 	VkImage getImage();
 	uint32_t getMipLevels();
 	void transitionLayout(LogicalDevice logicalDevice, CommandBuffer commandBuffer, VkImageLayout oldLayout, VkImageLayout newLayout, bool submit);

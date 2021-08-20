@@ -119,7 +119,7 @@ void Image::create(LogicalDevice logicalDevice, CommandPool commandPool, const R
 	vkFreeMemory(logicalDevice.getDevice(), pStagingBufferMemory, nullptr);
 }
 
-void Image::create(LogicalDevice& logicalDevice, CommandPool& commandPool, HDRResource resources[6])
+void Image::create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const HDRResource resources[6])
 {
 	VkDeviceSize imageSize = resources[0].width * resources[0].height * 6 * BYTES_32_BITS_PER_CHANNEL;
 	VkDeviceSize bytes = resources[0].width * resources[0].height * BYTES_32_BITS_PER_CHANNEL;
@@ -174,7 +174,7 @@ void Image::create(LogicalDevice& logicalDevice, CommandPool& commandPool, HDRRe
 	vkFreeMemory(logicalDevice.getDevice(), pStagingBufferMemory, nullptr);
 }
 
-void Image::destroy(LogicalDevice logicalDevice)
+void Image::destroy(const LogicalDevice& logicalDevice)
 {
 	vkDestroyImage(logicalDevice.getDevice(), image, nullptr);
 	vkFreeMemory(logicalDevice.getDevice(), imageMemory, nullptr);

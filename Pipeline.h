@@ -9,7 +9,7 @@ public:
 	Pipeline();
 	~Pipeline();
 
-	void destroy(LogicalDevice& logicalDevice);
+	void destroy(const LogicalDevice& logicalDevice);
 	VkDescriptorPool getDescriptorPool();
 	VkDescriptorSetLayout getDescriptorSetLayout();
 	VkPipeline getPipeline();

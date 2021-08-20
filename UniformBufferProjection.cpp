@@ -16,7 +16,7 @@ UniformBufferProjection::~UniformBufferProjection() {}
 
 glm::mat4 UniformBufferProjection::getProjection() { return projection; }
 
-void UniformBufferProjection::update(LogicalDevice& logicalDevice, float height, float width, float near, float far)
+void UniformBufferProjection::update(const LogicalDevice& logicalDevice, float height, float width, float near, float far)
 {
     void* ptr = nullptr;
     vkMapMemory(logicalDevice.getDevice(), bufferMemory, 0, getSize(), 0, &ptr);

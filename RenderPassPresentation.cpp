@@ -6,7 +6,7 @@
 RenderPassPresentation::RenderPassPresentation() {}
 RenderPassPresentation::~RenderPassPresentation() {}
 
-void RenderPassPresentation::create(LogicalDevice& logicalDevice, VkFormat imageFormat)
+void RenderPassPresentation::create(const LogicalDevice& logicalDevice, VkFormat imageFormat)
 {
     VkAttachmentDescription attachment = {};
     std::vector<VkAttachmentDescription> attachments(2, attachment);

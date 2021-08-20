@@ -7,5 +7,5 @@ public:
 	RenderPassPresentation();
 	~RenderPassPresentation();
 
-	virtual void create(LogicalDevice& logicalDevice, VkFormat imageFormat) override;
+	virtual void create(const LogicalDevice& logicalDevice, VkFormat imageFormat) override;
 };

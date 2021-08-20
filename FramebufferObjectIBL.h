@@ -11,5 +11,5 @@ public:
 	FramebufferObjectIBL(VkFormat colorFormat, uint32_t height, uint32_t width);
 	~FramebufferObjectIBL();
 
-	virtual void create(LogicalDevice& logicalDevice, RenderPass* renderPass) override;
+	virtual void create(const LogicalDevice& logicalDevice, RenderPass* renderPass) override;
 };

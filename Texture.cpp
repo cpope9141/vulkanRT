@@ -17,7 +17,7 @@ Texture::Texture(VkFilter filter)
 
 Texture::~Texture() {}
 
-void Texture::create(LogicalDevice& logicalDevice,
+void Texture::create(const LogicalDevice& logicalDevice,
     uint32_t height,
     uint32_t width,
     VkFormat format,
@@ -45,7 +45,7 @@ void Texture::create(const LogicalDevice& logicalDevice, const CommandPool& comm
     this->width = static_cast<uint32_t>(resource.width);
 }
 
-void Texture::destroy(LogicalDevice& logicalDevice)
+void Texture::destroy(const LogicalDevice& logicalDevice)
 {
     sampler.destroy(logicalDevice);
     imageView.destroy(logicalDevice);

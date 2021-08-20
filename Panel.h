@@ -9,7 +9,7 @@ public:
 	Panel();
 	~Panel();
 
-	void deinit(LogicalDevice& logicalDevice);
+	void deinit(const LogicalDevice& logicalDevice);
 	void init(const LogicalDevice& logicalDevice, const CommandPool& commandPool);
 
 private:

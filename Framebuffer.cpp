@@ -13,7 +13,7 @@ Framebuffer::Framebuffer()
 
 Framebuffer::~Framebuffer() {}
 
-void Framebuffer::create(LogicalDevice& logicalDevice, VkRenderPass renderPass, uint32_t height, uint32_t width, VkImageView imageView)
+void Framebuffer::create(const LogicalDevice& logicalDevice, VkRenderPass renderPass, uint32_t height, uint32_t width, VkImageView imageView)
 {
     VkFramebufferCreateInfo framebufferInfo = {};
 
@@ -31,7 +31,7 @@ void Framebuffer::create(LogicalDevice& logicalDevice, VkRenderPass renderPass, 
     }
 }
 
-void Framebuffer::create(LogicalDevice& logicalDevice, VkRenderPass renderPass, uint32_t height, uint32_t width, VkImageView imageView, VkImageView depthView, VkImageView resolveView)
+void Framebuffer::create(const LogicalDevice& logicalDevice, VkRenderPass renderPass, uint32_t height, uint32_t width, VkImageView imageView, VkImageView depthView, VkImageView resolveView)
 {
     int attachmentCount = (VK_NULL_HANDLE == resolveView ? ATTACHMENT_COUNT_SINGLE_SAMPLE : ATTACHMENT_COUNT_MULTI_SAMPLE);
     std::vector<VkImageView> attachments(attachmentCount, VK_NULL_HANDLE);
@@ -58,5 +58,5 @@ void Framebuffer::create(LogicalDevice& logicalDevice, VkRenderPass renderPass, 
     }
 }
 
-void Framebuffer::destroy(LogicalDevice& logicalDevice) { vkDestroyFramebuffer(logicalDevice.getDevice(), framebuffer, nullptr); }
+void Framebuffer::destroy(const LogicalDevice& logicalDevice) { vkDestroyFramebuffer(logicalDevice.getDevice(), framebuffer, nullptr); }
 VkFramebuffer Framebuffer::getFramebuffer() { return framebuffer; }

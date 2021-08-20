@@ -25,7 +25,7 @@ void DescriptorSetPostProcess::destroy(LogicalDevice& logicalDevice, GraphicsPip
 }
 
 //protected
-void DescriptorSetPostProcess::updateDescriptorSet(LogicalDevice& logicalDevice)
+void DescriptorSetPostProcess::updateDescriptorSet(const LogicalDevice& logicalDevice)
 {
     VkDescriptorBufferInfo descriptorBufferInfo = createDescriptorBufferInfo(ubo, 0);
     VkDescriptorImageInfo descriptorImageInfo = createDescriptorImageInfo(texture, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);

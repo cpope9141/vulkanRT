@@ -27,7 +27,7 @@ public:
 		CubeMap* environment);
 
 protected:
-	virtual void updateDescriptorSet(LogicalDevice& logicalDevice) override;
+	virtual void updateDescriptorSet(const LogicalDevice& logicalDevice) override;
 
 private:
 	SceneStorageBuffer* sceneStorageBuffer;

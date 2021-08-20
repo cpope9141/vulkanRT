@@ -14,7 +14,7 @@ VertexData::VertexData()
 
 VertexData::~VertexData() {}
 
-void VertexData::destroy(LogicalDevice& logicalDevice)
+void VertexData::destroy(const LogicalDevice& logicalDevice)
 {
 	indexBufferObject->destroy(logicalDevice);
 	vertexBufferObject->destroy(logicalDevice);

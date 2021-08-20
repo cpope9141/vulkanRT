@@ -8,7 +8,7 @@ Panel::Panel()
 
 Panel::~Panel() {}
 
-void Panel::deinit(LogicalDevice& logicalDevice)
+void Panel::deinit(const LogicalDevice& logicalDevice)
 {
 	vertexData->destroy(logicalDevice);
 }

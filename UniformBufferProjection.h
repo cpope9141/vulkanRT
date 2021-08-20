@@ -17,7 +17,7 @@ public:
     ~UniformBufferProjection();
 
     glm::mat4 getProjection();
-    void update(LogicalDevice& logicalDevice, float height, float width, float near, float far);
+    void update(const LogicalDevice& logicalDevice, float height, float width, float near, float far);
 
 private:
     glm::mat4 projection;

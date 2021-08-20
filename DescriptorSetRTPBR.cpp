@@ -49,7 +49,7 @@ void DescriptorSetRTPBR::create(LogicalDevice& logicalDevice,
 }
 
 //protected
-void DescriptorSetRTPBR::updateDescriptorSet(LogicalDevice& logicalDevice)
+void DescriptorSetRTPBR::updateDescriptorSet(const LogicalDevice& logicalDevice)
 {
     VkWriteDescriptorSetAccelerationStructureKHR descriptorAccelerationStructureInfo = {};
 

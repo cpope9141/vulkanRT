@@ -6,7 +6,7 @@ static const uint8_t LAYER_COUNT = 6;
 CubeMap::CubeMap(VkFilter filter) : Texture(filter) {}
 CubeMap::~CubeMap() {}
 
-void CubeMap::create(LogicalDevice& logicalDevice, CommandPool& commandPool, HDRResource resources[6])
+void CubeMap::create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const HDRResource resources[6])
 {
     image.create(logicalDevice, commandPool, resources);
     imageView.create(logicalDevice,

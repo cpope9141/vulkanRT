@@ -49,7 +49,7 @@ void DescriptorSetPBR::destroy(LogicalDevice& logicalDevice, GraphicsPipeline* g
 }
 
 //protected
-void DescriptorSetPBR::updateDescriptorSet(LogicalDevice& logicalDevice)
+void DescriptorSetPBR::updateDescriptorSet(const LogicalDevice& logicalDevice)
 {
     VkDescriptorBufferInfo dbiProjection = createDescriptorBufferInfo(uboProjection, 0);
     VkDescriptorBufferInfo dbiLighting = createDescriptorBufferInfo(uboLighting, 0);

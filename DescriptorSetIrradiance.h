@@ -10,10 +10,10 @@ public:
 	DescriptorSetIrradiance();
 	~DescriptorSetIrradiance();
 
-	void create(LogicalDevice& logicalDevice, GraphicsPipelineIrradiance* gp, CubeMap* cubeMap);
+	void create(const LogicalDevice& logicalDevice, GraphicsPipelineIrradiance* gp, CubeMap* cubeMap);
 
 protected:
-	virtual void updateDescriptorSet(LogicalDevice& logicalDevice) override;
+	virtual void updateDescriptorSet(const LogicalDevice& logicalDevice) override;
 
 private:
 	CubeMap* cubeMap;
