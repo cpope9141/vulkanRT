@@ -8,8 +8,8 @@ public:
 	Frame();
 	~Frame();
 
-    void create(LogicalDevice logicalDevice);
-    void destroy(LogicalDevice logicalDevice);
+    void create(const LogicalDevice& logicalDevice);
+    void destroy(const LogicalDevice& logicalDevice);
     VkFence getFence();
     VkSemaphore getImageAvailableSemaphore();
     VkSemaphore getRenderFinishedSemaphore();

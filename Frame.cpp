@@ -12,7 +12,7 @@ Frame::Frame()
 
 Frame::~Frame() {}
 
-void Frame::create(LogicalDevice logicalDevice)
+void Frame::create(const LogicalDevice& logicalDevice)
 {
     VkSemaphoreCreateInfo semaphoreInfo = {};
     VkFenceCreateInfo fenceInfo = {};
@@ -30,7 +30,7 @@ void Frame::create(LogicalDevice logicalDevice)
     }
 }
 
-void Frame::destroy(LogicalDevice logicalDevice)
+void Frame::destroy(const LogicalDevice& logicalDevice)
 {
     vkDestroySemaphore(logicalDevice.getDevice(), renderFinishedSemaphore, nullptr);
     vkDestroySemaphore(logicalDevice.getDevice(), imageAvailableSemaphore, nullptr);
