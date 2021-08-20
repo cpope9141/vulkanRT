@@ -62,7 +62,8 @@ bool checkValidationLayerSupport()
             }
         }
 
-        if (!found) {
+        if (!found)
+        {
             result = false;
             break;
         }
@@ -95,7 +96,8 @@ void setupDebugMessenger(VkInstance instance)
         VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
         populateDebugMessengerCreateInfo(createInfo);
 
-        if (VK_SUCCESS != createDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger)) {
+        if (VK_SUCCESS != createDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger))
+        {
             throw std::runtime_error("Failed to set up debug messenger");
         }
     }

@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-void createBuffer(LogicalDevice logicalDevice, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer* pBuffer, VkDeviceMemory* pBufferMemory)
+void createBuffer(const LogicalDevice& logicalDevice, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer* pBuffer, VkDeviceMemory* pBufferMemory)
 {
     VkBufferCreateInfo bufferCreateInfo = {};
 
@@ -49,7 +49,7 @@ void createBuffer(LogicalDevice logicalDevice, VkDeviceSize size, VkBufferUsageF
     }
 }
 
-uint32_t findMemoryType(LogicalDevice logicalDevice, uint32_t typeFilter, VkMemoryPropertyFlags properties)
+uint32_t findMemoryType(const LogicalDevice& logicalDevice, uint32_t typeFilter, VkMemoryPropertyFlags properties)
 {
     VkPhysicalDeviceMemoryProperties memoryProperties = {};
     vkGetPhysicalDeviceMemoryProperties(logicalDevice.getPhysicalDevicePtr()->getPhysicalDevice(), &memoryProperties);
