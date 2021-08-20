@@ -13,7 +13,7 @@ void Panel::deinit(LogicalDevice& logicalDevice)
 	vertexData->destroy(logicalDevice);
 }
 
-void Panel::init(LogicalDevice& logicalDevice, CommandPool& commandPool)
+void Panel::init(const LogicalDevice& logicalDevice, const CommandPool& commandPool)
 {
 	quadVertexData.init(logicalDevice, commandPool);
 }

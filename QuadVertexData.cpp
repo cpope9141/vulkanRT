@@ -56,7 +56,7 @@ VkVertexInputBindingDescription QuadVertexData::getBindingDescription()
     return bindingDescription;
 }
 
-void QuadVertexData::init(LogicalDevice& logicalDevice, CommandPool& commandPool)
+void QuadVertexData::init(const LogicalDevice& logicalDevice, const CommandPool& commandPool)
 {
     indexBufferObject->create(logicalDevice, commandPool, INDICES.data(), INDICES.size() * sizeof(uint16_t));
     vertexBufferObject->create(logicalDevice, commandPool, VERTICES.data(), VERTICES.size() * sizeof(QuadVertex));

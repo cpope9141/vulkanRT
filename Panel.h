@@ -10,7 +10,7 @@ public:
 	~Panel();
 
 	void deinit(LogicalDevice& logicalDevice);
-	void init(LogicalDevice& logicalDevice, CommandPool& commandPool);
+	void init(const LogicalDevice& logicalDevice, const CommandPool& commandPool);
 
 private:
 	QuadVertexData quadVertexData;

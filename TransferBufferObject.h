@@ -10,10 +10,10 @@ public:
 	TransferBufferObject(VkBufferUsageFlags usage);
 	~TransferBufferObject();
 
-	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, const void* src, VkDeviceSize bufferSize);
+	void create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const void* src, VkDeviceSize bufferSize);
 
 private:
 	VkBufferUsageFlags usage;
 
-	void copyBuffer(LogicalDevice& logicalDevice, CommandPool& commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+	void copyBuffer(const LogicalDevice& logicalDevice, const CommandPool& commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
 };
