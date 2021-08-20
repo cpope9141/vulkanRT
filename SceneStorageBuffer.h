@@ -18,5 +18,5 @@ public:
 	SceneStorageBuffer();
 	~SceneStorageBuffer();
 
-    void create(LogicalDevice& logicalDevice, CommandPool& commandPool, std::vector<ModelRT>& models);
+    void create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, std::vector<ModelRT>& models);
 };

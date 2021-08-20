@@ -7,7 +7,7 @@
 SceneStorageBuffer::SceneStorageBuffer() : TransferBufferObject(VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT) {}
 SceneStorageBuffer::~SceneStorageBuffer() {}
 
-void SceneStorageBuffer::create(LogicalDevice& logicalDevice, CommandPool& commandPool, std::vector<ModelRT>& models)
+void SceneStorageBuffer::create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, std::vector<ModelRT>& models)
 {
     std::vector<SceneDesc> ssb;
     ssb.resize(models.size());
