@@ -11,7 +11,7 @@ public:
 	ModelRT();
 	~ModelRT();
 
-	void deinit(LogicalDevice& logicalDevice);
+	void deinit(const LogicalDevice& logicalDevice);
 	Texture* getAlbedoPtr();
 	Texture* getAmbientOcclusionPtr();
 	Texture* getMetallicPtr();

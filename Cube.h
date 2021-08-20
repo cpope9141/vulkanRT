@@ -10,7 +10,7 @@ public:
 	Cube();
 	~Cube();
 
-	void deinit(LogicalDevice logicalDevice);
+	void deinit(const LogicalDevice& logicalDevice);
 	CubeMap* getCubeMap();
 	void init(const LogicalDevice& logicalDevice, const CommandPool& commandPool);
 

@@ -22,7 +22,7 @@ Cube::Cube()
 
 Cube::~Cube() {}
 
-void Cube::deinit(LogicalDevice logicalDevice)
+void Cube::deinit(const LogicalDevice& logicalDevice)
 {
 	cubeMap.destroy(logicalDevice);
 	vertexData->destroy(logicalDevice);

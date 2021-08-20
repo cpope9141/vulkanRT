@@ -10,7 +10,7 @@
 ModelRT::ModelRT() {}
 ModelRT::~ModelRT() {}
 
-void ModelRT::deinit(LogicalDevice& logicalDevice)
+void ModelRT::deinit(const LogicalDevice& logicalDevice)
 {
 	vertexData->destroy(logicalDevice);
 	albedo.destroy(logicalDevice);
