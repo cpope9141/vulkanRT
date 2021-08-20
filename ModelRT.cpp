@@ -27,7 +27,7 @@ Texture* ModelRT::getNormalPtr() { return &normal; }
 Texture* ModelRT::getRoughnessPtr() { return &roughness; }
 
 //protected
-void ModelRT::createTexture(LogicalDevice& logicalDevice, CommandPool& commandPool, const char* path, Texture& texture)
+void ModelRT::createTexture(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const char* path, Texture& texture)
 {
 	int width, height, channels;
 	stbi_uc* imageRGBA = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);

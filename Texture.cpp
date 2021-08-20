@@ -35,7 +35,7 @@ void Texture::create(LogicalDevice& logicalDevice,
     this->width = width;
 }
 
-void Texture::create(LogicalDevice& logicalDevice, CommandPool& commandPool, const RGBAResource& resource)
+void Texture::create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const RGBAResource& resource)
 {
     image.create(logicalDevice, commandPool, resource);
     imageView.create(logicalDevice, image.getImage(), VK_IMAGE_VIEW_TYPE_2D, image.getMipLevels(), VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, 1);

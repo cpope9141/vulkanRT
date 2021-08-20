@@ -28,14 +28,14 @@ VkBuffer VertexData::getVertexBuffer() { return vertexBufferObject->getBuffer();
 VkDeviceAddress VertexData::getVertexBufferDeviceAddress() { return vertexBufferDeviceAddress; }
 uint32_t VertexData::getVertexCount() { return vertexCount; }
 
-void VertexData::setDeviceAddresses(LogicalDevice& logicalDevice)
+void VertexData::setDeviceAddresses(const LogicalDevice& logicalDevice)
 {
 	indexBufferDeviceAddress = getBufferDeviceAddress(logicalDevice, getIndexBuffer());
 	vertexBufferDeviceAddress = getBufferDeviceAddress(logicalDevice, getVertexBuffer());
 }
 
 //protected
-VkDeviceAddress VertexData::getBufferDeviceAddress(LogicalDevice logicalDevice, VkBuffer buffer)
+VkDeviceAddress VertexData::getBufferDeviceAddress(const LogicalDevice& logicalDevice, VkBuffer buffer)
 {
 	PFN_vkGetBufferDeviceAddressKHR vkGetBufferDeviceAddressKHR =
 		reinterpret_cast<PFN_vkGetBufferDeviceAddressKHR>(vkGetDeviceProcAddr(logicalDevice.getDevice(), "vkGetBufferDeviceAddressKHR"));

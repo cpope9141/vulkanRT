@@ -17,7 +17,7 @@ public:
 	VkBuffer getVertexBuffer();
 	VkDeviceAddress getVertexBufferDeviceAddress();
 	uint32_t getVertexCount();
-	void setDeviceAddresses(LogicalDevice& logicalDevice);
+	void setDeviceAddresses(const LogicalDevice& logicalDevice);
 
 protected:
 	VkDeviceAddress indexBufferDeviceAddress;
@@ -28,5 +28,5 @@ protected:
     TransferBufferObject* vertexBufferObject;
 	uint32_t vertexCount;
 
-	VkDeviceAddress getBufferDeviceAddress(LogicalDevice logicalDevice, VkBuffer buffer);
+	VkDeviceAddress getBufferDeviceAddress(const LogicalDevice& logicalDevice, VkBuffer buffer);
 };

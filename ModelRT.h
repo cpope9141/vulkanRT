@@ -25,5 +25,5 @@ protected:
 	Texture normal = Texture(VK_FILTER_LINEAR);
 	Texture roughness = Texture(VK_FILTER_LINEAR);
 
-	void createTexture(LogicalDevice& logicalDevice, CommandPool& commandPool, const char* path, Texture& texture);
+	void createTexture(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const char* path, Texture& texture);
 };

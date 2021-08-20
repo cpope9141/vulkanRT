@@ -22,7 +22,7 @@ public:
 		VkSampleCountFlagBits sampleCount,
 		bool enableAnisotropy,
 		VkBorderColor borderColor);
-	void create(LogicalDevice& logicalDevice, CommandPool& commandPool, const RGBAResource& resource);
+	void create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const RGBAResource& resource);
 	void destroy(LogicalDevice& logicalDevice);
 	uint32_t getHeight();
 	Image getImage();
