@@ -11,7 +11,7 @@ public:
 	void create(const PhysicalDevice& physicalDevice);
 	void destroy();
 	VkDevice getDevice() const;
-	VkQueue getGraphicsQueue();
+	VkQueue getGraphicsQueue() const;
 	const PhysicalDevice* getPhysicalDevicePtr() const;
 	VkQueue getPresentQueue();
 

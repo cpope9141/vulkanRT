@@ -69,7 +69,7 @@ void PrecomputedIBL::create(const LogicalDevice& logicalDevice, const CommandPoo
 	cube.deinit(logicalDevice);
 }
 
-void PrecomputedIBL::destroy(LogicalDevice& logicalDevice)
+void PrecomputedIBL::destroy(const LogicalDevice& logicalDevice)
 {
 	irradianceCubeMap.destroy(logicalDevice);
 	integratedBRDF.destroy(logicalDevice);

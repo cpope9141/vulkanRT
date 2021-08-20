@@ -9,11 +9,11 @@ public:
 	CommandBuffer(CommandPool commandPool);
 	~CommandBuffer();
 
-	void allocate(LogicalDevice logicalDevice);
-	void beginOneTimeCommandBuffer(LogicalDevice logicalDevice);
-	void freeCommandBuffer(LogicalDevice logicalDevice);
+	void allocate(const LogicalDevice& logicalDevice);
+	void beginOneTimeCommandBuffer(const LogicalDevice& logicalDevice);
+	void freeCommandBuffer(const LogicalDevice& logicalDevice);
 	VkCommandBuffer getCommandBuffer();
-	void submitOneTimeCommandBuffer(LogicalDevice logicalDevice);
+	void submitOneTimeCommandBuffer(const LogicalDevice& logicalDevice);
 
 private:
 	VkCommandBuffer commandBuffer;

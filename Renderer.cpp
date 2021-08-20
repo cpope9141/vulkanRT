@@ -242,7 +242,7 @@ void Renderer::drawPostProcess()
     addDrawCommands(descriptorSetPostProcess[swapChain.getNextImageIndex()].getDescriptorSet(), &graphicsPipelinePostProcess, &pc, sizeof(pc), panel.getVertexDataPtr());
 }
 
-void Renderer::drawStaticModelPBR(ModelRT staticModelPBR)
+void Renderer::drawStaticModelPBR(ModelRT& staticModelPBR)
 {
     glm::vec3 pc(0, 3, -7);
 

@@ -13,7 +13,7 @@ public:
 	~PrecomputedIBL();
 
 	void create(const LogicalDevice& logicalDevice, const CommandPool& commandPool);
-	void destroy(LogicalDevice& logicalDevice);
+	void destroy(const LogicalDevice& logicalDevice);
 	Texture* getIntegratedBRDF();
 	CubeMap* getIrradianceCubeMap();
 	CubeMap* getPrefilteredCubeMap();

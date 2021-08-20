@@ -10,7 +10,7 @@ CommandBuffer::CommandBuffer(CommandPool commandPool)
 
 CommandBuffer::~CommandBuffer() {}
 
-void CommandBuffer::allocate(LogicalDevice logicalDevice)
+void CommandBuffer::allocate(const LogicalDevice& logicalDevice)
 {
     VkCommandBufferAllocateInfo allocInfo = {};
     VkDevice device = logicalDevice.getDevice();
@@ -25,7 +25,7 @@ void CommandBuffer::allocate(LogicalDevice logicalDevice)
     }
 }
 
-void CommandBuffer::beginOneTimeCommandBuffer(LogicalDevice logicalDevice)
+void CommandBuffer::beginOneTimeCommandBuffer(const LogicalDevice& logicalDevice)
 {
     VkCommandBufferBeginInfo beginInfo = {};
 
@@ -39,14 +39,14 @@ void CommandBuffer::beginOneTimeCommandBuffer(LogicalDevice logicalDevice)
     }
 }
 
-void CommandBuffer::freeCommandBuffer(LogicalDevice logicalDevice)
+void CommandBuffer::freeCommandBuffer(const LogicalDevice& logicalDevice)
 {
     vkFreeCommandBuffers(logicalDevice.getDevice(), commandPool.getCommandPool(), 1, &commandBuffer);
 }
 
 VkCommandBuffer CommandBuffer::getCommandBuffer() { return commandBuffer; }
 
-void CommandBuffer::submitOneTimeCommandBuffer(LogicalDevice logicalDevice)
+void CommandBuffer::submitOneTimeCommandBuffer(const LogicalDevice& logicalDevice)
 {
     VkSubmitInfo submitInfo = {};
 

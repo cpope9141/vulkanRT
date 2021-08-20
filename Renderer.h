@@ -78,7 +78,7 @@ private:
 	void destroySwapChainObjects();
 	void destroyUniformBuffers();
 	void drawPostProcess();
-	void drawStaticModelPBR(ModelRT staticModelPBR);
+	void drawStaticModelPBR(ModelRT& staticModelPBR);
 	void loadAssets();
 	void recreateSwapChain();
 	void releaseAssets();
