@@ -8,7 +8,7 @@ public:
 	ImageView();
 	~ImageView();
 
-	void create(LogicalDevice logicalDevice, VkImage image, VkImageViewType viewType, uint32_t mipLevels, VkFormat format, VkImageAspectFlags imageAspect, uint32_t layerCount);
+	void create(const LogicalDevice& logicalDevice, VkImage image, VkImageViewType viewType, uint32_t mipLevels, VkFormat format, VkImageAspectFlags imageAspect, uint32_t layerCount);
 	void destroy(const LogicalDevice& logicalDevice);
 	VkImageView getImageView();
 

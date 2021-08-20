@@ -10,7 +10,7 @@ ImageView::ImageView()
 
 ImageView::~ImageView() {}
 
-void ImageView::create(LogicalDevice logicalDevice, VkImage image, VkImageViewType viewType, uint32_t mipLevels, VkFormat format, VkImageAspectFlags imageAspect, uint32_t layerCount)
+void ImageView::create(const LogicalDevice& logicalDevice, VkImage image, VkImageViewType viewType, uint32_t mipLevels, VkFormat format, VkImageAspectFlags imageAspect, uint32_t layerCount)
 {
     VkImageViewCreateInfo viewCreateInfo = {};
 

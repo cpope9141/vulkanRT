@@ -10,7 +10,7 @@ Sampler::Sampler()
 
 Sampler::~Sampler() {}
 
-void Sampler::create(LogicalDevice logicalDevice, VkFilter filter, uint32_t mipLevels, VkFormat format, bool anisotropyEnable, VkBorderColor borderColor, VkCompareOp compareOp)
+void Sampler::create(const LogicalDevice& logicalDevice, VkFilter filter, uint32_t mipLevels, VkFormat format, bool anisotropyEnable, VkBorderColor borderColor, VkCompareOp compareOp)
 {
     VkSamplerCreateInfo samplerInfo = {};
 

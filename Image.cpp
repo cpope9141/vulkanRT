@@ -21,7 +21,7 @@ Image::Image()
 
 Image::~Image() {}
 
-void Image::copyToImage(VkImage dst, uint32_t height, uint32_t width, uint32_t baseArrayLayer, uint32_t mipLevel, CommandBuffer commandBuffer)
+void Image::copyToImage(VkImage dst, uint32_t height, uint32_t width, uint32_t baseArrayLayer, uint32_t mipLevel, CommandBuffer& commandBuffer)
 {
 	VkImageCopy copyRegion = {};
 
@@ -46,7 +46,7 @@ void Image::copyToImage(VkImage dst, uint32_t height, uint32_t width, uint32_t b
 		&copyRegion);
 }
 
-void Image::create(LogicalDevice logicalDevice,
+void Image::create(const LogicalDevice& logicalDevice,
 	uint32_t height,
 	uint32_t width,
 	VkFormat format,
@@ -74,7 +74,7 @@ void Image::create(LogicalDevice logicalDevice,
 		flags);
 }
 
-void Image::create(LogicalDevice logicalDevice, CommandPool commandPool, const RGBAResource& resource)
+void Image::create(const LogicalDevice& logicalDevice, const CommandPool& commandPool, const RGBAResource& resource)
 {
 	VkDeviceSize imageSize = static_cast<VkDeviceSize>(resource.width) * resource.height * BYTES_8_BITS_PER_CHANNEL;
 	VkBuffer pStagingBuffer;
@@ -183,7 +183,7 @@ void Image::destroy(const LogicalDevice& logicalDevice)
 VkImage Image::getImage() { return image; }
 uint32_t Image::getMipLevels() { return mipLevels; }
 
-void Image::transitionLayout(LogicalDevice logicalDevice, CommandBuffer commandBuffer, VkImageLayout oldLayout, VkImageLayout newLayout, bool submit)
+void Image::transitionLayout(const LogicalDevice& logicalDevice, CommandBuffer& commandBuffer, VkImageLayout oldLayout, VkImageLayout newLayout, bool submit)
 {
 	VkImageMemoryBarrier barrier = {};
 	VkPipelineStageFlags srcStageMask = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
@@ -272,7 +272,7 @@ void Image::transitionLayout(LogicalDevice logicalDevice, CommandBuffer commandB
 }
 
 //private
-void Image::copyBufferToImage(LogicalDevice logicalDevice, CommandPool commandPool, VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, size_t regionCount, VkDeviceSize bytes)
+void Image::copyBufferToImage(const LogicalDevice& logicalDevice, const CommandPool& commandPool, VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, size_t regionCount, VkDeviceSize bytes)
 {
 	CommandBuffer commandBuffer = CommandBuffer(commandPool);
 	std::vector<VkBufferImageCopy> regions;
@@ -297,7 +297,7 @@ void Image::copyBufferToImage(LogicalDevice logicalDevice, CommandPool commandPo
 	commandBuffer.submitOneTimeCommandBuffer(logicalDevice);
 }
 
-void Image::createImage(LogicalDevice logicalDevice,
+void Image::createImage(const LogicalDevice& logicalDevice,
 	uint32_t width,
 	uint32_t height,
 	VkImageTiling tiling,
@@ -351,7 +351,7 @@ void Image::createImage(LogicalDevice logicalDevice,
 	}
 }
 
-void Image::generateMipmaps(LogicalDevice logicalDevice, CommandPool commandPool, VkFormat imageFormat, int width, int height, uint32_t mipLevels)
+void Image::generateMipmaps(const LogicalDevice& logicalDevice, const CommandPool& commandPool, VkFormat imageFormat, int width, int height, uint32_t mipLevels)
 {
 	VkFormatProperties formatProperties = {};
 	vkGetPhysicalDeviceFormatProperties(logicalDevice.getPhysicalDevicePtr()->getPhysicalDevice(), imageFormat, &formatProperties);

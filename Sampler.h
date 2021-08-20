@@ -8,7 +8,7 @@ public:
 	Sampler();
 	~Sampler();
 
-	void create(LogicalDevice logicalDevice, VkFilter filter, uint32_t mipLevels, VkFormat format, bool anisotropyEnable, VkBorderColor borderColor, VkCompareOp compareOp);
+	void create(const LogicalDevice& logicalDevice, VkFilter filter, uint32_t mipLevels, VkFormat format, bool anisotropyEnable, VkBorderColor borderColor, VkCompareOp compareOp);
 	void destroy(const LogicalDevice& logicalDevice);
 	VkSampler getSampler();
 

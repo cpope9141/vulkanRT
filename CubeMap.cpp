@@ -28,7 +28,7 @@ void CubeMap::create(const LogicalDevice& logicalDevice, const CommandPool& comm
     this->width = resources[0].width;
 }
 
-void CubeMap::create(LogicalDevice logicalDevice, uint32_t height, uint32_t width, VkFormat format, bool genMipLevels)
+void CubeMap::create(const LogicalDevice& logicalDevice, uint32_t height, uint32_t width, VkFormat format, bool genMipLevels)
 {
     image.create(logicalDevice,
         height,
